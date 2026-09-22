@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const accessKey = 'escadron736-preview-access';
   const accessPassword = 'Jesaispas$';
   const requiresSiteAccess = sessionStorage.getItem(accessKey) !== 'granted';
-  const consentCookie = 'escadron736-analytics-consent';
+  const consentCookie = 'escadron736-analytics-consent-v2';
   const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
   const getDeviceType = () => {
     const userAgent = navigator.userAgent;
@@ -13,10 +13,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/Linux/i.test(userAgent)) return 'Ordinateur Linux';
     return 'Appareil non identifié';
   };
+  const getNetworkLocation = async () => {
+    try {
+      const response = await fetch('https://ipwho.is/', { headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Network location unavailable');
+      const data = await response.json();
+      if (!data.success) throw new Error('Network location unavailable');
+      return {
+        ip: data.ip || 'Non disponible',
+        city: data.city || 'Non disponible',
+        region: data.region || 'Non disponible',
+        country: data.country || 'Non disponible',
+        timezone: data.timezone?.id || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Non disponible'
+      };
+    } catch (error) {
+      return {
+        ip: 'Non disponible',
+        city: 'Non disponible',
+        region: 'Non disponible',
+        country: 'Non disponible',
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Non disponible'
+      };
+    }
+  };
   const sendConsentNotification = async () => {
     const recipient = window.siteConfig?.notificationsEmail;
     if (!recipient) return;
     try {
+      const networkLocation = await getNetworkLocation();
       await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -26,9 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
           'Événement': 'Consentement accepté',
           'Page consultée': window.location.href,
           'Date et heure': new Date().toLocaleString('fr-CA'),
+          'Adresse IP publique': networkLocation.ip,
+          'Ville approximative': networkLocation.city,
+          'Région approximative': networkLocation.region,
+          'Pays approximatif': networkLocation.country,
+          'Fuseau horaire': networkLocation.timezone,
           'Type d’appareil': getDeviceType(),
           'Langue du navigateur': navigator.language || 'Non disponible',
-          'Note': 'Aucune adresse IP ni localisation précise n’est transmise par le site.'
+          'Note': 'La ville, la région et le pays sont déduits de l’adresse IP. Aucune position GPS précise n’est demandée.'
         })
       });
     } catch (error) {
@@ -45,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const banner = document.createElement('aside');
     banner.className = 'cookie-consent';
     banner.setAttribute('aria-label', 'Préférences de confidentialité');
-    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site mémorise votre choix et envoie une notification technique limitée à la page consultée, la date, la langue et le type d’appareil. Aucune localisation précise ni adresse IP n’est transmise.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
+    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site mémorise votre choix et envoie une notification contenant la page consultée, la date, le type d’appareil, l’adresse IP publique et une localisation approximative par IP (ville, région et pays). Aucune position GPS précise n’est demandée.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
     document.body.append(banner);
     banner.querySelectorAll('[data-consent]').forEach((button) => {
       button.addEventListener('click', () => {
