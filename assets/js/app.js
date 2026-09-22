@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const accessKey = 'escadron736-preview-access';
+  const accessPassword = 'Jesaispas$';
+  if (sessionStorage.getItem(accessKey) !== 'granted') {
+    document.body.classList.add('site-locked');
+    const accessGate = document.createElement('section');
+    accessGate.className = 'access-gate';
+    accessGate.setAttribute('aria-label', 'Accès privé au site');
+    accessGate.innerHTML = `<div class="access-gate-panel"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><form class="access-gate-form"><label for="site-access-password">Mot de passe</label><input id="site-access-password" name="password" type="password" autocomplete="current-password" required autofocus /><p class="access-gate-error" role="alert" hidden>Mot de passe incorrect. Veuillez réessayer.</p><button class="btn btn-primary" type="submit">Accéder au site</button></form></div>`;
+    document.body.prepend(accessGate);
+    accessGate.querySelector('form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const password = new FormData(event.currentTarget).get('password');
+      const error = accessGate.querySelector('.access-gate-error');
+      if (password === accessPassword) {
+        sessionStorage.setItem(accessKey, 'granted');
+        document.body.classList.remove('site-locked');
+        accessGate.remove();
+      } else {
+        error.hidden = false;
+        event.currentTarget.querySelector('input').select();
+      }
+    });
+  }
+
   const officialLogo = '/Photos/logo.png';
   document.querySelectorAll('img[src*="logo-placeholder.svg"]').forEach((image) => {
     image.src = officialLogo;
