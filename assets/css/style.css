@@ -1199,6 +1199,20 @@ button {
   font-weight: 700;
 }
 
+.form-status.is-success {
+  color: #166534;
+}
+
+.form-status.is-error {
+  color: #b42318;
+}
+
+.suggestion-form button:disabled,
+.contact-card form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
 @media (max-width: 560px) {
   .suggestion-dialog {
     width: calc(100vw - 1.5rem);

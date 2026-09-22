@@ -190,7 +190,7 @@ function renderGallery() {
   grid.innerHTML = visibleItems.map((item, index) => `
     <article class="gallery-item">
       <button type="button" data-index="${(currentPage - 1) * itemsPerPage + index}" aria-label="Ouvrir la photo ${item.title}">
-        <img src="${item.image}" alt="${item.title}" loading="lazy" />
+        <img src="${item.thumbnail || item.image}" alt="${item.title}" loading="lazy" />
         <div class="gallery-caption">
           <h3>${item.title}</h3>
           <p>${item.caption}</p>

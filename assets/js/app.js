@@ -166,6 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const suggestionDialog = document.querySelector('[data-suggestion-dialog]');
   const suggestionForm = document.querySelector('[data-suggestion-form]');
   const suggestionStatus = document.querySelector('[data-suggestion-status]');
+  const suggestionRateLimitKey = 'escadron736-suggestion-last-sent';
+  const submissionCooldown = 60_000;
+  const setSuggestionStatus = (message, state = '') => {
+    suggestionStatus.textContent = message;
+    suggestionStatus.className = `form-status ${state}`.trim();
+  };
   document.querySelector('[data-suggestion-open]')?.addEventListener('click', () => {
     suggestionDialog?.showModal();
   });
@@ -178,9 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipient = window.siteConfig?.suggestionsEmail;
     const submitButton = suggestionForm.querySelector('[type="submit"]');
     if (!recipient) return;
+    if (String(data.get('website') || '').trim()) return;
+    const lastSubmission = Number(localStorage.getItem(suggestionRateLimitKey) || 0);
+    const remainingSeconds = Math.ceil((submissionCooldown - (Date.now() - lastSubmission)) / 1000);
+    if (remainingSeconds > 0) {
+      setSuggestionStatus(`Veuillez attendre ${remainingSeconds} secondes avant un nouvel envoi.`, 'is-error');
+      return;
+    }
 
     submitButton.disabled = true;
-    suggestionStatus.textContent = 'Envoi en cours...';
+    setSuggestionStatus('Envoi en cours...');
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
         method: 'POST',
@@ -196,10 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       });
       if (!response.ok) throw new Error('Suggestion could not be sent');
-      suggestionStatus.textContent = 'Merci. Votre suggestion a été envoyée.';
+      localStorage.setItem(suggestionRateLimitKey, String(Date.now()));
+      setSuggestionStatus('Merci. Votre suggestion a été envoyée.', 'is-success');
       suggestionForm.reset();
     } catch (error) {
-      suggestionStatus.textContent = 'L’envoi a échoué. Veuillez réessayer plus tard.';
+      setSuggestionStatus('L’envoi a échoué. Veuillez réessayer plus tard.', 'is-error');
     } finally {
       submitButton.disabled = false;
     }

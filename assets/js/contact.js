@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   const status = document.querySelector('[data-contact-status]');
+  const rateLimitKey = 'escadron736-contact-last-sent';
+  const submissionCooldown = 60_000;
+  const setStatus = (message, state = '') => {
+    status.textContent = message;
+    status.className = `form-status ${state}`.trim();
+  };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -44,9 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const lastSubmission = Number(localStorage.getItem(rateLimitKey) || 0);
+    const remainingSeconds = Math.ceil((submissionCooldown - (Date.now() - lastSubmission)) / 1000);
+    if (remainingSeconds > 0) {
+      setStatus(`Veuillez attendre ${remainingSeconds} secondes avant un nouvel envoi.`, 'is-error');
+      return;
+    }
+
     const submitButton = form.querySelector('[type="submit"]');
     submitButton.disabled = true;
-    status.textContent = 'Envoi en cours...';
+    setStatus('Envoi en cours...');
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
         method: 'POST',
@@ -66,10 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       });
       if (!response.ok) throw new Error('Contact could not be sent');
-      status.textContent = 'Merci. Votre message a été envoyé.';
+      localStorage.setItem(rateLimitKey, String(Date.now()));
+      setStatus('Merci. Votre message a été envoyé.', 'is-success');
       form.reset();
     } catch (error) {
-      status.textContent = 'L’envoi a échoué. Veuillez réessayer plus tard.';
+      setStatus('L’envoi a échoué. Veuillez réessayer plus tard.', 'is-error');
     } finally {
       submitButton.disabled = false;
     }
