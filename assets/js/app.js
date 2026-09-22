@@ -33,6 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const suggestionDialog = document.querySelector('[data-suggestion-dialog]');
+  const suggestionForm = document.querySelector('[data-suggestion-form]');
+  document.querySelector('[data-suggestion-open]')?.addEventListener('click', () => {
+    suggestionDialog?.showModal();
+  });
+  document.querySelectorAll('[data-suggestion-close]').forEach((button) => {
+    button.addEventListener('click', () => suggestionDialog?.close());
+  });
+  suggestionForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(suggestionForm);
+    const subject = 'Suggestion pour l’Escadron 736';
+    const body = `Nom : ${data.get('name')}\nStatut : ${data.get('role')}\n\nSuggestion :\n${data.get('suggestion')}`;
+    window.location.href = `mailto:${window.siteConfig?.email || ''}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    suggestionDialog?.close();
+    suggestionForm.reset();
+  });
+
   const navToggle = document.querySelector('.nav-toggle');
   const siteNav = document.querySelector('.site-nav');
   const navWrap = document.querySelector('.nav-wrap');
