@@ -83,12 +83,12 @@ button {
 }
 
 .access-gate-panel {
-  width: min(100%, 260px);
-  padding: 2rem;
-  border: 0;
+  width: min(100%, 430px);
+  padding: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
-  background: transparent;
-  box-shadow: none;
+  background: var(--white);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
   text-align: center;
 }
 
@@ -100,7 +100,17 @@ button {
 }
 
 .access-gate-form {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.access-gate-panel h1 {
+  margin: 0.25rem 0 0.65rem;
+  color: var(--primary-800);
+}
+
+.access-gate-panel > p {
+  margin: 0;
+  color: var(--text-700);
 }
 
 .access-gate-form .btn {

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
     accessGate.setAttribute('aria-label', 'Accès privé au site');
-    accessGate.innerHTML = `<div class="access-gate-panel"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /><form class="access-gate-form"><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="btn btn-primary" type="submit">Accéder au site</button></form></div>`;
+    accessGate.innerHTML = `<div class="access-gate-panel"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><form class="access-gate-form"><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="btn btn-primary" type="submit">Accéder au site</button></form></div>`;
     document.body.prepend(accessGate);
     const accessForm = accessGate.querySelector('form');
     const accessInput = accessGate.querySelector('input');
