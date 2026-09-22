@@ -1,6 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
   const consentCookie = 'escadron736-analytics-consent';
   const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
+  const getDeviceType = () => {
+    const userAgent = navigator.userAgent;
+    if (/iPhone|iPad|iPod/i.test(userAgent)) return 'Appareil iOS';
+    if (/Android/i.test(userAgent)) return 'Appareil Android';
+    if (/Windows/i.test(userAgent)) return 'Ordinateur Windows';
+    if (/Macintosh/i.test(userAgent)) return 'Ordinateur macOS';
+    if (/Linux/i.test(userAgent)) return 'Ordinateur Linux';
+    return 'Appareil non identifié';
+  };
+  const sendConsentNotification = async () => {
+    const recipient = window.siteConfig?.notificationsEmail;
+    if (!recipient) return;
+    try {
+      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: '[Escadron 736] Consentement aux mesures d’audience',
+          _template: 'box',
+          'Événement': 'Consentement accepté',
+          'Page consultée': window.location.href,
+          'Date et heure': new Date().toLocaleString('fr-CA'),
+          'Type d’appareil': getDeviceType(),
+          'Langue du navigateur': navigator.language || 'Non disponible',
+          'Note': 'Aucune adresse IP ni localisation précise n’est transmise par le site.'
+        })
+      });
+    } catch (error) {
+      console.warn('La notification de consentement n’a pas pu être envoyée.', error);
+    }
+  };
   const setConsent = (value) => {
     document.cookie = `${consentCookie}=${value}; Max-Age=15552000; Path=/; SameSite=Lax; Secure`;
     document.documentElement.dataset.analyticsConsent = value;
@@ -11,11 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const banner = document.createElement('aside');
     banner.className = 'cookie-consent';
     banner.setAttribute('aria-label', 'Préférences de confidentialité');
-    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site peut utiliser des témoins pour mesurer sa fréquentation et améliorer son contenu. Aucun témoin d’audience n’est utilisé sans votre choix.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
+    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site mémorise votre choix et envoie une notification technique limitée à la page consultée, la date, la langue et le type d’appareil. Aucune localisation précise ni adresse IP n’est transmise.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
     document.body.append(banner);
     banner.querySelectorAll('[data-consent]').forEach((button) => {
       button.addEventListener('click', () => {
         setConsent(button.dataset.consent);
+        if (button.dataset.consent === 'accepted') sendConsentNotification();
         banner.remove();
       });
     });

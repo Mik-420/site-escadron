@@ -6,6 +6,7 @@ window.siteConfig = {
   email: "contact@escadron736.ca",
   contactEmail: "contact@escadron736.ca",
   suggestionsEmail: "suggestions@escadron736.ca",
+  notificationsEmail: "notification@escadron736.ca",
   phone: "(418) 775-8794",
   address: "254 AV ROSS, Mont-Joli, QC, Canada, G5H 3M4",
   socials: {
