@@ -2900,6 +2900,173 @@ body:has(.registration-video) .registration-bubble {
   }
 }
 
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+  }
+
+  .nav-wrap {
+    min-height: 68px;
+  }
+
+  .brand img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand strong {
+    font-size: 0.95rem;
+  }
+
+  .brand small {
+    font-size: 0.72rem;
+  }
+
+  .site-nav {
+    max-height: calc(100vh - 84px);
+    overflow-y: auto;
+  }
+
+  .site-nav a,
+  .dropdown-toggle {
+    min-height: 46px;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .page-hero,
+  .contact-page .page-hero {
+    padding-top: 3.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .compact-hero h1,
+  .contact-page .compact-hero h1 {
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-grid {
+    gap: 1.5rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .hero-copy h1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+
+  .hero-copy p {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-actions .btn,
+  .cta-box .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-panel {
+    display: none;
+  }
+
+  .info-card,
+  .content-card,
+  .contact-card,
+  .contact-info {
+    padding: 1.35rem;
+  }
+
+  .intro-content {
+    text-align: left;
+  }
+
+  .section-heading h2 {
+    font-size: 1.75rem;
+  }
+
+  .weekly-messages {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .contact-page .section {
+    padding-top: 1.5rem;
+  }
+
+  .contact-page .contact-card,
+  .contact-page .contact-info {
+    padding: 1.5rem;
+  }
+
+  .contact-page .contact-card form button {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .contact-page .contact-map {
+    border-width: 5px;
+  }
+
+  .contact-page .contact-map iframe {
+    height: 280px;
+  }
+
+  .portfolio-period-layout {
+    gap: 1.5rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .portfolio-period-nav .filter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-item button {
+    min-height: 0;
+  }
+
+  .lightbox {
+    padding: 0.75rem;
+  }
+
+  .lightbox-content {
+    width: 100%;
+  }
+
+  .lightbox-nav {
+    width: 42px;
+    height: 42px;
+  }
+
+  .registration-bubble {
+    right: 0.9rem;
+    bottom: 0.9rem;
+  }
+}
+
 @media (min-width: 761px) {
   .nav-toggle {
     display: none;
