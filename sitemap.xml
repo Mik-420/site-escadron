@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>http://localhost:8000/accueil.html</loc></url>
-  <url><loc>http://localhost:8000/accueil/devenir-cadet.html</loc></url>
-  <url><loc>http://localhost:8000/histoire.html</loc></url>
-  <url><loc>http://localhost:8000/membre-du-personnel.html</loc></url>
-  <url><loc>http://localhost:8000/notre-equipe.html</loc></url>
-  <url><loc>http://localhost:8000/nos-commanditaires.html</loc></url>
-  <url><loc>http://localhost:8000/comite-repondant.html</loc></url>
-  <url><loc>http://localhost:8000/faire-un-don.html</loc></url>
-  <url><loc>http://localhost:8000/portfolio.html</loc></url>
-  <url><loc>http://localhost:8000/contact.html</loc></url>
-  <url><loc>http://localhost:8000/cadets/index.html</loc></url>
-  <url><loc>http://localhost:8000/cadets/trophees.html</loc></url>
-  <url><loc>http://localhost:8000/cadets/grades.html</loc></url>
-  <url><loc>http://localhost:8000/cadets/uniforme.html</loc></url>
+  <url><loc>https://escadron736.ca/accueil.html</loc><priority>1.0</priority></url>
+  <url><loc>https://escadron736.ca/accueil/devenir-cadet.html</loc></url>
+  <url><loc>https://escadron736.ca/histoire.html</loc></url>
+  <url><loc>https://escadron736.ca/membre-du-personnel.html</loc></url>
+  <url><loc>https://escadron736.ca/notre-equipe.html</loc></url>
+  <url><loc>https://escadron736.ca/comite-repondant.html</loc></url>
+  <url><loc>https://escadron736.ca/nos-commanditaires.html</loc></url>
+  <url><loc>https://escadron736.ca/faire-un-don.html</loc></url>
+  <url><loc>https://escadron736.ca/portfolio.html</loc></url>
+  <url><loc>https://escadron736.ca/contact.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/index.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/trophees.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/grades.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/uniforme.html</loc></url>
+  <url><loc>https://escadron736.ca/politique-de-confidentialite.html</loc></url>
+  <url><loc>https://escadron736.ca/conditions-generales-utilisation.html</loc></url>
 </urlset>

@@ -1140,6 +1140,11 @@ body.site-locked {
   border-color: var(--primary-500);
 }
 
+.suggestion-field.has-error input,
+.suggestion-field.has-error textarea {
+  border-color: var(--secondary-500);
+}
+
 .suggestion-form fieldset {
   margin: 0;
   padding: 0;
@@ -1316,6 +1321,46 @@ body.site-locked {
   background: #f8fbff;
 }
 
+.error-page {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.error-page-content {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.error-page-content h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 0;
+}
+
+.error-page-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.error-page-links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.error-page-links a {
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+
 .placeholder-box strong {
   color: var(--primary-700);
   display: block;
@@ -1350,6 +1395,23 @@ body.site-locked {
 .field-group textarea:focus {
   outline: 2px solid rgba(29, 109, 217, 0.25);
   border-color: var(--primary-500);
+}
+
+.field-group.has-error input,
+.field-group.has-error textarea {
+  border-color: var(--secondary-500);
+}
+
+.field-error {
+  display: none;
+  margin: 0;
+  color: var(--secondary-500);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.field-group.has-error .field-error {
+  display: block;
 }
 
 .contact-info ul {
@@ -2639,6 +2701,30 @@ body:has(.portfolio-period-layout) .section {
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
+}
+
+.footer-legal {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.footer-legal a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: underline;
+}
+
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+  color: var(--white);
+}
+
+.footer-legal span {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .sr-only {

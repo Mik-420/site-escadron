@@ -1,0 +1,6 @@
+# Outil d'analytics local (jamais déployé sur escadron736.ca)
+/analytics-local/
+
+# Fichiers systèmes courants
+.DS_Store
+Thumbs.db

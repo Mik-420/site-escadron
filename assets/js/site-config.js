@@ -57,3 +57,23 @@ const currentYear = document.querySelector('[data-current-year]');
 if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
 }
+
+// Ajoute les liens légaux uniquement dans le bas de page (jamais dans le menu principal).
+const legalLinkPrefix = (() => {
+  const path = window.location.pathname;
+  if (path.includes('/cadets/uniforme/')) return '../../';
+  if (path.includes('/cadets/') || path.includes('/accueil/')) return '../';
+  return '';
+})();
+document.querySelectorAll('.footer-bottom').forEach((footerBottom) => {
+  if (footerBottom.querySelector('.footer-legal')) return;
+  const legalNav = document.createElement('nav');
+  legalNav.className = 'footer-legal';
+  legalNav.setAttribute('aria-label', 'Liens légaux');
+  legalNav.innerHTML = `
+    <a href="${legalLinkPrefix}politique-de-confidentialite.html">Politique de confidentialité</a>
+    <span aria-hidden="true">·</span>
+    <a href="${legalLinkPrefix}conditions-generales-utilisation.html">Conditions générales d'utilisation</a>
+  `;
+  footerBottom.appendChild(legalNav);
+});

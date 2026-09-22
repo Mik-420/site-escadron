@@ -177,11 +177,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const suggestionStatus = document.querySelector('[data-suggestion-status]');
   const suggestionRateLimitKey = 'escadron736-suggestion-last-sent';
   const submissionCooldown = 60_000;
+  const suggestionMinFillTime = 3_000; // anti-spam : rejette les envois trop rapides pour être humains
+  let suggestionOpenedAt = 0;
   const setSuggestionStatus = (message, state = '') => {
     suggestionStatus.textContent = message;
     suggestionStatus.className = `form-status ${state}`.trim();
   };
+
+  const suggestionNameField = suggestionForm?.querySelector('#suggestion-name');
+  const suggestionMessageField = suggestionForm?.querySelector('#suggestion-message');
+  const suggestionRoleInputs = suggestionForm?.querySelectorAll('input[name="role"]');
+
+  const setSuggestionFieldError = (field, hasError) => {
+    field?.closest('.suggestion-field')?.classList.toggle('has-error', hasError);
+  };
+
+  const validateSuggestionName = () => {
+    const isValid = Boolean(suggestionNameField?.value.trim());
+    setSuggestionFieldError(suggestionNameField, !isValid);
+    return isValid;
+  };
+
+  const validateSuggestionMessage = () => {
+    const isValid = (suggestionMessageField?.value.trim().length || 0) >= 5;
+    setSuggestionFieldError(suggestionMessageField, !isValid);
+    return isValid;
+  };
+
+  suggestionNameField?.addEventListener('blur', validateSuggestionName);
+  suggestionMessageField?.addEventListener('blur', validateSuggestionMessage);
+
   document.querySelector('[data-suggestion-open]')?.addEventListener('click', () => {
+    suggestionOpenedAt = Date.now();
     suggestionDialog?.showModal();
   });
   document.querySelectorAll('[data-suggestion-close]').forEach((button) => {
@@ -194,6 +221,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = suggestionForm.querySelector('[type="submit"]');
     if (!recipient) return;
     if (String(data.get('website') || '').trim()) return;
+
+    // Anti-spam : un envoi trop rapide après l'ouverture du formulaire est suspect
+    if (Date.now() - suggestionOpenedAt < suggestionMinFillTime) {
+      setSuggestionStatus('Veuillez patienter quelques secondes avant d’envoyer le formulaire.', 'is-error');
+      return;
+    }
+
+    const isNameValid = validateSuggestionName();
+    const isMessageValid = validateSuggestionMessage();
+    const isRoleValid = Array.from(suggestionRoleInputs || []).some((input) => input.checked);
+    if (!isNameValid || !isMessageValid || !isRoleValid) {
+      setSuggestionStatus('Veuillez corriger les champs en erreur avant d’envoyer le formulaire.', 'is-error');
+      if (!isNameValid) suggestionNameField?.focus();
+      else if (!isRoleValid) suggestionForm.querySelector('input[name="role"]')?.focus();
+      else suggestionMessageField?.focus();
+      return;
+    }
+
     const lastSubmission = Number(localStorage.getItem(suggestionRateLimitKey) || 0);
     const remainingSeconds = Math.ceil((submissionCooldown - (Date.now() - lastSubmission)) / 1000);
     if (remainingSeconds > 0) {
@@ -221,6 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem(suggestionRateLimitKey, String(Date.now()));
       setSuggestionStatus('Merci. Votre suggestion a été envoyée.', 'is-success');
       suggestionForm.reset();
+      setSuggestionFieldError(suggestionNameField, false);
+      setSuggestionFieldError(suggestionMessageField, false);
     } catch (error) {
       setSuggestionStatus('L’envoi a échoué. Veuillez réessayer plus tard.', 'is-error');
     } finally {
