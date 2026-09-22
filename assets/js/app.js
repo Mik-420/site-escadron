@@ -63,20 +63,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const suggestionDialog = document.querySelector('[data-suggestion-dialog]');
   const suggestionForm = document.querySelector('[data-suggestion-form]');
+  const suggestionStatus = document.querySelector('[data-suggestion-status]');
   document.querySelector('[data-suggestion-open]')?.addEventListener('click', () => {
     suggestionDialog?.showModal();
   });
   document.querySelectorAll('[data-suggestion-close]').forEach((button) => {
     button.addEventListener('click', () => suggestionDialog?.close());
   });
-  suggestionForm?.addEventListener('submit', (event) => {
+  suggestionForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(suggestionForm);
-    const subject = 'Suggestion pour l’Escadron 736';
-    const body = `Nom : ${data.get('name')}\nStatut : ${data.get('role')}\n\nSuggestion :\n${data.get('suggestion')}`;
-    window.location.href = `mailto:${window.siteConfig?.suggestionsEmail || ''}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    suggestionDialog?.close();
-    suggestionForm.reset();
+    const recipient = window.siteConfig?.suggestionsEmail;
+    const submitButton = suggestionForm.querySelector('[type="submit"]');
+    if (!recipient) return;
+
+    submitButton.disabled = true;
+    suggestionStatus.textContent = 'Envoi en cours...';
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Suggestion pour l’Escadron 736',
+          nom: data.get('name'),
+          statut: data.get('role'),
+          suggestion: data.get('suggestion')
+        })
+      });
+      if (!response.ok) throw new Error('Suggestion could not be sent');
+      suggestionStatus.textContent = 'Merci. Votre suggestion a été envoyée.';
+      suggestionForm.reset();
+    } catch (error) {
+      suggestionStatus.textContent = 'L’envoi a échoué. Veuillez réessayer plus tard.';
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 
   const navToggle = document.querySelector('.nav-toggle');
