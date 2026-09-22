@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
     accessGate.setAttribute('aria-label', 'Accès privé au site');
-    accessGate.innerHTML = `<div class="access-gate-panel"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /><form class="access-gate-form"><label class="visually-hidden" for="site-access-password">Mot de passe</label><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" required /><button class="btn btn-primary" type="submit">Accéder au site</button></form></div>`;
+    accessGate.innerHTML = `<div class="access-gate-panel"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /><form class="access-gate-form"><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="btn btn-primary" type="submit">Accéder au site</button></form></div>`;
     document.body.prepend(accessGate);
     const accessForm = accessGate.querySelector('form');
     const accessInput = accessGate.querySelector('input');
