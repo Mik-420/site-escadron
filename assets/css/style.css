@@ -1452,9 +1452,9 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 .contact-page .page-hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #f9fcff, #e7f0fa);
-  color: var(--text-900);
-  padding: 4.5rem 0 2rem;
+  background: linear-gradient(120deg, var(--primary-900), var(--primary-700));
+  color: var(--white);
+  padding: 4.75rem 0 3.1rem;
   text-align: center;
 }
 
@@ -1468,52 +1468,86 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 }
 
 .contact-page .page-hero .eyebrow {
-  color: var(--primary-700);
+  color: #b9d7ff;
 }
 
 .contact-page .compact-hero h1 {
+  color: var(--white);
   font-size: clamp(2.4rem, 5vw, 4.4rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .contact-page .section {
-  padding-top: 2rem;
+  padding: 3rem 0 4rem;
   background: transparent;
 }
 
 .contact-page .contact-layout {
   grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
   align-items: start;
-  gap: 3rem 4rem;
+  gap: 2rem;
 }
 
 .contact-page .contact-card,
 .contact-page .contact-info {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
+  min-height: 100%;
+  padding: 2.1rem;
+  border-radius: 8px;
 }
 
 .contact-page .contact-info {
   grid-column: 1;
   grid-row: 1;
+  background: linear-gradient(160deg, var(--primary-900), #134b89);
+  box-shadow: 0 20px 40px rgba(7, 29, 58, 0.2);
 }
 
 .contact-page .contact-card {
   grid-column: 2;
   grid-row: 1;
+  border: 1px solid rgba(20, 74, 142, 0.14);
+  background: var(--white);
+  box-shadow: 0 20px 40px rgba(7, 29, 58, 0.1);
 }
 
 .contact-page .contact-info h2,
 .contact-page .contact-card h2 {
-  margin-bottom: 1.4rem;
+  margin: 0.35rem 0 0.75rem;
   color: var(--primary-900);
-  font-size: 1.05rem;
+  font-size: 1.65rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact-page .contact-info h2 {
+  color: var(--white);
+}
+
+.contact-kicker {
+  color: var(--primary-700);
+  font-size: 0.74rem;
+  font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.contact-page .contact-info .contact-kicker {
+  color: #b9d7ff;
+}
+
+.contact-lead,
+.contact-info-intro {
+  margin: 0 0 1.7rem;
+  line-height: 1.65;
+}
+
+.contact-lead {
+  color: var(--text-700);
+}
+
+.contact-info-intro {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .contact-page .contact-info ul {
@@ -1521,13 +1555,15 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 }
 
 .contact-page .contact-info li {
-  color: var(--text-700);
+  padding-top: 0.95rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.7;
 }
 
 .contact-page .contact-info strong {
   display: block;
-  color: var(--primary-900);
+  color: #b9d7ff;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1549,27 +1585,42 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 }
 
 .contact-page .field-group label {
-  color: var(--text-700);
+  color: var(--primary-800);
   font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .contact-page .field-group input,
 .contact-page .field-group textarea {
-  padding: 0.7rem 0.2rem;
-  border-width: 0 0 1px;
-  border-radius: 0;
-  background: transparent;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(20, 74, 142, 0.18);
+  border-radius: 5px;
+  background: #f7faff;
+}
+
+.contact-page .field-group input:focus,
+.contact-page .field-group textarea:focus {
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(29, 109, 217, 0.14);
 }
 
 .contact-page .contact-card form button {
-  justify-self: end;
-  min-width: 130px;
+  justify-self: start;
+  min-width: 150px;
+  margin-top: 0.25rem;
+}
+
+.contact-page .form-status {
+  grid-column: 1 / -1;
 }
 
 .contact-page .contact-map {
   grid-column: 1 / -1;
   grid-row: 2;
   margin-top: 0;
+  border: 8px solid var(--white);
+  border-radius: 8px;
+  box-shadow: 0 18px 36px rgba(7, 29, 58, 0.12);
 }
 
 .contact-page .contact-map iframe {
