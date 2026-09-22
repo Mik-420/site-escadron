@@ -84,10 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: 'Suggestion pour l’Escadron 736',
-          nom: data.get('name'),
-          statut: data.get('role'),
-          suggestion: data.get('suggestion')
+          _subject: '[Escadron 736] Nouvelle suggestion',
+          _template: 'table',
+          'Nom de la personne': data.get('name'),
+          'Statut': data.get('role'),
+          'Suggestion': data.get('suggestion'),
+          'Reçu le': new Date().toLocaleString('fr-CA'),
+          'Source': 'Boîte à suggestions du site escadron736.ca'
         })
       });
       if (!response.ok) throw new Error('Suggestion could not be sent');

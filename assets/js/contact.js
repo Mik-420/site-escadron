@@ -52,11 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: `Contact - ${values.subject}`,
-          nom: values.name,
-          courriel: values.email,
-          sujet: values.subject,
-          message: values.message
+          _subject: `[Escadron 736] Contact - ${values.subject}`,
+          _template: 'table',
+          _replyto: values.email,
+          'Nom': values.name,
+          'Adresse courriel': values.email,
+          'Sujet': values.subject,
+          'Message': values.message,
+          'Reçu le': new Date().toLocaleString('fr-CA'),
+          'Source': 'Formulaire Contact de escadron736.ca'
         })
       });
       if (!response.ok) throw new Error('Contact could not be sent');
