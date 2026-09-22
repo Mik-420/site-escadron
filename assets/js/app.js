@@ -266,8 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const registrationBubble = document.createElement('a');
-  registrationBubble.className = 'registration-bubble';
+  const currentPath = window.location.pathname;
+  const showRegistrationBubble = /\/(accueil|contact)\.html$/.test(currentPath);
+  const registrationBubble = showRegistrationBubble ? document.createElement('a') : null;
   const registrationPage = '/accueil/devenir-cadet.html';
   document.querySelectorAll('[data-registration-link]').forEach((link) => {
     link.href = registrationPage;
@@ -275,10 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
       link.textContent = 'Devenir Cadet';
     }
   });
-  registrationBubble.href = registrationPage;
-  registrationBubble.textContent = 'Devenir Cadet';
-  registrationBubble.setAttribute('aria-label', "S'inscrire au Programme des cadets");
-  document.body.appendChild(registrationBubble);
+  if (registrationBubble) {
+    registrationBubble.className = 'registration-bubble';
+    registrationBubble.href = registrationPage;
+    registrationBubble.textContent = 'Devenir Cadet';
+    registrationBubble.setAttribute('aria-label', "S'inscrire au Programme des cadets");
+    document.body.appendChild(registrationBubble);
+  }
 
   const profilePage = /membre-du-personnel\.html$/.test(window.location.pathname);
   const profilePlaceholder = document.querySelector('.content-card .placeholder-box');
@@ -314,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastScrollPosition = window.scrollY;
   window.addEventListener('scroll', () => {
+    if (!registrationBubble) return;
     const currentScrollPosition = window.scrollY;
     const scrollingDown = currentScrollPosition > lastScrollPosition && currentScrollPosition > 80;
     registrationBubble.classList.toggle('is-hidden', scrollingDown);
