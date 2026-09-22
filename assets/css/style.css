@@ -83,12 +83,12 @@ button {
 }
 
 .access-gate-panel {
-  width: min(100%, 430px);
-  padding: 2.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  width: min(100%, 260px);
+  padding: 2rem;
+  border: 0;
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+  background: transparent;
+  box-shadow: none;
   text-align: center;
 }
 
@@ -99,51 +99,24 @@ button {
   object-fit: contain;
 }
 
-.access-gate-panel h1 {
-  margin: 0.25rem 0 0.65rem;
-  color: var(--primary-800);
-}
-
-.access-gate-panel > p {
-  margin: 0;
-  color: var(--text-700);
-}
-
 .access-gate-form {
-  display: grid;
-  gap: 0.65rem;
-  margin-top: 1.5rem;
-  text-align: left;
-}
-
-.access-gate-form label {
-  color: var(--primary-800);
-  font-weight: 700;
-}
-
-.access-gate-form input {
-  width: 100%;
-  padding: 0.75rem 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: #f8fbff;
-}
-
-.access-gate-form input:focus {
-  outline: 3px solid rgba(29, 109, 217, 0.2);
-  border-color: var(--primary-500);
+  margin-top: 1.25rem;
 }
 
 .access-gate-form .btn {
   width: 100%;
-  margin-top: 0.5rem;
 }
 
-.access-gate-error {
-  margin: 0;
-  color: #b42318;
-  font-size: 0.9rem;
-  font-weight: 700;
+.visually-hidden,
+.access-secret-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .container {
