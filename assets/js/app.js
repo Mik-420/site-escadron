@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const consentCookie = 'escadron736-analytics-consent';
+  const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
+  const setConsent = (value) => {
+    document.cookie = `${consentCookie}=${value}; Max-Age=15552000; Path=/; SameSite=Lax; Secure`;
+    document.documentElement.dataset.analyticsConsent = value;
+    window.dispatchEvent(new CustomEvent('escadron736:analytics-consent', { detail: { value } }));
+  };
+  const showConsentBanner = () => {
+    if (getCookie(consentCookie)) return;
+    const banner = document.createElement('aside');
+    banner.className = 'cookie-consent';
+    banner.setAttribute('aria-label', 'Préférences de confidentialité');
+    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site peut utiliser des témoins pour mesurer sa fréquentation et améliorer son contenu. Aucun témoin d’audience n’est utilisé sans votre choix.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
+    document.body.append(banner);
+    banner.querySelectorAll('[data-consent]').forEach((button) => {
+      button.addEventListener('click', () => {
+        setConsent(button.dataset.consent);
+        banner.remove();
+      });
+    });
+  };
+  const existingConsent = getCookie(consentCookie);
+  if (existingConsent) {
+    document.documentElement.dataset.analyticsConsent = existingConsent;
+  } else {
+    showConsentBanner();
+  }
+
   const accessKey = 'escadron736-preview-access';
   const accessPassword = 'Jesaispas$';
   if (sessionStorage.getItem(accessKey) !== 'granted') {
