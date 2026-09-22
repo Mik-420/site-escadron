@@ -72,7 +72,7 @@ button {
   position: fixed;
   right: 1.25rem;
   bottom: 1.25rem;
-  z-index: 950;
+  z-index: 1050;
   width: min(390px, calc(100vw - 2.5rem));
   padding: 1.35rem;
   border: 1px solid rgba(20, 74, 142, 0.18);

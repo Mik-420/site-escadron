@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const accessKey = 'escadron736-preview-access';
+  const accessPassword = 'Jesaispas$';
+  const requiresSiteAccess = sessionStorage.getItem(accessKey) !== 'granted';
   const consentCookie = 'escadron736-analytics-consent';
   const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
   const getDeviceType = () => {
@@ -55,13 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const existingConsent = getCookie(consentCookie);
   if (existingConsent) {
     document.documentElement.dataset.analyticsConsent = existingConsent;
-  } else {
+  } else if (requiresSiteAccess) {
     showConsentBanner();
   }
 
-  const accessKey = 'escadron736-preview-access';
-  const accessPassword = 'Jesaispas$';
-  if (sessionStorage.getItem(accessKey) !== 'granted') {
+  if (requiresSiteAccess) {
     document.body.classList.add('site-locked');
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
@@ -80,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.setItem(accessKey, 'granted');
         document.body.classList.remove('site-locked');
         accessGate.remove();
+        document.querySelector('.cookie-consent')?.remove();
       } else {
         accessInput.value = '';
         accessInput.focus();
