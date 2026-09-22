@@ -121,8 +121,12 @@ button {
   }
 }
 
-.site-locked {
+.site-locked,
+html.site-locked,
+body.site-locked {
   overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .access-gate {

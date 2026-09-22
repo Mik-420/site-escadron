@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (requiresSiteAccess) {
+    document.documentElement.classList.add('site-locked');
     document.body.classList.add('site-locked');
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (password === accessPassword) {
         sessionStorage.setItem(accessKey, 'granted');
         accessInput.blur();
+        document.documentElement.classList.remove('site-locked');
         document.body.classList.remove('site-locked');
         accessGate.remove();
         document.querySelector('.cookie-consent')?.remove();
