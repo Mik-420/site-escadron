@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = new FormData(suggestionForm);
     const subject = 'Suggestion pour l’Escadron 736';
     const body = `Nom : ${data.get('name')}\nStatut : ${data.get('role')}\n\nSuggestion :\n${data.get('suggestion')}`;
-    window.location.href = `mailto:${window.siteConfig?.email || ''}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${window.siteConfig?.suggestionsEmail || ''}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     suggestionDialog?.close();
     suggestionForm.reset();
   });

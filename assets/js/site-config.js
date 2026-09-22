@@ -3,7 +3,9 @@ window.siteConfig = {
   facebookUrl: "https://www.facebook.com/profile.php?id=100092501214672",
   instagramUrl: "https://www.instagram.com/escadron736/",
   registrationUrl: "/accueil/devenir-cadet.html",
-  email: "escadron736@gmail.com",
+  email: "contact@escadron736.ca",
+  contactEmail: "contact@escadron736.ca",
+  suggestionsEmail: "suggestions@escadron736.ca",
   phone: "(418) 775-8794",
   address: "254 AV ROSS, Mont-Joli, QC, Canada, G5H 3M4",
   socials: {

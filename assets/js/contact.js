@@ -36,9 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const body = `Nom: ${values.name}\nCourriel: ${values.email}\n\nSujet: ${values.subject}\n\nMessage:\n${values.message}`;
-    const mailtoLink = `mailto:${window.siteConfig.email || ''}?subject=${encodeURIComponent(values.subject)}&body=${encodeURIComponent(body)}`;
+    const recipient = window.siteConfig.contactEmail || window.siteConfig.email || '';
+    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(values.subject)}&body=${encodeURIComponent(body)}`;
 
-    if (!window.siteConfig.email) {
+    if (!recipient) {
       alert('Veuillez renseigner une adresse courriel officielle dans la configuration du site avant de l’utiliser.');
       return;
     }
