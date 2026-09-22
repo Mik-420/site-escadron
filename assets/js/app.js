@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/Linux/i.test(userAgent)) return 'Ordinateur Linux';
     return 'Appareil non identifié';
   };
+  const getBrowserName = () => {
+    const userAgent = navigator.userAgent;
+    if (/Edg\//.test(userAgent)) return 'Microsoft Edge';
+    if (/Firefox\//.test(userAgent)) return 'Mozilla Firefox';
+    if (/Chrome\//.test(userAgent)) return 'Google Chrome';
+    if (/Safari\//.test(userAgent)) return 'Safari';
+    return 'Navigateur non identifié';
+  };
   const getNetworkLocation = async () => {
     try {
       const response = await fetch('https://ipwho.is/', { headers: { Accept: 'application/json' } });
@@ -45,19 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: '[Escadron 736] Consentement aux mesures d’audience',
+          _subject: '[Escadron 736] Rapport de visite consenti',
           _template: 'box',
-          'Événement': 'Consentement accepté',
-          'Page consultée': window.location.href,
-          'Date et heure': new Date().toLocaleString('fr-CA'),
+          'Organisation': 'Escadron 736 Mont-Joli des Cadets de l’Air',
+          'Logo officiel': 'https://escadron736.ca/Photos/logo.png',
+          'Type de rapport': 'Consentement accepté aux mesures d’audience',
+          'Date et heure de la visite': new Date().toLocaleString('fr-CA'),
+          'Page visitée': window.location.href,
           'Adresse IP publique': networkLocation.ip,
           'Ville approximative': networkLocation.city,
           'Région approximative': networkLocation.region,
           'Pays approximatif': networkLocation.country,
           'Fuseau horaire': networkLocation.timezone,
           'Type d’appareil': getDeviceType(),
+          'Navigateur': getBrowserName(),
           'Langue du navigateur': navigator.language || 'Non disponible',
-          'Note': 'La ville, la région et le pays sont déduits de l’adresse IP. Aucune position GPS précise n’est demandée.'
+          'Confidentialité': 'Collecte effectuée après consentement explicite. La ville, la région et le pays sont déduits de l’adresse IP; aucune position GPS précise n’est demandée.'
         })
       });
     } catch (error) {
