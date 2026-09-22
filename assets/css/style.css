@@ -646,8 +646,14 @@ button {
 
 .hero-copy h1 {
   margin: 0.3rem 0 1rem;
-  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-size: clamp(2.1rem, 3.25vw, 3.3rem);
   line-height: 1.05;
+}
+
+@media (min-width: 981px) {
+  .hero-copy h1 {
+    white-space: nowrap;
+  }
 }
 
 .hero-copy p {
