@@ -264,38 +264,10 @@ if (lightbox) {
 }
 
 async function loadPortfolioData() {
-  const folders = [
-    ['Revue Annuelle', 'Portfolio/2026/Revue Annuelle 2026/Photo Revue Annuelle/'],
-    ['Kiosque', 'Portfolio/2026/Revue Annuelle 2026/Photo Kiosque/'],
-    ['Photo Individuel - Revue Annuelle', 'Portfolio/2026/Revue Annuelle 2026/Photo Individuel/'],
-    ['Souper de Trouple', 'Portfolio/2026/Souper de Troupe 2026/Photo souper de troupe/'],
-    ['Photo Individuel - Souper de Trouple', 'Portfolio/2026/Souper de Troupe 2026/Photo Individuel/'],
-      ['Camping St-Fabien', 'Portfolio/2026/Camping St-Fabien 2026/'],
-      ['Activité Québec', 'Portfolio/2026/Activités Québec/'],
-      ['Survie', 'Portfolio/2026/Survie 2026/'],
-      ['all', 'Portfolio/2026/2026/'],
-      ['Parade Promesse', 'Portfolio/2025/Parade Promesse 2025/', 2025],
-      ['Activité', 'Portfolio/2025/Activité 2025/', 2025],
-      ['Halloween', 'Portfolio/2025/Halloween 2025/', 2025],
-      ['Coquelicot', 'Portfolio/2025/Coquelicot 2025/', 2025]
-  ];
-
   try {
-    const results = await Promise.all(folders.map(async ([activity, folder, folderYear]) => {
-      const response = await fetch(folder);
-      if (!response.ok) return [];
-      const html = await response.text();
-      const documentFragment = new DOMParser().parseFromString(html, 'text/html');
-      return Array.from(documentFragment.querySelectorAll('a[href$=".jpg"]')).map((link) => ({
-        title: activity === 'all' ? '2026' : activity.split(' - ')[0],
-        activity,
-        year: folderYear || 2026,
-        group: '2026',
-        image: `${folder}${decodeURIComponent(link.getAttribute('href'))}`,
-        caption: activity === 'all' ? '2026' : activity === 'Revue Annuelle' ? '2026' : `${activity} - 2026`
-      }));
-    }));
-    portfolioData = results.flat();
+    const response = await fetch('assets/data/portfolio.json');
+    if (!response.ok) throw new Error('Portfolio data unavailable');
+    portfolioData = await response.json();
   } catch (error) {
     portfolioData = [];
   }
