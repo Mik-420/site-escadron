@@ -92,15 +92,28 @@ button {
   text-align: center;
 }
 
-.access-gate-panel > img {
+.access-logo-button {
+  display: block;
+  margin: 0 auto 1.2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.access-logo-button img {
   width: 88px;
   height: 88px;
-  margin: 0 auto 1.2rem;
   object-fit: contain;
 }
 
+.access-logo-button:focus-visible {
+  outline: 3px solid var(--primary-500);
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
 .access-gate-form {
-  margin-top: 1.5rem;
+  text-align: center;
 }
 
 .access-gate-panel h1 {
