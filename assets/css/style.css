@@ -891,10 +891,13 @@ button {
 
 .suggestion-dialog {
   width: min(92vw, 560px);
+  max-height: min(90vh, 680px);
   padding: 0;
-  border: 0;
-  border-radius: 12px;
-  box-shadow: 0 24px 60px rgba(7, 29, 58, 0.28);
+  overflow: hidden;
+  border: 1px solid rgba(20, 74, 142, 0.18);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 24px 60px rgba(7, 29, 58, 0.32);
 }
 
 .suggestion-dialog::backdrop {
@@ -903,8 +906,8 @@ button {
 
 .suggestion-form {
   display: grid;
-  gap: 1rem;
-  padding: 1.75rem;
+  gap: 1.2rem;
+  padding: 0 1.75rem 1.75rem;
 }
 
 .suggestion-dialog-heading {
@@ -912,11 +915,26 @@ button {
   align-items: start;
   justify-content: space-between;
   gap: 1rem;
+  margin: 0 -1.75rem 0;
+  padding: 1.5rem 1.75rem;
+  background: var(--primary-800);
+  color: var(--white);
 }
 
 .suggestion-dialog h2 {
   margin: 0.25rem 0 0;
-  color: var(--primary-800);
+  color: var(--white);
+  font-size: 1.45rem;
+}
+
+.suggestion-dialog-heading .eyebrow,
+.suggestion-dialog-heading p {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.suggestion-dialog-heading p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
 }
 
 .dialog-close {
@@ -925,24 +943,30 @@ button {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--primary-800);
+  color: var(--white);
   font-size: 2rem;
   line-height: 1;
   cursor: pointer;
 }
 
-.suggestion-form > label,
+.suggestion-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.suggestion-field label,
 .suggestion-form legend {
   color: var(--primary-800);
   font-weight: 700;
 }
 
-.suggestion-form input[type="text"],
+.suggestion-field input,
 .suggestion-form textarea {
   width: 100%;
   padding: 0.75rem 0.85rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 5px;
+  background: #f8fbff;
   color: var(--text-900);
   font: inherit;
 }
@@ -951,24 +975,63 @@ button {
   resize: vertical;
 }
 
+.suggestion-field input:focus,
+.suggestion-form textarea:focus {
+  outline: 3px solid rgba(29, 109, 217, 0.2);
+  border-color: var(--primary-500);
+}
+
 .suggestion-form fieldset {
-  display: flex;
-  gap: 1rem;
   margin: 0;
-  padding: 0.75rem 0;
+  padding: 0;
   border: 0;
 }
 
+.suggestion-form legend {
+  margin-bottom: 0.5rem;
+}
+
+.suggestion-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
 .suggestion-choice {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
+  cursor: pointer;
+}
+
+.suggestion-choice input {
+  position: absolute;
+  opacity: 0;
+}
+
+.suggestion-choice span {
+  display: block;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #f8fbff;
+  color: var(--primary-800);
+  font-weight: 700;
+  text-align: center;
+}
+
+.suggestion-choice input:checked + span {
+  border-color: var(--primary-700);
+  background: var(--primary-700);
+  color: var(--white);
+}
+
+.suggestion-choice input:focus-visible + span {
+  outline: 3px solid rgba(29, 109, 217, 0.25);
 }
 
 .suggestion-actions {
   display: flex;
   justify-content: end;
   gap: 0.75rem;
+  padding-top: 0.25rem;
 }
 
 .social-grid {
