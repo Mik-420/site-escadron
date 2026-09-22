@@ -114,11 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
     accessForm.querySelector('.access-logo-button').addEventListener('click', () => {
       accessInput.focus();
     });
+    accessInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        accessForm.requestSubmit();
+      }
+    });
     accessForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const password = new FormData(event.currentTarget).get('password');
       if (password === accessPassword) {
         sessionStorage.setItem(accessKey, 'granted');
+        accessInput.blur();
         document.body.classList.remove('site-locked');
         accessGate.remove();
         document.querySelector('.cookie-consent')?.remove();
