@@ -1333,10 +1333,25 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 }
 
 .contact-page .page-hero {
-  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f9fcff, #e7f0fa);
   color: var(--text-900);
   padding: 4.5rem 0 2rem;
   text-align: center;
+}
+
+.contact-page {
+  background-color: #edf4fa;
+  background-image:
+    linear-gradient(rgba(20, 74, 142, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 74, 142, 0.055) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+
+.contact-page .page-hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-page .page-hero .eyebrow {
@@ -1351,7 +1366,7 @@ body:has(.content-card a[href*="inscription.cadets.gc.ca"]) .content-card > p:la
 
 .contact-page .section {
   padding-top: 2rem;
-  background: var(--white);
+  background: transparent;
 }
 
 .contact-page .contact-layout {
