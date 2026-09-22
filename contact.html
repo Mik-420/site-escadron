@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Escadron 736 Mont-Joli</title>
+    <meta name="description" content="Contactez l'Escadron 736 Mont-Joli des Cadets de l'Air." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer src="assets/js/site-config.js"></script>
+    <script defer src="assets/js/app.js?v=about-menu-fixed"></script>
+  </head>
+  <body class="contact-page">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+          <img src="assets/images/logo-placeholder.svg" alt="Logo de l'Escadron 736 Mont-Joli" />
+          <span>
+            <strong data-site-name>Escadron 736</strong>
+            <small>Mont-Joli</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-navigation" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li class="dropdown">
+              <button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button>
+              <ul class="dropdown-menu">
+                <li><a href="cadets/trophees.html">Trophées</a></li>
+                <li><a href="cadets/grades.html">Grades</a></li>
+                <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="btn btn-primary" data-registration-link>S'inscrire</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero compact-hero">
+        <div class="container">
+          <span class="eyebrow">Nous joindre</span>
+          <h1>Contact</h1>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container contact-layout">
+          <div class="contact-card">
+            <h2>Écrivez-nous</h2>
+            <form id="contact-form" novalidate>
+              <div class="field-group">
+                <label for="name">Nom</label>
+                <input id="name" name="name" type="text" required minlength="2" />
+              </div>
+
+              <div class="field-group">
+                <label for="email">Adresse courriel</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+
+              <div class="field-group">
+                <label for="subject">Sujet</label>
+                <input id="subject" name="subject" type="text" required minlength="3" />
+              </div>
+
+              <div class="field-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required minlength="10"></textarea>
+              </div>
+
+              <div class="field-group sr-only">
+                <label for="website">Site web</label>
+                <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" />
+              </div>
+
+              <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+          </div>
+
+          <aside class="contact-info">
+            <h2>Coordonnées</h2>
+            <ul>
+              <li><strong>Adresse :</strong> <span data-contact-address>[ADRESSE À FOURNIR]</span></li>
+              <li><strong>Téléphone :</strong> <span data-contact-phone>[TÉLÉPHONE À FOURNIR]</span></li>
+              <li><strong>Courriel :</strong> <a href="mailto:" data-contact-email>[COURRIEL À FOURNIR]</a></li>
+            </ul>
+          </aside>
+
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps?q=%C3%89cole+du+Mistral,+Mont-Joli,+QC&output=embed"
+              title="Carte de l’École du Mistral de Mont-Joli"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="index.html" class="brand footer-brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+            <img src="assets/images/logo-placeholder.svg" alt="Logo du site de l'Escadron 736 Mont-Joli" />
+            <span>
+              <strong data-site-name>Escadron 736</strong>
+              <small>Mont-Joli</small>
+            </span>
+          </a>
+        </div>
+        <div>
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cadets</h3>
+          <ul>
+            <li><a href="cadets/trophees.html">Trophées</a></li>
+            <li><a href="cadets/grades.html">Grades</a></li>
+            <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p>
+      </div>
+    </footer>
+
+    <script defer src="assets/js/contact.js"></script>
+  </body>
+</html>

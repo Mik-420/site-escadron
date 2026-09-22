@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Escadron 736 Mont-Joli</title>
+    <meta
+      name="description"
+      content="Galerie photo de l'Escadron 736 Mont-Joli des Cadets de l'Air."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=lightbox-close-top-right" />
+    <script defer src="assets/js/site-config.js"></script>
+    <script defer src="assets/js/app.js?v=contact-menu"></script>
+    <script defer src="assets/js/portfolio.js?v=2025-filters-fixed"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+          <img src="assets/images/logo-placeholder.svg" alt="Logo de l'Escadron 736 Mont-Joli" />
+          <span>
+            <strong data-site-name>Escadron 736</strong>
+            <small>Mont-Joli</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-navigation" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="dropdown">
+              <button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button>
+              <ul class="dropdown-menu">
+                <li><a href="cadets/trophees.html">Trophées</a></li>
+                <li><a href="cadets/grades.html">Grades</a></li>
+                <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="btn btn-primary" data-registration-link>S'inscrire</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero compact-hero">
+        <div class="container">
+          <span class="eyebrow">Galerie</span>
+          <h1>Portfolio</h1>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container portfolio-layout portfolio-period-layout">
+          <aside class="portfolio-period-nav">
+            <span class="portfolio-label">Périodes</span>
+            <div class="filter-list" id="portfolio-filters" aria-label="Filtrer les photos par année"></div>
+            <nav class="portfolio-2026-nav" id="portfolio-2025-nav" aria-label="Activités 2025" hidden>
+              <a href="#">Parade Promesse</a>
+              <a href="#">Activité</a>
+              <a href="#">Halloween</a>
+            </nav>
+            <nav class="portfolio-2026-nav" id="portfolio-2026-nav" aria-label="Activités 2026" hidden>
+              <a href="#" id="portfolio-review-toggle" aria-expanded="false">Revue Annuelle</a>
+              <div class="portfolio-review-nav" id="portfolio-review-nav" hidden>
+                <a href="#">Kiosque</a>
+                <a href="#" data-activity="Photo Individuel - Revue Annuelle">Photo Individuel</a>
+              </div>
+              <a href="#" id="portfolio-souper-toggle" aria-expanded="false">Souper de Trouple</a>
+              <div class="portfolio-souper-nav" id="portfolio-souper-nav" hidden>
+                <a href="#" data-activity="Photo Individuel - Souper de Trouple">Photo Individuel</a>
+              </div>
+              <a href="#">Activité Québec</a>
+              <a href="#">Camping St-Fabien</a>
+              <a href="#">Survie</a>
+            </nav>
+          </aside>
+
+          <div class="gallery-wrap">
+            <div class="gallery-grid" id="portfolio-grid" aria-live="polite"></div>
+            <div class="pagination" id="portfolio-pagination" aria-label="Pagination de la galerie"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Fermer la galerie">×</button>
+      <button class="lightbox-nav prev" type="button" aria-label="Image précédente">‹</button>
+      <div class="lightbox-content">
+        <a class="lightbox-download" id="lightbox-download" href="#" download>Télécharger</a>
+        <img id="lightbox-image" src="" alt="" />
+        <div class="lightbox-caption">
+          <h3 id="lightbox-title"></h3>
+          <p id="lightbox-meta"></p>
+        </div>
+      </div>
+      <button class="lightbox-nav next" type="button" aria-label="Image suivante">›</button>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="index.html" class="brand footer-brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+            <img src="assets/images/logo-placeholder.svg" alt="Logo du site de l'Escadron 736 Mont-Joli" />
+            <span>
+              <strong data-site-name>Escadron 736</strong>
+              <small>Mont-Joli</small>
+            </span>
+          </a>
+        </div>
+        <div>
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cadets</h3>
+          <ul>
+            <li><a href="cadets/trophees.html">Trophées</a></li>
+            <li><a href="cadets/grades.html">Grades</a></li>
+            <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Logo de l'Escadron 736">
+  <rect width="200" height="200" rx="32" fill="#0c2d5d"/>
+  <path d="M35 150h130L100 40 35 150Zm28.5-15 36.5-66 36.5 66H63.5Z" fill="#ffffff"/>
+  <circle cx="100" cy="100" r="11" fill="#f4c542"/>
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">736</text>
+</svg>
