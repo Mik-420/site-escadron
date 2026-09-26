@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (profilePage && profilePlaceholder) {
     const context = 'escadron';
     const personnelProfiles = [
-      ['Enseigne de vaisseau de première classe', 'Éric-Olivier Levesque', 'Commandant de l’Escadron'],
+      ['Enseigne de vaisseau de 1re classe', 'Éric-Olivier Lévesque', 'Commandant de l’Escadron'],
       ['Adjudant de première classe', 'Jordan Bouchard', 'Cadet commandant'],
       ['Élève Officier', 'Mathias Pettigrew', 'Officier d’instruction<br>Responsable de l’instruction'],
       ['Capitaine', 'Yves Galbrand', 'Officier d’Administration<br>Instructeur d’aviation'],
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Mikael Tremblay', 'Bénévole']
     ];
     const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg" alt="Photo de ${name}" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
-    const commanderMessage = `<section class="commander-message"><span class="eyebrow">Mot du commandant</span><h2>Mot du commandant</h2><p>Bienvenue sur le site officiel de l’Escadron 736 des Cadets de l’Air de Mont-Joli!</p><p>C’est avec beaucoup de fierté que nous accueillons chaque année des jeunes de notre communauté qui souhaitent relever de nouveaux défis, développer leurs compétences et vivre des expériences enrichissantes.</p><p>Le Programme des cadets de l’Air offre aux jeunes de 12 à 18 ans l’occasion de découvrir l’aviation et l’aérospatiale, tout en développant leur leadership, leur esprit d’équipe, leur autonomie et leur confiance en eux. À travers les activités d’aviation, la musique, le sport, le tir de précision, la marche militaire, la survie et bien d’autres activités, chaque cadet est encouragé à apprendre, à progresser et à se dépasser.</p><p>Notre objectif est d’offrir un environnement sécuritaire, inclusif et stimulant, où chaque jeune peut trouver sa place et développer son plein potentiel.</p><p>Que vous soyez un jeune intéressé à joindre nos rangs, un parent à la recherche d’un programme enrichissant ou simplement curieux d’en apprendre davantage, nous vous invitons à découvrir tout ce que l’Escadron 736 a à offrir.</p><p>Au plaisir de vous accueillir parmi nous!</p><p class="commander-signature">Le commandant<br>Escadron 736 des Cadets de l’Air de Mont-Joli ✈️</p></section>`;
+    const commanderMessage = `<section class="commander-message commander-message-new"><div class="commander-section-heading"><span class="eyebrow">Mot du commandant</span><h2>Mot du commandant</h2><p>Une vision pour l’Escadron 736 Mont-Joli</p></div><div class="commander-message-layout"><div class="commander-profile"><div class="commander-portrait"><img src="Photos/commandant-eric-olivier.jpg" alt="Éric-Olivier Lévesque, officier commandant de l’Escadron 736 Mont-Joli" /></div><div class="commander-profile-details"><p class="commander-rank">Enseigne de vaisseau de 1re classe</p><h3>Éric-Olivier Lévesque</h3><p>Officier commandant</p><p>Escadron 736 Mont-Joli</p></div></div><div class="commander-letter"><h3>Mot du commandant</h3><p>C’est avec une grande fierté que je m’adresse aux cadets, à leurs familles, ainsi qu’à tous ceux et celles qui contribuent à la vie de l’Escadron 736 Mont-Joli.</p><p>Notre escadron offre aux jeunes un environnement structuré, stimulant et positif, où ils peuvent apprendre, relever des défis et développer de nouvelles compétences. À travers les différentes activités proposées, les cadets sont encouragés à développer leur leadership, leur esprit d’équipe, leur autonomie et leur sens des responsabilités.</p><p>La réussite de notre escadron repose sur l’engagement de nombreuses personnes. Je tiens à souligner le travail et la participation de nos cadets, de leurs parents et tuteurs, des membres du personnel, des bénévoles ainsi que de tous nos partenaires et collaborateurs.</p><p>Je suis fier de voir nos cadets progresser, s’impliquer et repousser leurs limites au fil de leur parcours. Chaque expérience vécue au sein de l’Escadron contribue à leur développement et leur permet de créer des souvenirs qui les accompagneront longtemps.</p><p>Je souhaite à chacun de nos cadets une excellente année remplie de découvertes, de défis et de réussites.</p><div class="commander-vision"><h3>Ma vision</h3><p>Ma vision pour l’Escadron 736 Mont-Joli est de continuer à bâtir un milieu où chaque cadet peut trouver sa place, développer son potentiel et être fier de son parcours. Je souhaite que l’Escadron demeure un lieu où l’engagement, l’entraide, le respect et le dépassement de soi occupent une place importante.</p><p>En travaillant ensemble, nous pouvons offrir à nos jeunes des expériences enrichissantes qui leur permettront de grandir, de prendre confiance en eux et de devenir des citoyens engagés dans leur communauté.</p></div><div class="commander-signature"><strong>Éric-Olivier Lévesque</strong><span>Enseigne de vaisseau de 1re classe</span><span>Officier commandant</span><span>Escadron 736 Mont-Joli</span></div></div></div></section>`;
     profilePlaceholder.outerHTML = `<div class="staff-grid">${profiles}</div><section class="committee-section"><h2>Comité Répondant</h2><div class="staff-grid committee-grid">${committeeProfiles}</div></section>${commanderMessage}`;
   }
 
@@ -428,6 +428,43 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownToggle.setAttribute('aria-expanded', 'false');
       }
     });
+  }
+
+  const commandersGrid = document.querySelector('.history-commanders .commanders-grid');
+  if (commandersGrid) {
+    [['.history-introduction', 'history-beginnings'], ['.history-founder', 'history-founder'], ['.history-commanders', 'history-commanders'], ['.history-timeline-section', 'history-timeline'], ['.history-archives', 'history-archives']].forEach(([selector, id]) => {
+      document.querySelector(selector)?.setAttribute('id', id);
+    });
+    const commanders = [
+      ['Enseigne de vaisseau de 1re classe', 'Éric Olivier', '2024 — Présent', true],
+      ['Capitaine', 'Yves Galbrand', '2022 — 2024'],
+      ['Capitaine', 'Sébastien Brillant', '2020 — 2022'],
+      ['Sous-lieutenant', 'Marie-Ève Blais', '2018 — 2020'],
+      ['Capitaine de corvette', 'Gaétan Beaudin', 'Période à confirmer — 2016'],
+      ['Major', 'Chenard', 'Période à confirmer'],
+      ['À confirmer', 'Christine Bouchard', '2013 — Période à confirmer'],
+      ['Capitaine', 'Yves Galbrand', '2009 — 2013'],
+      ['Lieutenant de vaisseau', 'Jean Côté', '2008 — 2009'],
+      ['Capitaine', 'Sylvain Gagnon', '2005 — 2008'],
+      ['Capitaine', 'Sylvie Lambert', '2002 — 2005'],
+      ['Capitaine', 'Michel Turcotte', '1998 — 2002'],
+      ['Capitaine', 'Gino Berthier Lévesque', '1997 — 1998'],
+      ['Capitaine', 'Marie-Claude Joubert', '1996 — 1997'],
+      ['Capitaine', 'Nadine Beaulieu', '1993 — 1996'],
+      ['Major', 'François Dornier', '1989 — 1993'],
+      ['Capitaine', 'Patricia Côté', '1987 — 1989'],
+      ['Capitaine', 'Luc Gilbert', '1983 — 1987'],
+      ['Major', 'Renald Ouellet', '1976 — 1983'],
+      ['Capitaine', 'Maurice Lévesque', '1975 — 1976'],
+      ['Capitaine', 'Gaston Dufour', '1974 — 1975'],
+      ['Major', 'Ivan Ross', '1963 — 1974']
+    ];
+    const sectionHeading = commandersGrid.closest('.history-commanders')?.querySelector('.section-heading');
+    if (sectionHeading) {
+      sectionHeading.innerHTML = '<span class="eyebrow">Archives historiques</span><h2>Hommage à nos officiers commandants</h2><p class="history-section-subtitle">Escadron 736 Mont-Joli</p><p>Depuis sa fondation, l’Escadron 736 Mont-Joli a été dirigé par plusieurs officiers commandants qui ont contribué, au fil des années, à son développement, à son évolution et à son rayonnement auprès des jeunes de la région.</p><p>Cette section rend hommage aux personnes qui ont assumé la responsabilité de l’Escadron 736 Mont-Joli au cours de son histoire.</p>';
+    }
+    commandersGrid.className = 'commanders-timeline';
+    commandersGrid.innerHTML = commanders.map(([rank, name, term, isCurrent]) => `<article class="commander-card commander-timeline-card${isCurrent ? ' is-current' : ''} reveal-on-scroll"><div class="commander-timeline-marker" aria-hidden="true">${isCurrent ? '★' : '◆'}</div><div class="commander-timeline-content">${isCurrent ? '<span class="commander-current-badge">Commandant actuel</span>' : ''}<p class="history-kicker">${rank}</p><h3>${name}</h3><p class="commander-role">Officier commandant</p><p class="founder-years">${term}</p></div></article>`).join('');
   }
 
   const uniformSubnav = document.querySelector('.uniform-subnav');

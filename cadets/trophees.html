@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trophées | Escadron 736 Mont-Joli</title>
-    <meta name="description" content="Informations officielles et de référence sur les trophées des cadets." />
+    <title>Nos trophées — Escadron 736 Mont-Joli</title>
+    <meta name="description" content="Découvrez les trophées de l’Escadron 736 Mont-Joli et l’historique des cadets et membres qui les ont reçus au fil des années." />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <script defer src="../assets/js/site-config.js"></script>
-    <script defer src="../assets/js/app.js?v=contact-menu"></script>
+    <script defer src="../assets/js/app.js?v=trophees-page"></script>
+    <script defer src="../assets/js/trophees.js"></script>
   </head>
   <body>
     <header class="site-header">
@@ -48,33 +49,19 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content" class="trophies-page">
       <section class="page-hero compact-hero">
         <div class="container">
           <span class="eyebrow">Cadets</span>
-          <h1>Trophées</h1>
+          <h1>Nos trophées</h1>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container narrow">
-          <div class="content-card">
-            <p class="lead">
-              Cette page de référence est réservée aux informations officielles et vérifiées sur les
-              trophées, distinctions et récompenses associées au programme des Cadets de l’Air.
-            </p>
-
-            <div class="placeholder-box">
-              <strong>[INFORMATION À FOURNIR]</strong>
-              <p>
-                Ajoutez ici les trophées, récompenses ou distinctions reconnues, en respectant les
-                sources officielles du programme et de l’escadron.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section class="section trophies-intro"><div class="container narrow"><p class="lead">Au fil des années, plusieurs trophées ont permis de souligner l’engagement, les efforts, la progression et les réalisations des cadets de l’Escadron 736 Mont-Joli. Découvrez les trophées remis au sein de l’Escadron ainsi que les personnes qui ont contribué à cette histoire.</p></div></section>
+      <section class="section trophies-catalog" aria-labelledby="trophies-title"><div class="container"><div class="section-heading"><span class="eyebrow">Archives de l’escadron</span><h2 id="trophies-title">Les trophées</h2><p>Sélectionnez un trophée pour consulter ses récipiendaires, du plus récent au plus ancien.</p></div><div class="trophies-grid" data-trophies-grid></div></div></section>
     </main>
+
+    <dialog class="trophy-dialog" data-trophy-dialog aria-labelledby="trophy-dialog-title"><div class="trophy-dialog-panel"><button class="trophy-dialog-close" type="button" data-trophy-close aria-label="Fermer l’historique du trophée">×</button><div class="trophy-dialog-body" data-trophy-dialog-body></div></div></dialog>
 
     <footer class="site-footer">
       <div class="container footer-grid">
