@@ -3519,6 +3519,60 @@ body:has(.registration-video) .registration-bubble {
 .history-continuation blockquote { margin: 2rem 0; color: var(--accent-500); font-size: clamp(1rem, 1.9vw, 1.45rem); font-weight: 700; line-height: 1.35; white-space: nowrap; }
 .history-continuation .btn-primary { margin-top: 0.35rem; border-color: var(--secondary-500); background: var(--secondary-500); box-shadow: 0 12px 24px rgba(217, 34, 47, 0.28); }
 .history-continuation .btn-primary:hover, .history-continuation .btn-primary:focus-visible { background: #b71925; box-shadow: 0 16px 28px rgba(217, 34, 47, 0.36); }
+
+.cadet-commanders-section {
+  background: var(--surface);
+}
+
+.cadet-commanders-placeholder {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px dashed rgba(20, 74, 142, 0.32);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 12px 28px rgba(7, 29, 58, 0.07);
+  text-align: center;
+}
+
+.cadet-commanders-placeholder-mark {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.9rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-strong);
+  color: var(--primary-700);
+  font-size: 1.7rem;
+  font-weight: 300;
+}
+
+.cadet-commanders-placeholder h3 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-800);
+}
+
+.cadet-commanders-placeholder > p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--text-700);
+}
+
+.cadet-commanders-list {
+  display: grid;
+  gap: 0.6rem;
+  max-height: 420px;
+  margin: 1.5rem auto 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style-position: inside;
+  text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cadet-commanders-placeholder-mark {
+    transition: none;
+  }
+}
 .reveal-on-scroll { animation: history-rise 0.65s ease both; animation-timeline: view(); animation-range: entry 0% cover 24%; }
 @keyframes history-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
