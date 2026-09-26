@@ -436,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector(selector)?.setAttribute('id', id);
     });
     const commanders = [
-      ['Enseigne de vaisseau de 1re classe', 'Éric Olivier', '2024 — Présent', true],
       ['Capitaine', 'Yves Galbrand', '2022 — 2024'],
       ['Capitaine', 'Sébastien Brillant', '2020 — 2022'],
       ['Sous-lieutenant', 'Marie-Ève Blais', '2018 — 2020'],
