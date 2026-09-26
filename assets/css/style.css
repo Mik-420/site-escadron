@@ -3179,7 +3179,7 @@ body:has(.registration-video) .registration-bubble {
 .trophy-card-button:hover .trophy-photo-placeholder img, .trophy-card-button:focus-visible .trophy-photo-placeholder img { transform: scale(1.03); }
 .trophy-card-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.15rem; }
 .trophy-card-number { color: var(--secondary-500); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-.trophy-card h3 { margin: 0.35rem 0 0.5rem; color: var(--primary-800); font-size: 1.08rem; line-height: 1.25; }
+.trophy-card h3 { margin: 0.4rem 0 1.2rem; color: var(--primary-800); font-size: clamp(1.2rem, 1.7vw, 1.45rem); line-height: 1.2; }
 .trophy-card p { margin: 0 0 1rem; color: var(--text-700); font-size: 0.88rem; }
 .trophy-card-cta { margin-top: auto; width: 100%; padding: 0.65rem 0.8rem; font-size: 0.8rem; text-align: center; }
 .trophy-dialog { width: min(900px, calc(100% - 2rem)); max-height: min(88vh, 850px); padding: 0; border: 0; border-radius: 16px; background: transparent; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32); color: var(--text-900); }
