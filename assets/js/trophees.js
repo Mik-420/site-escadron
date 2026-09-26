@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeButton = dialog?.querySelector('[data-trophy-close]');
   if (!grid || !dialog || !dialogBody) return;
 
-  const trophyImage = (number) => `../images/trophees/trophee-${String(number).padStart(2, '0')}.jpg`;
+  const trophyImage = (number) => {
+    if (number === 1) return '../Photos/trophees/1.png';
+    if (number >= 2 && number <= 6) return `../Photos/trophees/${number}.jpg`;
+    return '';
+  };
   const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[character]));
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const renderPhoto = (trophy, compact = false) => `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><span>Photo à ajouter</span><small>${escapeHtml(trophy.image)}</small></div>`;
+  const renderPhoto = (trophy, compact = false) => trophy.image ? `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><img src="${escapeHtml(trophy.image)}" alt="${escapeHtml(trophy.name)}" /></div>` : `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><span>Photo à ajouter</span><small>Photos/Trophées/${String(trophy.id.replace('trophy-', '')).padStart(2, '0')}.jpg</small></div>`;
   const renderCard = (trophy) => `<article class="trophy-card"><button class="trophy-card-button" type="button" data-trophy-id="${escapeHtml(trophy.id)}" aria-label="Voir les récipiendaires de ${escapeHtml(trophy.name)}">${renderPhoto(trophy)}<span class="trophy-card-content"><span class="trophy-card-number">Trophée</span><h3>${escapeHtml(trophy.name)}</h3>${trophy.description ? `<p>${escapeHtml(trophy.description)}</p>` : ''}<span class="btn btn-secondary trophy-card-cta">Voir les récipiendaires</span></span></button></article>`;
   const renderRecipients = (trophy) => trophy.recipients.length ? `<div class="trophy-recipient-list">${trophy.recipients.map((recipient) => `<div class="trophy-recipient"><strong>${escapeHtml(recipient.period)}</strong><small>${escapeHtml(recipient.rank || 'Grade non précisé')}</small><span>${escapeHtml(recipient.name)}</span></div>`).join('')}</div>` : '<div class="trophy-empty-state">Les récipiendaires seront ajoutés lorsque les informations seront disponibles.</div>';
 
