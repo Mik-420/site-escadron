@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!grid || !dialog || !dialogBody) return;
 
   const trophyImage = (number) => {
-    if (number === 1) return '../Photos/trophees/1.png';
+    if (number === 1) return '../Photos/trophees/1.jpg';
     if (number >= 2 && number <= 6) return `../Photos/trophees/${number}.jpg`;
     return '';
   };
