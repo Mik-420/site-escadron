@@ -3512,10 +3512,10 @@ body:has(.registration-video) .registration-bubble {
 .commander-empty-mark { color: var(--primary-500); font-size: 3rem; font-weight: 300; }
 .archives-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .archive-placeholder { display: grid; min-height: 160px; place-items: center; padding: 1rem; border: 1px dashed rgba(20, 74, 142, 0.34); background: var(--surface); color: var(--primary-800); font-weight: 700; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.history-continuation { padding: 6rem 0; background: linear-gradient(135deg, var(--primary-900), var(--primary-800)); color: var(--white); text-align: center; }
+.history-continuation { padding: 6rem 0; background: linear-gradient(135deg, #061d3a, #144a8e); color: var(--white); text-align: center; }
 .history-continuation-content { max-width: 760px; }
 .history-continuation h2 { color: var(--white); }
-.history-continuation p { color: var(--white); font-size: 1.02rem; }
+.history-continuation p { color: #ffffff; font-size: 1.02rem; opacity: 1; }
 .history-continuation blockquote { margin: 2rem 0; color: var(--accent-500); font-size: clamp(1rem, 1.9vw, 1.45rem); font-weight: 700; line-height: 1.35; white-space: nowrap; }
 .history-continuation .btn-primary { margin-top: 0.35rem; border-color: var(--secondary-500); background: var(--secondary-500); box-shadow: 0 12px 24px rgba(217, 34, 47, 0.28); }
 .history-continuation .btn-primary:hover, .history-continuation .btn-primary:focus-visible { background: #b71925; box-shadow: 0 16px 28px rgba(217, 34, 47, 0.36); }
