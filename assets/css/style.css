@@ -3323,7 +3323,8 @@ body:has(.registration-video) .registration-bubble {
 }
 
 .commander-portrait {
-  width: min(100%, 390px);
+  width: min(100%, 300px);
+  aspect-ratio: 3 / 4;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 16px;
@@ -3338,7 +3339,7 @@ body:has(.registration-video) .registration-bubble {
 
 .commander-portrait img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
   border-radius: 16px;
@@ -3450,11 +3451,11 @@ body:has(.registration-video) .registration-bubble {
   }
 
   .commander-portrait {
-    width: min(100%, 340px);
+    width: min(100%, 300px);
   }
 
   .commander-portrait img {
-    height: auto;
+    height: 100%;
   }
 
   .commander-letter {
