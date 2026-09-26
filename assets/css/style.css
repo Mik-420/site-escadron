@@ -3178,7 +3178,7 @@ body:has(.registration-video) .registration-bubble {
 .trophy-photo-placeholder img { width: 100%; height: auto; max-height: 100%; border-radius: 10px; object-fit: contain; display: block; transition: transform 0.25s ease; }
 .trophy-card-button:hover .trophy-photo-placeholder img, .trophy-card-button:focus-visible .trophy-photo-placeholder img { transform: scale(1.03); }
 .trophy-card-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.15rem; }
-.trophy-card-number { color: var(--secondary-500); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.trophy-card-number { color: var(--primary-700); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
 .trophy-card h3 { margin: 0.4rem 0 1.2rem; color: var(--primary-800); font-size: clamp(1.2rem, 1.7vw, 1.45rem); line-height: 1.2; }
 .trophy-card p { margin: 0 0 1rem; color: var(--text-700); font-size: 0.88rem; }
 .trophy-card-cta { margin-top: auto; width: 100%; padding: 0.65rem 0.8rem; font-size: 0.8rem; text-align: center; }
@@ -3323,17 +3323,10 @@ body:has(.registration-video) .registration-bubble {
 }
 
 .commander-portrait {
-  display: grid;
-  min-height: 330px;
-  place-items: center;
-  align-content: center;
-  gap: 0.6rem;
-  padding: 1.5rem;
-  border: 1px dashed rgba(20, 74, 142, 0.34);
-  border-radius: 12px;
-  background: var(--surface-strong);
-  color: var(--primary-700);
-  font-weight: 700;
+  width: min(100%, 390px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 .commander-portrait small {
@@ -3345,11 +3338,17 @@ body:has(.registration-video) .registration-bubble {
 
 .commander-portrait img {
   width: 100%;
-  height: 100%;
-  min-height: 330px;
+  height: auto;
   object-fit: cover;
   object-position: center top;
-  border-radius: 8px;
+  border-radius: 16px;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.commander-portrait:hover img,
+.commander-portrait:focus-within img {
+  transform: scale(1.05);
 }
 
 .commander-profile-details {
@@ -3451,15 +3450,21 @@ body:has(.registration-video) .registration-bubble {
   }
 
   .commander-portrait {
-    min-height: 240px;
+    width: min(100%, 340px);
   }
 
   .commander-portrait img {
-    min-height: 240px;
+    height: auto;
   }
 
   .commander-letter {
     padding: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commander-portrait img {
+    transition: none;
   }
 }
 
