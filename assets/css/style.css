@@ -3517,8 +3517,8 @@ body:has(.registration-video) .registration-bubble {
 .history-continuation h2 { color: var(--white); }
 .history-continuation p { color: #ffffff; font-size: 1.02rem; opacity: 1; }
 .history-continuation blockquote { margin: 2rem 0; color: var(--accent-500); font-size: clamp(1rem, 1.9vw, 1.45rem); font-weight: 700; line-height: 1.35; white-space: nowrap; }
-.history-continuation .btn-primary { margin-top: 0.35rem; border-color: var(--secondary-500); background: var(--secondary-500); box-shadow: 0 12px 24px rgba(217, 34, 47, 0.28); }
-.history-continuation .btn-primary:hover, .history-continuation .btn-primary:focus-visible { background: #b71925; box-shadow: 0 16px 28px rgba(217, 34, 47, 0.36); }
+.history-continuation .btn-primary { margin-top: 0.35rem; border-color: var(--white); background: var(--white); color: var(--primary-800); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18); }
+.history-continuation .btn-primary:hover, .history-continuation .btn-primary:focus-visible { background: var(--surface-strong); color: var(--primary-900); box-shadow: 0 16px 28px rgba(0, 0, 0, 0.24); }
 
 .cadet-commanders-section {
   background: var(--surface);
