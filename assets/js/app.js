@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
           _subject: '[Escadron 736] Rapport de visite consenti',
           _template: 'box',
           'Organisation': 'Escadron 736 Mont-Joli des Cadets de l’Air',
-          'Logo officiel': 'https://escadron736.ca/Photos/logo.png',
+          'Logo officiel': 'https://escadron736.ca/assets/images/logo-escadron.png',
           'Type de rapport': 'Consentement accepté aux mesures d’audience',
           'Date et heure de la visite': new Date().toLocaleString('fr-CA'),
           'Page visitée': window.location.href,
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
     accessGate.setAttribute('aria-label', 'Accès privé au site');
-    accessGate.innerHTML = `<div class="access-gate-panel"><form class="access-gate-form"><button class="access-logo-button" type="button" aria-label="Accès privé"><img src="/Photos/logo.png" alt="Logo de l’Escadron 736 Mont-Joli" /></button><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="visually-hidden" type="submit" tabindex="-1">Valider</button></form></div>`;
+    accessGate.innerHTML = `<div class="access-gate-panel"><form class="access-gate-form"><button class="access-logo-button" type="button" aria-label="Accès privé"><img src="/assets/images/logo-escadron.png" alt="Logo de l’Escadron 736 Mont-Joli" /></button><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="visually-hidden" type="submit" tabindex="-1">Valider</button></form></div>`;
     document.body.prepend(accessGate);
     const accessForm = accessGate.querySelector('form');
     const accessInput = accessGate.querySelector('input');
@@ -138,15 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const officialLogo = '/Photos/logo.png';
+  const officialLogo = '/assets/images/logo-escadron.png';
   document.querySelectorAll('img[src*="logo-placeholder.svg"]').forEach((image) => {
     image.src = officialLogo;
   });
 
   const favicon = document.querySelector('link[rel="icon"]');
   if (favicon) {
-    favicon.href = officialLogo;
-    favicon.type = 'image/avif';
+    favicon.href = '/favicon.png?v=logo-20260927';
+    favicon.type = 'image/png';
   }
 
   const heroVideo = document.querySelector('.hero-video');
@@ -430,6 +430,142 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const historyPage = document.querySelector('.history-page');
+  if (historyPage) {
+    const heroMedia = historyPage.querySelector('.history-hero-media');
+    if (heroMedia) {
+      heroMedia.removeAttribute('role');
+      heroMedia.removeAttribute('aria-label');
+      heroMedia.innerHTML = '<img src="Photos/Banniere.jpg" alt="Cadets de l’Escadron 736 réunis devant un hélicoptère" />';
+    }
+
+    const heroEyebrow = historyPage.querySelector('.history-hero-content .eyebrow');
+    const heroTitle = historyPage.querySelector('.history-hero-content h1');
+    const heroSubtitle = historyPage.querySelector('.history-hero-content p');
+    if (heroEyebrow) heroEyebrow.textContent = 'Notre Histoire';
+    if (heroTitle) heroTitle.textContent = 'Notre Histoire';
+    if (heroSubtitle) heroSubtitle.textContent = 'Une passion pour l’aviation qui traverse les générations.';
+
+    const beginningsImage = historyPage.querySelector('.history-introduction .history-photo-placeholder');
+    if (beginningsImage) {
+      beginningsImage.classList.add('has-photo', 'history-logo-photo');
+      beginningsImage.removeAttribute('role');
+      beginningsImage.removeAttribute('aria-label');
+      beginningsImage.innerHTML = '<img src="assets/images/logo-escadron.png" alt="Logo de l’Escadron 736 Mont-Joli" />';
+    }
+
+    const founderImage = historyPage.querySelector('.history-founder .founder-photo');
+    if (founderImage) {
+      founderImage.classList.add('has-photo', 'founder-archive-photo');
+      founderImage.removeAttribute('role');
+      founderImage.removeAttribute('aria-label');
+      founderImage.innerHTML = '<img src="Photos/major-ivan-ross.jpeg" alt="Portrait historique du major Ivan Ross" />';
+    }
+
+    const regionImage = historyPage.querySelector('.history-region-image');
+    if (regionImage) {
+      regionImage.classList.add('has-photo');
+      regionImage.removeAttribute('role');
+      regionImage.removeAttribute('aria-label');
+      regionImage.innerHTML = '<img src="Photos/bcatp-mont-joli.jpg" alt="Aviateurs devant un avion d’entraînement de la Seconde Guerre mondiale" />';
+    }
+
+    const regionCopy = historyPage.querySelector('.history-region .history-copy');
+    if (regionCopy) {
+      regionCopy.innerHTML = '<span class="eyebrow">Un territoire aéronautique</span><h2>Une région profondément liée à l’aviation</h2><p>L’histoire de l’Escadron 736 s’inscrit dans une région possédant un riche patrimoine aéronautique.</p><p>De 1941 à 1945, Mont-Joli a accueilli la 9e École de bombardement et de tir de l’Aviation royale canadienne. Établie dans le cadre du Programme d’entraînement aérien du Commonwealth britannique, cette école a formé plus de 6 000 aviateurs durant la Seconde Guerre mondiale.</p><p>Cet héritage se poursuit aujourd’hui avec l’aéroport régional de Mont-Joli, qui demeure un acteur important du développement aéronautique de l’Est-du-Québec.</p><p>L’Escadron 736 s’inscrit dans cette tradition en permettant aux nouvelles générations de découvrir l’aviation et l’aérospatiale, tout en développant leur leadership et leur esprit d’équipe.</p>';
+    }
+
+    const frameDialog = historyPage.querySelector('[data-cadet-frame-dialog]');
+    const frameDialogImage = frameDialog?.querySelector('[data-cadet-frame-large]');
+    const frameCloseButton = frameDialog?.querySelector('[data-cadet-frame-close]');
+    let lastFrameTrigger = null;
+    historyPage.querySelectorAll('[data-frame-src]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!frameDialog || !frameDialogImage) return;
+        lastFrameTrigger = button;
+        frameDialogImage.src = button.dataset.frameSrc;
+        frameDialogImage.alt = button.dataset.frameAlt || 'Cadre d’hommage aux Cadets-Commandants';
+        frameDialog.showModal();
+        frameCloseButton?.focus();
+      });
+    });
+    frameCloseButton?.addEventListener('click', () => frameDialog?.close());
+    frameDialog?.addEventListener('click', (event) => {
+      if (event.target === frameDialog) frameDialog.close();
+    });
+    frameDialog?.addEventListener('close', () => lastFrameTrigger?.focus());
+
+    const cadetCommandersList = historyPage.querySelector('[data-cadet-commanders-list]');
+    if (cadetCommandersList) {
+      const cadetCommanders = [
+        ['Adjudant', 'Raymond Boulanger', '1963 – 1974'],
+        ['Adjudant', 'Louis-Ange Ratté', '1963 – 1974'],
+        ['Adjudant', 'Claude Bernier', '1963 – 1974'],
+        ['Adjudant', 'Denis Morissette', '1963 – 1974'],
+        ['Adjudant', 'Gilles Lavoie', '1963 – 1974'],
+        ['Adjudant', 'Kenneth Trottier', '1963 – 1974'],
+        ['Adjudant', 'Mario Bélanger', '1974 – 1975'],
+        ['Adjudant', 'Charles Langlois', '1975 – 1976'],
+        ['Adjudant', 'Gérald Blais', '1976 – 1983'],
+        ['Adjudant', 'Steeve Levesque', '1976 – 1983'],
+        ['Adjudant', 'Pauline Sergerie', '1976 – 1983'],
+        ['Adjudant', 'Mario Gagnon', '1976 – 1983'],
+        ['Adjudant', 'Patrice Boudreau', '1976 – 1983'],
+        ['Adjudant', 'Côme Savard', '1983 – 1987'],
+        ['Adjudant', 'Éric Joubert', '1983 – 1987'],
+        ['Adjudant', 'Nancy Tremblay', '1983 – 1987 G'],
+        ['', 'Gino Banville', '1987'],
+        ['Adjudant', 'Francis Gonthier', '1987 – 1988'],
+        ['Adjudant', 'Michel Caouette', '1988 – 1989'],
+        ['Adjudant', 'Louis Beaulieu', ''],
+        ['Adjudant 1', 'Carl Joubert', '1990 – 1991'],
+        ['Adjudant 1', 'Nancy Ouellet', '1991 – 1992'],
+        ['Adjudant 1', 'Dominique Joubert', '1992 – 1993'],
+        ['Adjudant 1', 'Andrée Gauthier', '1993 – 1994'],
+        ['Adjudant 1', 'Sacha Dubé', '1994'],
+        ['Adjudant 1', 'Frédéric Munger', '1994 – 1995'],
+        ['Adjudant 1', 'Sébastien Pouliot', '1995 – 1997'],
+        ['Adjudant 1', 'Geneviève Paquet', '1997 – 1998'],
+        ['Adjudant 1', 'Olivier Harton', '1998 – 1999'],
+        ['Adjudant 1', 'Pascal Beaulieu', '1999 – 2000'],
+        ['Adjudant 1', 'Martin Pâquet', '2000'],
+        ['Adjudant 1', 'Notola Chouinard', '2000 – 2002'],
+        ['Adjudant 1', 'Marie-Claude Beaulieu', '2002 – 2003'],
+        ['Adjudant 1', 'Alexandre Bouchard', '2003 – 2004'],
+        ['Adjudant 2', 'Nancy Fournier', '2004'],
+        ['Adjudant 2', 'Noémie St-Laurent', '2004 – 2005'],
+        ['Adjudant 2', 'Elaine André-Guilbault', '2005 – 2007'],
+        ['Adjudant 1', 'Marie-Christine Bernier', '2007 – 2008'],
+        ['Adjudant 1', 'Vincent Bouchard', '2008 – 2010'],
+        ['Adjudant 1', 'Marc-Antoine Bouchard', '2010 – 2011'],
+        ['Adjudant 1', 'Alexandre Hamel', '2011 – 2013']
+      ];
+      cadetCommandersList.replaceChildren(...cadetCommanders.map(([rank, name, years]) => {
+        const item = document.createElement('li');
+        item.className = 'cadet-commander-entry';
+        if (years) {
+          const period = document.createElement('span');
+          period.className = 'cadet-commander-years';
+          period.textContent = years;
+          item.appendChild(period);
+        }
+        const details = document.createElement('span');
+        details.className = 'cadet-commander-details';
+        if (rank) {
+          const grade = document.createElement('span');
+          grade.className = 'cadet-commander-rank';
+          grade.textContent = rank;
+          details.appendChild(grade);
+        }
+        const cadetName = document.createElement('strong');
+        cadetName.textContent = name;
+        details.appendChild(cadetName);
+        item.appendChild(details);
+        return item;
+      }));
+    }
+  }
+
   const commandersGrid = document.querySelector('.history-commanders .commanders-grid');
   if (commandersGrid) {
     [['.history-introduction', 'history-beginnings'], ['.history-founder', 'history-founder'], ['.history-commanders', 'history-commanders'], ['.history-timeline-section', 'history-timeline'], ['.history-archives', 'history-archives']].forEach(([selector, id]) => {
@@ -439,9 +575,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Capitaine', 'Yves Galbrand', '2022 — 2024'],
       ['Capitaine', 'Sébastien Brillant', '2020 — 2022'],
       ['Sous-lieutenant', 'Marie-Ève Blais', '2018 — 2020'],
-      ['Capitaine de corvette', 'Gaétan Beaudin', 'Période à confirmer — 2016'],
-      ['Major', 'Chenard', 'Période à confirmer'],
-      ['À confirmer', 'Christine Bouchard', '2013 — Période à confirmer'],
+      ['Capitaine de corvette', 'Gaétan Beaudin', '2016'],
+      ['Major', 'Chenard', ''],
+      ['À confirmer', 'Christine Bouchard', '2013'],
       ['Capitaine', 'Yves Galbrand', '2009 — 2013'],
       ['Lieutenant de vaisseau', 'Jean Côté', '2008 — 2009'],
       ['Capitaine', 'Sylvain Gagnon', '2005 — 2008'],
@@ -463,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionHeading.innerHTML = '<span class="eyebrow">Archives historiques</span><h2>Hommage à nos officiers commandants</h2><p class="history-section-subtitle">Escadron 736 Mont-Joli</p><p>Depuis sa fondation, l’Escadron 736 Mont-Joli a été dirigé par plusieurs officiers commandants qui ont contribué, au fil des années, à son développement, à son évolution et à son rayonnement auprès des jeunes de la région.</p><p>Cette section rend hommage aux personnes qui ont assumé la responsabilité de l’Escadron 736 Mont-Joli au cours de son histoire.</p>';
     }
     commandersGrid.className = 'commanders-timeline';
-    commandersGrid.innerHTML = commanders.map(([rank, name, term, isCurrent]) => `<article class="commander-card commander-timeline-card${isCurrent ? ' is-current' : ''} reveal-on-scroll"><div class="commander-timeline-marker" aria-hidden="true">${isCurrent ? '★' : '◆'}</div><div class="commander-timeline-content">${isCurrent ? '<span class="commander-current-badge">Commandant actuel</span>' : ''}<p class="history-kicker">${rank}</p><h3>${name}</h3><p class="commander-role">Officier commandant</p><p class="founder-years">${term}</p></div></article>`).join('');
+    commandersGrid.innerHTML = commanders.slice().reverse().map(([rank, name, term, isCurrent]) => `<article class="commander-card commander-timeline-card${isCurrent ? ' is-current' : ''} reveal-on-scroll"><div class="commander-timeline-marker" aria-hidden="true">${isCurrent ? '★' : '◆'}</div><div class="commander-timeline-content">${isCurrent ? '<span class="commander-current-badge">Commandant actuel</span>' : ''}<p class="history-kicker">${rank}</p><h3>${name}</h3><p class="commander-role">Officier commandant</p>${term ? `<p class="founder-years">${term}</p>` : ''}</div></article>`).join('');
   }
 
   const uniformSubnav = document.querySelector('.uniform-subnav');
