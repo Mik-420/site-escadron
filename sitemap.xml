@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://escadron736.ca/</loc><priority>1.0</priority></url>
+  <url><loc>https://escadron736.ca/accueil.html</loc><priority>1.0</priority></url>
   <url><loc>https://escadron736.ca/accueil/devenir-cadet.html</loc></url>
   <url><loc>https://escadron736.ca/histoire.html</loc></url>
   <url><loc>https://escadron736.ca/membre-du-personnel.html</loc></url>
-  <url><loc>https://escadron736.ca/notre-equipe.html</loc></url>
   <url><loc>https://escadron736.ca/comite-repondant.html</loc></url>
   <url><loc>https://escadron736.ca/nos-commanditaires.html</loc></url>
   <url><loc>https://escadron736.ca/faire-un-don.html</loc></url>
@@ -13,7 +12,8 @@
   <url><loc>https://escadron736.ca/cadets/index.html</loc></url>
   <url><loc>https://escadron736.ca/cadets/trophees.html</loc></url>
   <url><loc>https://escadron736.ca/cadets/grades.html</loc></url>
-  <url><loc>https://escadron736.ca/cadets/uniforme.html</loc></url>
-  <url><loc>https://escadron736.ca/politique-de-confidentialite.html</loc></url>
-  <url><loc>https://escadron736.ca/conditions-generales-utilisation.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/uniforme/Tenue.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/uniforme/Port-de-l-uniforme.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/uniforme/Cheveux-Bijoux.html</loc></url>
+  <url><loc>https://escadron736.ca/cadets/uniforme/Entretien-de-l-uniforme.html</loc></url>
 </urlset>

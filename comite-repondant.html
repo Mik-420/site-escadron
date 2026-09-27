@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="refresh" content="0; url=membre-du-personnel.html" />
-    <title>Notre Équipe | Escadron 736 Mont-Joli</title>
-    <meta name="description" content="Comité répondant de l’Escadron 736 Mont-Joli." />
+    <title>Comité répondant | Escadron 736 Mont-Joli</title>
+
     <link rel="icon" href="favicon.png" type="image/png" /><link rel="stylesheet" href="assets/css/style.css?v=contact-menu" />
     <script defer src="assets/js/site-config.js"></script><script defer src="assets/js/app.js?v=logo-20260927"></script>
-  </head>
+    <meta name="description" content="Découvrez le comité répondant de l’Escadron 736 Mont-Joli et son implication auprès des cadets, de leurs familles et de la communauté de La Mitis." />
+    <link rel="canonical" href="https://escadron736.ca/comite-repondant.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Comité répondant | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Découvrez le comité répondant de l’Escadron 736 Mont-Joli et son implication auprès des cadets, de leurs familles et de la communauté de La Mitis." />
+    <meta property="og:url" content="https://escadron736.ca/comite-repondant.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Comité répondant | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Découvrez le comité répondant de l’Escadron 736 Mont-Joli et son implication auprès des cadets, de leurs familles et de la communauté de La Mitis." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body><header class="site-header"><div class="container nav-wrap"><a href="accueil.html" class="brand"><img src="assets/images/logo-placeholder.svg" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong data-site-name>Escadron 736</strong><small>Mont-Joli</small></span></a><button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="Navigation principale"><ul><li><a href="accueil.html">Accueil</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li class="dropdown"><button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button><ul class="dropdown-menu"><li><a href="cadets/trophees.html">Trophées</a></li><li><a href="cadets/grades.html">Grades</a></li><li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li></ul></li><li><a href="histoire.html">À propos</a></li></ul></nav></div></header><main><section class="page-hero compact-hero"><div class="container"><span class="eyebrow">Contact</span><h1>Comité répondant</h1></div></section><section class="section"><div class="container narrow"><article class="content-card"><h2>Comité répondant</h2><p>Cette page présentera les informations officielles concernant le comité répondant de l’Escadron 736 Mont-Joli.</p><div class="placeholder-box"><strong>Contenu à venir</strong><p>Les informations seront ajoutées lorsqu’elles auront été confirmées par l’escadron.</p></div></article></div></section></main><footer class="site-footer"><div class="container footer-bottom"><p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p></div></footer></body>
 </html>

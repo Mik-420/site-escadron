@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Le port de l’uniforme | Escadron 736 Mont-Joli</title><meta name="description" content="Référence sur le port de l’uniforme des cadets." />
+    <title>Port de l’uniforme | Escadron 736 Mont-Joli</title>
     <link rel="icon" href="../../favicon.png" type="image/png" /><link rel="stylesheet" href="../../assets/css/style.css?v=uniform-reference-2" />
     <script defer src="../../assets/js/site-config.js"></script><script defer src="../../assets/js/app.js?v=logo-20260927"></script>
-  </head>
+    <meta name="description" content="Consultez les consignes sur le port de l’uniforme des Cadets de l’Air à l’Escadron 736 Mont-Joli, avec des repères destinés aux cadets et familles." />
+    <link rel="canonical" href="https://escadron736.ca/cadets/uniforme/Port-de-l-uniforme.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Port de l’uniforme | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Consultez les consignes sur le port de l’uniforme des Cadets de l’Air à l’Escadron 736 Mont-Joli, avec des repères destinés aux cadets et familles." />
+    <meta property="og:url" content="https://escadron736.ca/cadets/uniforme/Port-de-l-uniforme.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Port de l’uniforme | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Consultez les consignes sur le port de l’uniforme des Cadets de l’Air à l’Escadron 736 Mont-Joli, avec des repères destinés aux cadets et familles." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body>
     <header class="site-header"><div class="container nav-wrap"><a href="../../index.html" class="brand"><img src="../../assets/images/logo-placeholder.svg" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong data-site-name>Escadron 736</strong><small>Mont-Joli</small></span></a><button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="Navigation principale"><ul><li><a href="../../index.html">Accueil</a></li><li><a href="../../histoire.html">Notre histoire</a></li><li><a href="../../portfolio.html">Portfolio</a></li><li><a href="../../contact.html">Contact</a></li><li class="dropdown"><button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button><ul class="dropdown-menu"><li><a href="../trophees.html">Trophées</a></li><li><a href="../grades.html">Grades</a></li><li><a href="Tenue.html" class="active">Uniforme</a></li></ul></li><li><a href="#" class="btn btn-primary" data-registration-link>S’inscrire</a></li></ul></nav></div></header>
     <main>

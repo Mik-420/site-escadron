@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nos trophées — Escadron 736 Mont-Joli</title>
-    <meta name="description" content="Découvrez les trophées de l’Escadron 736 Mont-Joli et l’historique des cadets et membres qui les ont reçus au fil des années." />
+    <title>Trophées | Escadron 736 Mont-Joli</title>
+
     <link rel="icon" href="../favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +31,22 @@
     <script defer src="../assets/js/site-config.js"></script>
     <script defer src="../assets/js/app.js?v=logo-20260927"></script>
     <script defer src="../assets/js/trophees.js"></script>
-  </head>
+    <meta name="description" content="Découvrez les trophées de l’Escadron 736 Mont-Joli et consultez les récipiendaires qui ont marqué l’histoire des Cadets de l’Air depuis 1963." />
+    <link rel="canonical" href="https://escadron736.ca/cadets/trophees.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Trophées | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Découvrez les trophées de l’Escadron 736 Mont-Joli et consultez les récipiendaires qui ont marqué l’histoire des Cadets de l’Air depuis 1963." />
+    <meta property="og:url" content="https://escadron736.ca/cadets/trophees.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trophées | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Découvrez les trophées de l’Escadron 736 Mont-Joli et consultez les récipiendaires qui ont marqué l’histoire des Cadets de l’Air depuis 1963." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body>
     <header class="site-header">
       <div class="container nav-wrap">

@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notre histoire | Escadron 736 Mont-Joli</title>
-    <meta name="description" content="Découvrez l’histoire de l’Escadron 736 Mont-Joli, fondé en 1963 par le major Ivan Ross, et son héritage auprès des générations de jeunes passionnés d’aviation de la région." />
+    <title>Histoire de l’Escadron 736 Mont-Joli | Cadets de l’Air</title>
+
     <link rel="icon" href="favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +30,22 @@
     <link rel="stylesheet" href="assets/css/style.css?v=history-20260927" />
     <script defer src="assets/js/site-config.js"></script>
     <script defer src="assets/js/app.js?v=logo-20260927"></script>
-  </head>
+    <meta name="description" content="Découvrez l’histoire de l’Escadron 736 Mont-Joli, fondé en 1963, son hommage aux commandants et le patrimoine aéronautique de La Mitis et du Bas-Saint-Laurent." />
+    <link rel="canonical" href="https://escadron736.ca/histoire.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Histoire de l’Escadron 736 Mont-Joli | Cadets de l’Air" />
+    <meta property="og:description" content="Découvrez l’histoire de l’Escadron 736 Mont-Joli, fondé en 1963, son hommage aux commandants et le patrimoine aéronautique de La Mitis et du Bas-Saint-Laurent." />
+    <meta property="og:url" content="https://escadron736.ca/histoire.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Histoire de l’Escadron 736 Mont-Joli | Cadets de l’Air" />
+    <meta name="twitter:description" content="Découvrez l’histoire de l’Escadron 736 Mont-Joli, fondé en 1963, son hommage aux commandants et le patrimoine aéronautique de La Mitis et du Bas-Saint-Laurent." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body>
     <header class="site-header">
       <div class="container nav-wrap">
@@ -77,16 +110,16 @@
           </div>
           <div class="cadet-commander-frames">
             <article class="cadet-commander-frame-card">
-              <button class="cadet-commander-frame-button" type="button" data-frame-src="Photos/cadres/cadre-1.png" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque" aria-label="Consulter le premier cadre d’hommage aux Cadets-Commandants">
-                <img src="Photos/cadres/cadre-1.png" alt="Premier cadre d’hommage aux Cadets-Commandants" />
+              <button class="cadet-commander-frame-button" type="button" data-frame-src="Photos/cadres/cadre-1.webp" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque" aria-label="Consulter le premier cadre d’hommage aux Cadets-Commandants">
+                <img src="Photos/cadres/cadre-1.webp" alt="Premier cadre d’hommage aux Cadets-Commandants" loading="lazy" decoding="async" />
               </button>
-              <button class="cadet-commander-consult-button" type="button" data-frame-src="Photos/cadres/cadre-1.png" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque">Consulter</button>
+              <button class="cadet-commander-consult-button" type="button" data-frame-src="Photos/cadres/cadre-1.webp" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque">Consulter</button>
             </article>
             <article class="cadet-commander-frame-card">
-              <button class="cadet-commander-frame-button" type="button" data-frame-src="Photos/cadres/cadre-2.png" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque" aria-label="Consulter le deuxième cadre d’hommage aux Cadets-Commandants">
-                <img src="Photos/cadres/cadre-2.png" alt="Deuxième cadre d’hommage aux Cadets-Commandants" />
+              <button class="cadet-commander-frame-button" type="button" data-frame-src="Photos/cadres/cadre-2.webp" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque" aria-label="Consulter le deuxième cadre d’hommage aux Cadets-Commandants">
+                <img src="Photos/cadres/cadre-2.webp" alt="Deuxième cadre d’hommage aux Cadets-Commandants" loading="lazy" decoding="async" />
               </button>
-              <button class="cadet-commander-consult-button" type="button" data-frame-src="Photos/cadres/cadre-2.png" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque">Consulter</button>
+              <button class="cadet-commander-consult-button" type="button" data-frame-src="Photos/cadres/cadre-2.webp" data-frame-alt="Cadre d’hommage aux Cadets-Commandants, avec les noms et années inscrits sur la plaque">Consulter</button>
             </article>
           </div>
         </div>

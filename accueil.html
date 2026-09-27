@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Escadron 736 Mont-Joli | Cadets de l'Air 12-18 ans</title>
-    <meta name="description" content="L'Escadron 736 Mont-Joli accueille les jeunes de 12 à 18 ans dans le Programme des cadets de l'Air : aviation, leadership, sport et activités au Bas-Saint-Laurent." />
-    <link rel="canonical" href="https://escadron736.ca/" />
-    <meta property="og:title" content="Escadron 736 Mont-Joli | Cadets de l'Air 12-18 ans" />
-    <meta property="og:description" content="Programme des cadets de l'Air à Mont-Joli : aviation, leadership, sport et activités pour les jeunes de 12 à 18 ans." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://escadron736.ca/" />
+    <title>Escadron 736 Mont-Joli | Cadets de l’Air</title>
+
+
+
+
+
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -18,15 +36,31 @@
             "@type": "Organization",
             "@id": "https://escadron736.ca/#organization",
             "name": "Escadron 736 Mont-Joli",
-            "url": "https://escadron736.ca/",
+            "url": "https://escadron736.ca/accueil.html",
             "description": "Escadron des Cadets de l’Air de Mont-Joli offrant aux jeunes des activités d’aviation, de leadership, de sport et de développement personnel.",
+            "foundingDate": "1963",
+            "logo": "https://escadron736.ca/assets/images/logo-escadron.webp",
+            "email": "contact@escadron736.ca",
+            "telephone": "+1-418-775-8794",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "254 AV ROSS",
+              "addressLocality": "Mont-Joli",
+              "addressRegion": "QC",
+              "postalCode": "G5H 3M4",
+              "addressCountry": "CA"
+            },
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=100092501214672",
+              "https://www.instagram.com/escadron736/"
+            ],
             "areaServed": "Mont-Joli et les environs"
           },
           {
             "@type": "WebSite",
             "@id": "https://escadron736.ca/#website",
             "name": "Escadron 736 Mont-Joli",
-            "url": "https://escadron736.ca/",
+            "url": "https://escadron736.ca/accueil.html",
             "publisher": { "@id": "https://escadron736.ca/#organization" },
             "inLanguage": "fr-CA"
           }
@@ -37,7 +71,22 @@
     <link rel="stylesheet" href="assets/css/style.css?v=suggestion-professional" />
     <script defer src="assets/js/site-config.js"></script>
     <script defer src="assets/js/app.js?v=logo-20260927"></script>
-  </head>
+    <meta name="description" content="L’Escadron 736 Mont-Joli accueille les jeunes de 12 à 18 ans aux Cadets de l’Air : aviation, leadership et activités dans La Mitis et le Bas-Saint-Laurent." />
+    <link rel="canonical" href="https://escadron736.ca/accueil.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Escadron 736 Mont-Joli | Cadets de l’Air" />
+    <meta property="og:description" content="L’Escadron 736 Mont-Joli accueille les jeunes de 12 à 18 ans aux Cadets de l’Air : aviation, leadership et activités dans La Mitis et le Bas-Saint-Laurent." />
+    <meta property="og:url" content="https://escadron736.ca/accueil.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Escadron 736 Mont-Joli | Cadets de l’Air" />
+    <meta name="twitter:description" content="L’Escadron 736 Mont-Joli accueille les jeunes de 12 à 18 ans aux Cadets de l’Air : aviation, leadership et activités dans La Mitis et le Bas-Saint-Laurent." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body>
     <a class="skip-link" href="#main-content">Aller au contenu</a>
     <header class="site-header"><div class="container nav-wrap"><a href="accueil.html" class="brand" aria-label="Accueil - Escadron 736 Mont-Joli"><img src="assets/images/logo-placeholder.svg" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong data-site-name>Escadron 736</strong><small>Mont-Joli</small></span></a><button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="Navigation principale"><ul><li><a href="accueil.html" class="active">Accueil</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li class="dropdown"><button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button><ul class="dropdown-menu"><li><a href="cadets/trophees.html">Trophées</a></li><li><a href="cadets/grades.html">Grades</a></li><li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li></ul></li><li><a href="histoire.html">À propos</a></li><li><a href="#" class="btn btn-primary" data-registration-link>S’inscrire</a></li></ul></nav></div></header>

@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grades | Escadron 736 Mont-Joli</title>
-    <meta name="description" content="Informations de référence sur les grades des Cadets de l'Air." />
+    <title>Grades des Cadets de l’Air | Escadron 736 Mont-Joli</title>
+
     <link rel="icon" href="../favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +30,22 @@
     <link rel="stylesheet" href="../assets/css/style.css" />
     <script defer src="../assets/js/site-config.js"></script>
     <script defer src="../assets/js/app.js?v=logo-20260927"></script>
-  </head>
+    <meta name="description" content="Consultez les grades et insignes des Cadets de l’Air avec ce guide destiné aux cadets et aux familles de l’Escadron 736 Mont-Joli et de la région." />
+    <link rel="canonical" href="https://escadron736.ca/cadets/grades.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Grades des Cadets de l’Air | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Consultez les grades et insignes des Cadets de l’Air avec ce guide destiné aux cadets et aux familles de l’Escadron 736 Mont-Joli et de la région." />
+    <meta property="og:url" content="https://escadron736.ca/cadets/grades.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Grades des Cadets de l’Air | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Consultez les grades et insignes des Cadets de l’Air avec ce guide destiné aux cadets et aux familles de l’Escadron 736 Mont-Joli et de la région." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
   <body>
     <header class="site-header">
       <div class="container nav-wrap">

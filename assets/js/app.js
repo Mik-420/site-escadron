@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
           _subject: '[Escadron 736] Rapport de visite consenti',
           _template: 'box',
           'Organisation': 'Escadron 736 Mont-Joli des Cadets de l’Air',
-          'Logo officiel': 'https://escadron736.ca/assets/images/logo-escadron.png',
+          'Logo officiel': 'https://escadron736.ca/assets/images/logo-escadron.webp',
           'Type de rapport': 'Consentement accepté aux mesures d’audience',
           'Date et heure de la visite': new Date().toLocaleString('fr-CA'),
           'Page visitée': window.location.href,
@@ -80,12 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.dataset.analyticsConsent = value;
     window.dispatchEvent(new CustomEvent('escadron736:analytics-consent', { detail: { value } }));
   };
+  window.addEventListener('escadron736:analytics-consent', (event) => {
+    if (event.detail?.value === 'accepted') window.loadEscadronGoogleAnalytics?.();
+  });
   const showConsentBanner = () => {
     if (getCookie(consentCookie)) return;
     const banner = document.createElement('aside');
     banner.className = 'cookie-consent';
     banner.setAttribute('aria-label', 'Préférences de confidentialité');
-    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Avec votre accord, le site mémorise votre choix et envoie une notification contenant la page consultée, la date, le type d’appareil, l’adresse IP publique et une localisation approximative par IP (ville, région et pays). Aucune position GPS précise n’est demandée.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
+    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Si vous acceptez, Google Analytics est activé pour mesurer la fréquentation du site. Le site mémorise votre choix et envoie aussi une notification contenant la page consultée, la date, le type d’appareil, l’adresse IP publique et une localisation approximative déduite de cette adresse (ville, région et pays). Aucune position GPS précise n’est demandée. Si vous refusez, Google Analytics ne sera pas activé.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
     document.body.append(banner);
     banner.querySelectorAll('[data-consent]').forEach((button) => {
       button.addEventListener('click', () => {
@@ -108,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const accessGate = document.createElement('section');
     accessGate.className = 'access-gate';
     accessGate.setAttribute('aria-label', 'Accès privé au site');
-    accessGate.innerHTML = `<div class="access-gate-panel"><form class="access-gate-form"><button class="access-logo-button" type="button" aria-label="Accès privé"><img src="/assets/images/logo-escadron.png" alt="Logo de l’Escadron 736 Mont-Joli" /></button><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="visually-hidden" type="submit" tabindex="-1">Valider</button></form></div>`;
+    accessGate.innerHTML = `<div class="access-gate-panel"><form class="access-gate-form"><button class="access-logo-button" type="button" aria-label="Accès privé"><img src="/assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" /></button><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="visually-hidden" type="submit" tabindex="-1">Valider</button></form></div>`;
     document.body.prepend(accessGate);
     const accessForm = accessGate.querySelector('form');
     const accessInput = accessGate.querySelector('input');
@@ -138,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const officialLogo = '/assets/images/logo-escadron.png';
+  const officialLogo = '/assets/images/logo-escadron.webp';
   document.querySelectorAll('img[src*="logo-placeholder.svg"]').forEach((image) => {
     image.src = officialLogo;
   });
@@ -382,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const profiles = personnelProfiles.map(([role, name, description], index) => {
       const photo = context === 'escadron' && index < personnelProfiles.length ? `Photos/Équipe/Personnel/${index + 1}.jpg` : '';
-      return `<article class="staff-card"><div class="staff-photo">${photo ? `<img src="${photo}" alt="Photo de ${name}" />` : 'Photo à ajouter'}</div><p class="staff-role">${role || 'Poste à ajouter'}</p><h3>${name}</h3><p class="staff-description">${description || `Une courte description du rôle, des responsabilités et de la contribution de cette personne au sein du ${context}.`}</p></article>`;
+      return `<article class="staff-card"><div class="staff-photo">${photo ? `<img src="${photo}" alt="Photo de ${name}" loading="lazy" decoding="async" />` : 'Photo à ajouter'}</div><p class="staff-role">${role || 'Poste à ajouter'}</p><h3>${name}</h3><p class="staff-description">${description || `Une courte description du rôle, des responsabilités et de la contribution de cette personne au sein du ${context}.`}</p></article>`;
     }).join('');
     const committeeMembers = [
       ['Marie Desneiges', 'Présidente du comité répondant'],
@@ -392,9 +395,13 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Olivier Ross', 'Bénévole'],
       ['Mikael Tremblay', 'Bénévole']
     ];
-    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg" alt="Photo de ${name}" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
+    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg" alt="Photo de ${name}" loading="lazy" decoding="async" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
     const commanderMessage = `<section class="commander-message commander-message-new"><div class="commander-section-heading"><span class="eyebrow">Mot du commandant</span><h2>Mot du commandant</h2><p>Une vision pour l’Escadron 736 Mont-Joli</p></div><div class="commander-message-layout"><div class="commander-profile"><div class="commander-portrait"><img src="Photos/commandant-eric-olivier.jpg" alt="Éric-Olivier Lévesque, officier commandant de l’Escadron 736 Mont-Joli" /></div><div class="commander-profile-details"><p class="commander-rank">Enseigne de vaisseau de 1re classe</p><h3>Éric-Olivier Lévesque</h3><p>Officier commandant</p><p>Escadron 736 Mont-Joli</p></div></div><div class="commander-letter"><h3>Mot du commandant</h3><p>C’est avec une grande fierté que je m’adresse aux cadets, à leurs familles, ainsi qu’à tous ceux et celles qui contribuent à la vie de l’Escadron 736 Mont-Joli.</p><p>Notre escadron offre aux jeunes un environnement structuré, stimulant et positif, où ils peuvent apprendre, relever des défis et développer de nouvelles compétences. À travers les différentes activités proposées, les cadets sont encouragés à développer leur leadership, leur esprit d’équipe, leur autonomie et leur sens des responsabilités.</p><p>La réussite de notre escadron repose sur l’engagement de nombreuses personnes. Je tiens à souligner le travail et la participation de nos cadets, de leurs parents et tuteurs, des membres du personnel, des bénévoles ainsi que de tous nos partenaires et collaborateurs.</p><p>Je suis fier de voir nos cadets progresser, s’impliquer et repousser leurs limites au fil de leur parcours. Chaque expérience vécue au sein de l’Escadron contribue à leur développement et leur permet de créer des souvenirs qui les accompagneront longtemps.</p><p>Je souhaite à chacun de nos cadets une excellente année remplie de découvertes, de défis et de réussites.</p><div class="commander-vision"><h3>Ma vision</h3><p>Ma vision pour l’Escadron 736 Mont-Joli est de continuer à bâtir un milieu où chaque cadet peut trouver sa place, développer son potentiel et être fier de son parcours. Je souhaite que l’Escadron demeure un lieu où l’engagement, l’entraide, le respect et le dépassement de soi occupent une place importante.</p><p>En travaillant ensemble, nous pouvons offrir à nos jeunes des expériences enrichissantes qui leur permettront de grandir, de prendre confiance en eux et de devenir des citoyens engagés dans leur communauté.</p></div><div class="commander-signature"><strong>Éric-Olivier Lévesque</strong><span>Enseigne de vaisseau de 1re classe</span><span>Officier commandant</span><span>Escadron 736 Mont-Joli</span></div></div></div></section>`;
     profilePlaceholder.outerHTML = `<div class="staff-grid">${profiles}</div><section class="committee-section"><h2>Comité Répondant</h2><div class="staff-grid committee-grid">${committeeProfiles}</div></section>${commanderMessage}`;
+    document.querySelectorAll('.commander-message-new img').forEach((image) => {
+      image.loading = 'lazy';
+      image.decoding = 'async';
+    });
   }
 
   let lastScrollPosition = window.scrollY;
@@ -436,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroMedia) {
       heroMedia.removeAttribute('role');
       heroMedia.removeAttribute('aria-label');
-      heroMedia.innerHTML = '<img src="Photos/Banniere.jpg" alt="Cadets de l’Escadron 736 réunis devant un hélicoptère" />';
+      heroMedia.innerHTML = '<img src="Photos/Banniere.jpg" alt="Cadets de l’Escadron 736 réunis devant un hélicoptère" fetchpriority="high" decoding="async" />';
     }
 
     const heroEyebrow = historyPage.querySelector('.history-hero-content .eyebrow');
@@ -451,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
       beginningsImage.classList.add('has-photo', 'history-logo-photo');
       beginningsImage.removeAttribute('role');
       beginningsImage.removeAttribute('aria-label');
-      beginningsImage.innerHTML = '<img src="assets/images/logo-escadron.png" alt="Logo de l’Escadron 736 Mont-Joli" />';
+      beginningsImage.innerHTML = '<img src="assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" loading="lazy" decoding="async" />';
     }
 
     const founderImage = historyPage.querySelector('.history-founder .founder-photo');
@@ -459,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
       founderImage.classList.add('has-photo', 'founder-archive-photo');
       founderImage.removeAttribute('role');
       founderImage.removeAttribute('aria-label');
-      founderImage.innerHTML = '<img src="Photos/major-ivan-ross.jpeg" alt="Portrait historique du major Ivan Ross" />';
+      founderImage.innerHTML = '<img src="Photos/major-ivan-ross.jpeg" alt="Portrait historique du major Ivan Ross" loading="lazy" decoding="async" />';
     }
 
     const regionImage = historyPage.querySelector('.history-region-image');
@@ -467,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
       regionImage.classList.add('has-photo');
       regionImage.removeAttribute('role');
       regionImage.removeAttribute('aria-label');
-      regionImage.innerHTML = '<img src="Photos/bcatp-mont-joli.jpg" alt="Aviateurs devant un avion d’entraînement de la Seconde Guerre mondiale" />';
+      regionImage.innerHTML = '<img src="Photos/bcatp-mont-joli.jpg" alt="Aviateurs devant un avion d’entraînement de la Seconde Guerre mondiale" loading="lazy" decoding="async" />';
     }
 
     const regionCopy = historyPage.querySelector('.history-region .history-copy');
