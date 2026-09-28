@@ -1,6 +1,7 @@
 let portfolioData = [];
 
 const groupRanges = [
+  { value: 'archive', label: 'Archive' },
   { value: '2024', label: '2024' },
   { value: '2025', label: '2025' },
   { value: '2026', label: '2026' },
@@ -90,21 +91,10 @@ function buildFilters() {
     </button>
   `).join('');
 
-  const year2026Button = filters.querySelector('[data-group="2026"]');
-  if (year2026Button && year2026Nav) {
-    year2026Button.insertAdjacentElement('afterend', year2026Nav);
-  }
-
-  const year2025Button = filters.querySelector('[data-group="2025"]');
-  if (year2025Button && year2025Nav) {
-    year2025Button.insertAdjacentElement('afterend', year2025Nav);
-  }
-
   filters.querySelectorAll('.filter-btn').forEach((button) => {
     button.addEventListener('click', () => {
       currentFilter = button.dataset.group;
-      if (currentFilter === '2026') currentActivity = 'all';
-      if (currentFilter === '2025') currentActivity = 'all';
+      currentActivity = 'all';
       currentPage = 1;
       if (year2026Nav) year2026Nav.hidden = currentFilter !== '2026';
       if (year2025Nav) year2025Nav.hidden = currentFilter !== '2025';
@@ -128,7 +118,7 @@ year2025Nav?.querySelectorAll('a').forEach((link) => {
 });
 
 function getFilteredItems() {
-  return portfolioData.filter((item) => item.year === Number(currentFilter) && (currentActivity === 'all' || item.activity === currentActivity));
+  return portfolioData.filter((item) => (currentFilter === 'archive' ? item.group === 'Archive' : item.year === Number(currentFilter)) && (currentActivity === 'all' || item.activity === currentActivity));
 }
 
 function getVisibleItems() {

@@ -5,11 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeButton = dialog?.querySelector('[data-trophy-close]');
   if (!grid || !dialog || !dialogBody) return;
 
-  const trophyImage = (number) => {
-    if (number === 1) return '../Photos/trophees/1.jpg';
-    if (number >= 2 && number <= 6) return `../Photos/trophees/${number}.jpg`;
-    return '';
+  const trophyImageExtensions = {
+    1: 'jpg',
+    2: 'jpg',
+    3: 'png',
+    4: 'jpg',
+    5: 'jpg',
+    6: 'jpg',
+    7: 'jpg',
+    8: 'png'
   };
+  const trophyImage = (number) => trophyImageExtensions[number]
+    ? `../Photos/trophees/${number}.${trophyImageExtensions[number]}`
+    : '';
   const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[character]));
@@ -47,24 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const end = headings[index + 1]?.index ?? text.length;
       sections.push({ number, title: heading[2].trim() || 'Nom à ajouter', body: text.slice(start, end) });
     });
-    return Array.from({ length: 10 }, (_, index) => {
-      const number = index + 1;
-      const section = sections.find((candidate) => candidate.number === number);
-      return {
-        id: `trophy-${number}`,
-        name: section?.title || 'Nom à ajouter',
-        description: number === 2 ? 'Dévouement' : number === 3 ? 'Meilleure amélioration au tir à la carabine à air' : number === 4 ? 'Meilleur Cadet Niveau 2' : number === 5 ? 'Trophée Élite' : '',
-        image: trophyImage(number),
-        recipients: section ? parseRecipients(section.body, number) : []
-      };
-    });
+    return sections
+      .filter((section) => section.number >= 1 && section.number <= 10)
+      .sort((left, right) => left.number - right.number)
+      .map((section) => {
+        const number = section.number;
+        return {
+          id: `trophy-${number}`,
+          name: section.title,
+          description: number === 2 ? 'Dévouement' : number === 3 ? 'Meilleure amélioration au tir à la carabine à air' : number === 4 ? 'Meilleur Cadet Niveau 2' : number === 5 ? 'Trophée Élite' : '',
+          image: trophyImage(number),
+          recipients: parseRecipients(section.body, number)
+        };
+      });
   };
 
   const renderPhoto = (trophy, compact = false) => trophy.image ? `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><img src="${escapeHtml(trophy.image)}" alt="${escapeHtml(trophy.name)}" loading="lazy" decoding="async" /></div>` : `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><span>Photo à ajouter</span><small>Photos/Trophées/${String(trophy.id.replace('trophy-', '')).padStart(2, '0')}.jpg</small></div>`;
   const renderCard = (trophy) => `<article class="trophy-card"><button class="trophy-card-button" type="button" data-trophy-id="${escapeHtml(trophy.id)}" aria-label="Voir les récipiendaires de ${escapeHtml(trophy.name)}">${renderPhoto(trophy)}<span class="trophy-card-content"><span class="trophy-card-number">Trophée</span><h3>${escapeHtml(trophy.name)}</h3><span class="btn btn-secondary trophy-card-cta">Voir les récipiendaires</span></span></button></article>`;
   const renderRecipients = (trophy) => trophy.recipients.length ? `<div class="trophy-recipient-list">${trophy.recipients.map((recipient) => `<div class="trophy-recipient"><strong>${escapeHtml(recipient.period)}</strong><small>${escapeHtml(recipient.rank || 'Grade non précisé')}</small><span>${escapeHtml(recipient.name)}</span></div>`).join('')}</div>` : '<div class="trophy-empty-state">Les récipiendaires seront ajoutés lorsque les informations seront disponibles.</div>';
 
-  fetch('../assets/data/trophees-archives.txt')
+  fetch('../assets/data/trophees-archives.txt?v=20260927-8-trophies')
     .then((response) => {
       if (!response.ok) throw new Error('Archive unavailable');
       return response.text();

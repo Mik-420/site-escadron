@@ -9,21 +9,27 @@ Major Ivan Ross C.D
 Officier Commandant 
 1963-1974
 
+Cadet
 Sandy Boulanger
 1963-1964
 
+Cadet
 Louis Ratté
 1964-1965
 
+Cadet
 Rodrigue Morissette
 1965-1966
 
+Cadet
 Alain Bouchard
 1966-1967
 
+Cadet
 Marc Guilbeault
 1967-1968
 
+Cadet
 Rejean Bernier
 1968-1969
 
@@ -31,15 +37,19 @@ Sergent
 Claude Morissette
 1969-1970
 
+Cadet
 Rejean Bernier
 1970-1971
 
+Cadet
 Michel Simard
 1972-1973
 
+Cadet
 Denis St-Amand
 1973-1974
 
+Cadet
 Alain Gauthier
 1974-1975
 
@@ -53,6 +63,7 @@ Maurice Lévesque
 Officier Commandant 
 1975-1976
 
+Cadet
 Louis Beaulieu
 1975-1976
 
@@ -61,27 +72,35 @@ Renald Ouellet
 Officier Commandant 
 1976-1977
 
+Cadet
 Julien Gallant
 1976-1977
 
+Cadet
 Gerald Blais
 1977-1978
 
+Cadet
 Pauline Sergerie
 1978-1979
 
+Cadet
 Maro G. Levesque
 1979-1980
 
+Cadet
 Mario Gagnon
 1980-1981
 
+Cadet
 Patrice Boudreau
 1981-1982
 
+Cadet
 Jean Dechamplain
 1982-1983
 
+Cadet
 Adjudant Eric Joubert
 1983-1984
 
@@ -270,15 +289,19 @@ Jordan Bouchard
 
 2. Trophée Gérard Champoux Dévouement
 
+Cadet
 Joelle Huet
 1979-1980
 
+Cadet
 Joelle Huet
 1980-1981
 
+Cadet
 France Imbeault
 1981-1982
 
+Cadet
 Kathia Massé
 1982-1983
 
@@ -334,6 +357,7 @@ Caporal
 Étienne Lévesque
 2003-2004
 
+Cadet
 Marc-André
 2004-2005
 
@@ -425,22 +449,23 @@ Caporal
 Véronique Perreault
 2002-2003
 
-Lac.
+Cadet
 Samantha Bouchard
 2003-2004
 
+Cadet
 Éric Gonthier
 2004-2005
 
-Lac.
+Cadet
 Vincent Bouchard
 2005-2006
 
-Lac.
+Cadet
 Jean-Maxime Cyr St-Pierre
 2006-2007
 
-Lac.
+Cadet
 Jonathan Plourde
 2007-2008
 
@@ -497,21 +522,27 @@ Abigaelle Ricard
 
 5. Trophée Élite
 
+Cadet
 Daniel Perreault
 1977-1978
 
+Cadet
 Mario Dumais
 1978-1979
 
+Cadet
 Michel Dubé
 1979-1980
 
+Cadet
 Claude Levesque
 1980-1981
 
+Cadet
 Jean Dechamplain
 1981-1982
 
+Cadet
 Dany Lecours
 1982-1983
 
@@ -523,9 +554,11 @@ Sergant
 Sylvie Berube
 1984-1985
 
+Cadet
 Michel Caouette
 1985-1986
 
+Cadet
 Eric Ouellet
 1986-1987
 
@@ -533,6 +566,7 @@ Sergent
 Éric Ouellet
 1987-1988
 
+Cadet
 Patrick Gaudreault
 1988-1989
 
@@ -552,6 +586,7 @@ Adjudant 2
 Sacha Dubé
 1992-1993
 
+Cadet
 Étienne Fiola
 2004-2005
 
@@ -559,4 +594,472 @@ Caporal
 Éthan Côté
 2025-2026
 
-6.
+6.Trophées Officiels Meilleure Recrue
+
+Cadet
+R. Loiseau
+1966-1967
+
+Cadet
+Lino Langlais
+1967-1968
+
+Cadet
+R-Pierre Bourgoin
+1968-1969
+
+Cadet
+Claude Gauvreau
+1969-1970
+
+Cadet
+Richard Vachon
+1970-1971
+
+Cadet
+Jacques Nadeau
+1971-1972
+
+Cadet
+Alain Gauthier
+1972-1973
+
+Cadet
+Alain Mimeault
+1973-1974
+
+Cadet
+Mario Gagnon
+1976-1977
+
+Cadet
+Hélène Beland
+1977-1978
+
+Cadet
+Rejean Roy
+1978-1979
+
+Cadet
+Patrick Boudreau
+1979-1980
+
+Cadet
+André Miller
+1980-1981
+
+Cadet
+Nany Lecours
+1981-1982
+
+Cadet
+Éric Levesque
+1982-1983
+
+Cadet
+Cpl Gino Lamarre
+1983-1984
+
+Cadet
+Guylaine Desjardins
+1983-1984
+
+Cadet
+Nancy D'Amours
+1984-1985
+
+Cadet
+Vicky Rioux
+1985-1986
+
+Cadet
+Patrick Gaudreault
+1986-1987
+
+Cadet
+Sylvain Robichaud
+1987-1988
+
+Cadet
+Patrick Sirois
+1988-1989
+
+Cadet
+Guy Caouette
+1988-1989
+
+Cadet
+Mélanie St-Amand
+1989-1990
+
+Cadet
+Nadia Deschênes
+1990-1991
+
+Cadet
+Francois Breton
+1991-1992
+
+Cadet
+Geneviève Pâquet
+1992-1993
+
+Cadet
+Frédéric Prévost
+1992-1993
+
+Cadet
+Hugo Dumais
+1993-1994
+
+Cadet
+Richard Coutu Juiras
+1994-1995
+
+Cadet
+Michel Desrosiers
+1995-1996
+
+Cadet
+Karen Dufour
+1996-1997
+
+Cadet
+Olivier Dufour
+1997-1998
+
+Cadet
+Marie Claude Beaulieu
+1997-1998
+
+Cadet
+Alexandre Bouchard
+1998-1999
+
+Cadet
+Mélinda Suck
+1999-2000
+
+Cadet
+Antony Bouchard
+2000-2001
+
+Cadet
+Cédrick Vaillancourt
+2001-2002
+
+Cadet
+Caroline Vaillancourt
+2002-2003
+
+Cadet
+Mireille Perreault
+2003-2004
+
+Cadet
+Marc-André Gosselin
+2004-2005
+
+Cadet
+Maxime Cyr St-Pierre
+2005-2006
+
+Cadet
+Brian Ouellet
+2006-2007
+
+Cadet
+Eugénie Lemelin
+2008-2008
+
+Cadet
+Caroline Levasseur
+2008-2009
+
+Cadet
+Samuel Banville
+2009-2010
+
+Cadet
+Roby Côté-Parent
+2010-2011
+
+Cadet
+Alexandre Gagné
+2011-2012
+
+Caporal
+Alexis Bilodeau-Larue
+2012-2013
+
+Cadet
+Ariane Clairmont
+2013-2014
+
+Cadet
+Benjamin Audet
+2014-2015
+
+Cadet
+Samantha Plourde
+2015-2016
+
+Cadet
+Maxime Caron
+2016-2017
+
+Cadet
+Jérôme Lévesque
+2017-2018
+
+Cadet
+Emy Harwood-Jones
+2019-2019
+
+Cadet
+Berk Qutainuq Chaput
+2021-2022
+
+Cadet
+Émile Côté
+2023-2024
+
+Cadet
+Abigaelle Ricard
+2024-2025
+
+Cadet Niveau 2
+Alexis Deschênes
+2025-2026
+
+7. Trophée Gerald Deschênes Meilleur Sénior
+
+Cadet
+J-Pierre Paradis
+1963-1964
+
+Cadet
+Louis-A Ratté
+1963-1964
+
+Cadet
+Claude Bernier
+1965-1966
+
+Cadet
+M.A Guibeault
+1966-1967
+
+Cadet
+Claude Bernier
+1967-1968
+
+Cadet
+Steeve Pineau
+1968-1969
+
+Cadet
+Claude Champoux
+1969-1970
+
+Cadet
+Daniel Levesque
+1970-1971
+
+Cadet
+Michel Simard
+1971-1972
+
+Cadet
+Alain Imbeault
+1972-1973
+
+Cadet
+Louis Beaulieu
+1973-1974
+
+Cadet
+Mario Bélanger
+1974-1975
+
+Cadet
+Charles Langlois
+1975-1976
+
+Cadet
+Steeve Levesque
+1976-1977
+
+Cadet
+Michel Ouellet
+1977-1978
+
+Cadet
+Jacques Fortin
+1978-1979
+
+Cadet
+Mario Gagnon
+1979-1980
+
+Cadet
+Jean Dechamplain
+1980-1981
+
+Cadet
+Sonia Savard
+1981-1982
+
+Cadet
+Francis Ross
+1982-1983
+
+Adjudant
+Claude Levesque
+1983-1984
+
+Ajudant
+Nathalie Gaudreault
+1984-1985
+
+Cadet
+Francis Gonthier
+1985-1986
+
+Cadet
+Martin Ouellet
+1986-1987
+
+Cadet
+Claire Imbeault
+1987-1988
+
+Cadet
+Patrick Gaudreault
+1988-1989
+
+Sergent
+Cathy Lévesque
+2001-2002
+
+Caporal
+Clémence Lévesque
+2002-2003
+
+Caporal
+Cédrick Vaillancourt
+2003-2004
+
+Cadet
+Nicolas Bouchard
+2004-2005
+
+Caporal
+Pierre-Luc Pigeon
+2005-2006
+
+Caporal
+Vincent Bouchard
+2006-2007
+
+Caporal
+Patricia Garou
+2007-2008
+
+Caporal de Section
+Alexandra Hamel
+2008-2009
+
+Caporal de Section
+Stéphanie Légaré
+2009-2010
+
+Caporal de Section
+Francis Légaré
+2010-2011
+
+Caporal de Section
+Jimmy Robitaille
+2011-2012
+
+Sergent
+Olivier Bérubé
+2012-2013
+
+Sergent
+Catherine Soucy
+2013-2014
+
+Sergent
+Alexis Bilodeau-Larue
+2014-2015
+
+Caporal de Section
+Christine Boivin
+2015-2016
+
+Caporal de Section
+Cynthia Thibeault
+2016-2017
+
+Caporal de Section
+Cynthia Thibeault
+2017-2018
+
+Caporal
+Derek Grondin
+2018-2019
+
+Sergent
+Emy Harwood Jones
+2021-2022
+
+Sergent
+Alicya Bouchard
+2024-2025
+
+Caporal de Section
+Lucas boulay
+2025-2026
+
+8. Trophée Élite Meilleur Tireur de Précision
+
+Sergent de Section
+Jean-Maxime Cyr St-Pierre
+2008-2009
+
+Sergent de Section
+Jean-Maxime Cyr St-Pierre
+2009-2010
+
+Caporal
+Pascal Michaud
+2010-2011
+
+Sergent de Section
+Jonathan Plourde
+2011-2012
+
+Sergent
+Denis William Caron
+2012-2013
+
+Caporal de Section
+Alex Anctil
+2013-2014
+
+Sergent
+Adam Clairmont
+2014-2015
+
+Sergent de Section
+Valérie Gauvin
+2015-2016
+
+Caporal de Section
+Léa-Lou Charest
+2016-2017
+
+Caporal de Section
+Kathyanna Caron
+2025-2026

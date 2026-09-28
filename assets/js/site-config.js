@@ -52,6 +52,14 @@ const seoPageData = {
     title: 'Contact | Escadron 736 Mont-Joli',
     description: 'Contactez l’Escadron 736 Mont-Joli pour en savoir plus sur l’inscription, les activités jeunesse et le Programme des Cadets de l’Air à Mont-Joli.'
   },
+  '/instruction.html': {
+    title: 'Instruction des cadets-cadres | Escadron 736 Mont-Joli',
+    description: 'Consultez les guides pédagogiques, normes de qualification et plans de cours des niveaux de cadets-cadres de l’Escadron 736 Mont-Joli.'
+  },
+  '/hymne-national.html': {
+    title: 'Hymne national | Escadron 736 Mont-Joli',
+    description: 'Consultez les versions Cadets, française et anglaise des paroles de l’hymne national Ô Canada.'
+  },
   '/cadets/index.html': {
     title: 'Ressources pour les cadets | Escadron 736 Mont-Joli',
     description: 'Retrouvez les ressources des cadets de l’Escadron 736 Mont-Joli : grades, trophées, uniforme et renseignements utiles aux jeunes et aux familles.'
@@ -94,6 +102,7 @@ const seoCanonicalAliases = {
   '/': '/accueil.html',
   '/index.html': '/accueil.html',
   '/notre-equipe.html': '/membre-du-personnel.html',
+  '/ressources.html': '/instruction.html',
   '/cadets/uniforme.html': '/cadets/uniforme/Tenue.html',
   '/cadets/uniforme/Les-insignes.html': '/cadets/uniforme/Port-de-l-uniforme.html'
 };
@@ -228,6 +237,83 @@ const legalLinkPrefix = (() => {
   if (path.includes('/cadets/') || path.includes('/accueil/')) return '../';
   return '';
 })();
+
+const footerPageGroups = [
+  {
+    title: 'Navigation',
+    pages: [
+      ['accueil.html', 'Accueil'],
+      ['portfolio.html', 'Portfolio'],
+      ['contact.html', 'Contact'],
+      ['accueil/devenir-cadet.html', 'Devenir cadet']
+    ]
+  },
+  {
+    title: 'À propos',
+    pages: [
+      ['histoire.html', 'Notre histoire'],
+      ['membre-du-personnel.html', 'Notre équipe'],
+      ['comite-repondant.html', 'Comité répondant'],
+      ['nos-commanditaires.html', 'Commanditaires'],
+      ['faire-un-don.html', 'Faire un don']
+    ]
+  },
+  {
+    title: 'Cadets',
+    pages: [
+      ['cadets/index.html', 'Espace cadets'],
+      ['cadets/grades.html', 'Grades'],
+      ['cadets/trophees.html', 'Trophées'],
+      ['instruction.html', 'Instruction'],
+      ['hymne-national.html', 'Hymne National']
+    ]
+  },
+  {
+    title: 'Uniforme',
+    pages: [
+      ['cadets/uniforme/Tenue.html', 'Tenues'],
+      ['cadets/uniforme/Port-de-l-uniforme.html', 'Port de l’uniforme'],
+      ['cadets/uniforme/Cheveux-Bijoux.html', 'Cheveux et bijoux'],
+      ['cadets/uniforme/Entretien-de-l-uniforme.html', 'Entretien de l’uniforme'],
+      ['cadets/uniforme/Les-insignes.html', 'Les insignes']
+    ]
+  }
+];
+
+document.querySelectorAll('.site-footer').forEach((footer) => {
+  let footerGrid = footer.querySelector('.footer-grid');
+  if (!footerGrid) {
+    footerGrid = document.createElement('div');
+    footerGrid.className = 'container footer-grid';
+    footer.insertBefore(footerGrid, footer.querySelector('.footer-bottom'));
+  }
+
+  const brandColumn = footerGrid.querySelector('.footer-brand')?.parentElement;
+  footerGrid.replaceChildren();
+  if (brandColumn) footerGrid.appendChild(brandColumn);
+
+  footerPageGroups.forEach(({ title, pages }) => {
+    const group = document.createElement('div');
+    const heading = document.createElement('h3');
+    const list = document.createElement('ul');
+    heading.textContent = title;
+    pages.forEach(([href, label]) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `${legalLinkPrefix}${href}`;
+      link.textContent = label;
+      if (decodeURI(window.location.pathname).endsWith(`/${href}`)) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+    group.append(heading, list);
+    footerGrid.appendChild(group);
+  });
+});
+
 document.querySelectorAll('.footer-bottom').forEach((footerBottom) => {
   if (footerBottom.querySelector('.footer-legal')) return;
   const legalNav = document.createElement('nav');

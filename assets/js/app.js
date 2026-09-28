@@ -153,9 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const heroVideo = document.querySelector('.hero-video');
-  if (heroVideo) {
-    heroVideo.poster = officialLogo;
-  }
+  document.querySelectorAll('.hero-video, .registration-video video').forEach((video) => {
+    video.muted = true;
+    video.playsInline = true;
+    const tryPlayback = () => video.play().catch(() => {
+      video.controls = true;
+    });
+    video.addEventListener('loadeddata', tryPlayback, { once: true });
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlayback();
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && video.paused) tryPlayback();
+    });
+  });
 
   const activityIcons = {
     '✈': 'aviation.svg',
@@ -286,10 +295,42 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navWrap && siteNav && navList) {
     const items = Array.from(navList.children);
     const homeItem = items.find((item) => item.querySelector('a[href*="index.html"], a[href*="accueil.html"]'));
+    const path = window.location.pathname;
+    const prefix = path.includes('/cadets/uniforme/') ? '../../' : path.includes('/cadets/') || path.includes('/accueil/') ? '../' : '';
     const portfolioItem = items.find((item) => item.querySelector('a[href*="portfolio.html"]'));
     const contactItem = items.find((item) => item.querySelector('a[href*="contact.html"]'));
     const cadetsItem = items.find((item) => item.classList.contains('dropdown'));
     const registrationItem = items.find((item) => item.querySelector('[data-registration-link]'));
+
+    const cadetsMenu = cadetsItem?.querySelector('.dropdown-menu');
+    if (cadetsMenu) {
+      const menuOrder = ['uniforme', 'grades', 'trophées', 'instruction', 'hymne national'];
+      [
+        ['instruction.html', 'Instruction'],
+        ['hymne-national.html', 'Hymne National']
+      ].forEach(([href, label]) => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `${prefix}${href}`;
+        link.textContent = label;
+        if (path.endsWith(`/${href}`)) {
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+          cadetsItem.querySelector('.dropdown-toggle')?.classList.add('active');
+        }
+        item.appendChild(link);
+        cadetsMenu.appendChild(item);
+      });
+      const menuItems = Array.from(cadetsMenu.children);
+      menuItems.sort((left, right) => {
+        const leftText = left.textContent.trim().toLocaleLowerCase('fr-CA');
+        const rightText = right.textContent.trim().toLocaleLowerCase('fr-CA');
+        const leftIndex = menuOrder.findIndex((label) => leftText.includes(label));
+        const rightIndex = menuOrder.findIndex((label) => rightText.includes(label));
+        return leftIndex - rightIndex;
+      });
+      cadetsMenu.replaceChildren(...menuItems);
+    }
 
     if (homeItem && portfolioItem && contactItem && cadetsItem) {
       const aboutItem = document.createElement('li');
@@ -300,8 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
       aboutToggle.setAttribute('aria-expanded', 'false');
       aboutToggle.textContent = 'À propos';
 
-      const path = window.location.pathname;
-      const prefix = path.includes('/cadets/uniforme/') ? '../../' : path.includes('/cadets/') || path.includes('/accueil/') ? '../' : '';
       const aboutMenu = document.createElement('ul');
       aboutMenu.className = 'dropdown-menu';
       [
@@ -325,17 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
       aboutItem.append(aboutToggle, aboutMenu);
       navList.replaceChildren(homeItem, portfolioItem, cadetsItem, aboutItem, contactItem);
 
-      aboutToggle.addEventListener('click', () => {
-        const expanded = aboutItem.classList.toggle('open');
-        aboutToggle.setAttribute('aria-expanded', String(expanded));
-      });
-
-      document.addEventListener('click', (event) => {
-        if (!aboutItem.contains(event.target)) {
-          aboutItem.classList.remove('open');
-          aboutToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
     }
 
     if (registrationItem) {
@@ -381,21 +409,21 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Instructeur Civil', 'Gaétan Beaudin', 'Officier d’approvisionnement'],
       ['Instructeur Civil', 'Samantha Plourde', 'Responsable du niveau 1'],
       ['Bénévole', 'Charlie Smith', 'Instructeur de niveau 1 et Art Oratoire'],
-      ['Bénévole', 'Nora Vanegas', 'Responsable Niveau 2 et Musique']
+      ['Bénévole', 'Nora Alejandra Vanegas Barrios', 'Responsable Niveau 2 et Musique']
     ];
     const profiles = personnelProfiles.map(([role, name, description], index) => {
       const photo = context === 'escadron' && index < personnelProfiles.length ? `Photos/Équipe/Personnel/${index + 1}.jpg` : '';
       return `<article class="staff-card"><div class="staff-photo">${photo ? `<img src="${photo}" alt="Photo de ${name}" loading="lazy" decoding="async" />` : 'Photo à ajouter'}</div><p class="staff-role">${role || 'Poste à ajouter'}</p><h3>${name}</h3><p class="staff-description">${description || `Une courte description du rôle, des responsabilités et de la contribution de cette personne au sein du ${context}.`}</p></article>`;
     }).join('');
     const committeeMembers = [
-      ['Marie Desneiges', 'Présidente du comité répondant'],
+      ['Marie-Desneiges Levesque', 'Présidente du comité répondant'],
       ['Michel Boucher', 'N/A'],
-      ['Annie', 'N/A'],
-      ['TED Savage', 'N/A'],
+      ['Annie Lecavalier', 'N/A'],
+      ['Ted Savage', 'N/A'],
       ['Olivier Ross', 'Bénévole'],
-      ['Mikael Tremblay', 'Bénévole']
+      ['Mikaël Tremblay', 'Bénévole']
     ];
-    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg" alt="Photo de ${name}" loading="lazy" decoding="async" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
+    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg?v=20260927" alt="Photo de ${name}" loading="lazy" decoding="async" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
     const commanderMessage = `<section class="commander-message commander-message-new"><div class="commander-section-heading"><span class="eyebrow">Mot du commandant</span><h2>Mot du commandant</h2><p>Une vision pour l’Escadron 736 Mont-Joli</p></div><div class="commander-message-layout"><div class="commander-profile"><div class="commander-portrait"><img src="Photos/commandant-eric-olivier.jpg" alt="Éric-Olivier Lévesque, officier commandant de l’Escadron 736 Mont-Joli" /></div><div class="commander-profile-details"><p class="commander-rank">Enseigne de vaisseau de 1re classe</p><h3>Éric-Olivier Lévesque</h3><p>Officier commandant</p><p>Escadron 736 Mont-Joli</p></div></div><div class="commander-letter"><h3>Mot du commandant</h3><p>C’est avec une grande fierté que je m’adresse aux cadets, à leurs familles, ainsi qu’à tous ceux et celles qui contribuent à la vie de l’Escadron 736 Mont-Joli.</p><p>Notre escadron offre aux jeunes un environnement structuré, stimulant et positif, où ils peuvent apprendre, relever des défis et développer de nouvelles compétences. À travers les différentes activités proposées, les cadets sont encouragés à développer leur leadership, leur esprit d’équipe, leur autonomie et leur sens des responsabilités.</p><p>La réussite de notre escadron repose sur l’engagement de nombreuses personnes. Je tiens à souligner le travail et la participation de nos cadets, de leurs parents et tuteurs, des membres du personnel, des bénévoles ainsi que de tous nos partenaires et collaborateurs.</p><p>Je suis fier de voir nos cadets progresser, s’impliquer et repousser leurs limites au fil de leur parcours. Chaque expérience vécue au sein de l’Escadron contribue à leur développement et leur permet de créer des souvenirs qui les accompagneront longtemps.</p><p>Je souhaite à chacun de nos cadets une excellente année remplie de découvertes, de défis et de réussites.</p><div class="commander-vision"><h3>Ma vision</h3><p>Ma vision pour l’Escadron 736 Mont-Joli est de continuer à bâtir un milieu où chaque cadet peut trouver sa place, développer son potentiel et être fier de son parcours. Je souhaite que l’Escadron demeure un lieu où l’engagement, l’entraide, le respect et le dépassement de soi occupent une place importante.</p><p>En travaillant ensemble, nous pouvons offrir à nos jeunes des expériences enrichissantes qui leur permettront de grandir, de prendre confiance en eux et de devenir des citoyens engagés dans leur communauté.</p></div><div class="commander-signature"><strong>Éric-Olivier Lévesque</strong><span>Enseigne de vaisseau de 1re classe</span><span>Officier commandant</span><span>Escadron 736 Mont-Joli</span></div></div></div></section>`;
     profilePlaceholder.outerHTML = `<div class="staff-grid">${profiles}</div><section class="committee-section"><h2>Comité Répondant</h2><div class="staff-grid committee-grid">${committeeProfiles}</div></section>${commanderMessage}`;
     document.querySelectorAll('.commander-message-new img').forEach((image) => {
@@ -417,25 +445,45 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.addEventListener('click', () => {
       const isOpen = siteNav.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-  }
-
-  const dropdown = document.querySelector('.dropdown');
-  const dropdownToggle = document.querySelector('.dropdown-toggle');
-
-  if (dropdown && dropdownToggle) {
-    dropdownToggle.addEventListener('click', () => {
-      const expanded = dropdown.classList.toggle('open');
-      dropdownToggle.setAttribute('aria-expanded', String(expanded));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove('open');
-        dropdownToggle.setAttribute('aria-expanded', 'false');
+      if (!isOpen) {
+        siteNav.querySelectorAll('.dropdown.open').forEach((item) => {
+          item.classList.remove('open');
+          item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+        });
       }
     });
   }
+
+  const dropdowns = Array.from(document.querySelectorAll('.site-nav .dropdown'));
+  dropdowns.forEach((dropdown) => {
+    const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+    dropdownToggle?.addEventListener('click', () => {
+      const expanded = !dropdown.classList.contains('open');
+      dropdowns.forEach((item) => {
+        item.classList.toggle('open', item === dropdown && expanded);
+        item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', String(item === dropdown && expanded));
+      });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (siteNav?.contains(event.target)) return;
+    dropdowns.forEach((item) => {
+      item.classList.remove('open');
+      item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  siteNav?.querySelectorAll('.dropdown-menu a').forEach((link) => {
+    link.addEventListener('click', () => {
+      siteNav.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+      dropdowns.forEach((item) => {
+        item.classList.remove('open');
+        item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+  });
 
   const historyPage = document.querySelector('.history-page');
   if (historyPage) {
