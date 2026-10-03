@@ -2,7 +2,6 @@ let portfolioData = [];
 
 const groupRanges = [
   { value: 'archive', label: 'Archive' },
-  { value: '2024', label: '2024' },
   { value: '2025', label: '2025' },
   { value: '2026', label: '2026' },
   { value: '2027', label: '2027' }
@@ -24,7 +23,7 @@ const lightboxMeta = document.getElementById('lightbox-meta');
 const lightboxDownload = document.getElementById('lightbox-download');
 
 const itemsPerPage = 25;
-let currentFilter = '2024';
+let currentFilter = 'archive';
 let currentActivity = 'all';
 let currentItems = [];
 let currentPage = 1;

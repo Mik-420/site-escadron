@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const accessKey = 'escadron736-preview-access';
-  const accessPassword = 'Jesaispas$';
-  const requiresSiteAccess = sessionStorage.getItem(accessKey) !== 'granted';
   const consentCookie = 'escadron736-analytics-consent-v2';
   const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
   const getDeviceType = () => {
@@ -83,68 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('escadron736:analytics-consent', (event) => {
     if (event.detail?.value === 'accepted') window.loadEscadronGoogleAnalytics?.();
   });
-  const showConsentBanner = () => {
-    if (getCookie(consentCookie)) return;
-    const banner = document.createElement('aside');
-    banner.className = 'cookie-consent';
-    banner.setAttribute('aria-label', 'Préférences de confidentialité');
-    banner.innerHTML = `<p class="cookie-consent-label">Confidentialité</p><h2>Mesure d’audience</h2><p>Si vous acceptez, Google Analytics est activé pour mesurer la fréquentation du site. Le site mémorise votre choix et envoie aussi une notification contenant la page consultée, la date, le type d’appareil, l’adresse IP publique et une localisation approximative déduite de cette adresse (ville, région et pays). Aucune position GPS précise n’est demandée. Si vous refusez, Google Analytics ne sera pas activé.</p><div class="cookie-consent-actions"><button type="button" class="btn btn-secondary" data-consent="declined">Refuser</button><button type="button" class="btn btn-primary" data-consent="accepted">Accepter</button></div>`;
-    document.body.append(banner);
-    banner.querySelectorAll('[data-consent]').forEach((button) => {
-      button.addEventListener('click', () => {
-        setConsent(button.dataset.consent);
-        if (button.dataset.consent === 'accepted') sendConsentNotification();
-        banner.remove();
-      });
-    });
-  };
   const existingConsent = getCookie(consentCookie);
   if (existingConsent) {
     document.documentElement.dataset.analyticsConsent = existingConsent;
-  } else if (requiresSiteAccess) {
-    showConsentBanner();
   }
-
-  if (requiresSiteAccess) {
-    document.documentElement.classList.add('site-locked');
-    document.body.classList.add('site-locked');
-    const accessGate = document.createElement('section');
-    accessGate.className = 'access-gate';
-    accessGate.setAttribute('aria-label', 'Accès privé au site');
-    accessGate.innerHTML = `<div class="access-gate-panel"><form class="access-gate-form"><button class="access-logo-button" type="button" aria-label="Accès privé"><img src="/assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" /></button><span class="eyebrow">Site en préparation</span><h1>Accès privé</h1><p>Le site de l’Escadron 736 Mont-Joli n’est pas encore ouvert au public.</p><input class="access-secret-input" id="site-access-password" name="password" type="password" autocomplete="current-password" aria-label="Code d’accès" required /><button class="visually-hidden" type="submit" tabindex="-1">Valider</button></form></div>`;
-    document.body.prepend(accessGate);
-    const accessForm = accessGate.querySelector('form');
-    const accessInput = accessGate.querySelector('input');
-    accessForm.querySelector('.access-logo-button').addEventListener('click', () => {
-      accessInput.focus();
-    });
-    accessInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        accessForm.requestSubmit();
-      }
-    });
-    accessForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const password = new FormData(event.currentTarget).get('password');
-      if (password === accessPassword) {
-        sessionStorage.setItem(accessKey, 'granted');
-        accessInput.blur();
-        document.documentElement.classList.remove('site-locked');
-        document.body.classList.remove('site-locked');
-        accessGate.remove();
-        document.querySelector('.cookie-consent')?.remove();
-      } else {
-        accessInput.value = '';
-        accessInput.focus();
-      }
-    });
-  }
-
-  const officialLogo = '/assets/images/logo-escadron.webp';
-  document.querySelectorAll('img[src*="logo-placeholder.svg"]').forEach((image) => {
-    image.src = officialLogo;
-  });
 
   const favicon = document.querySelector('link[rel="icon"]');
   if (favicon) {
@@ -156,11 +95,30 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.hero-video, .registration-video video').forEach((video) => {
     video.muted = true;
     video.playsInline = true;
-    const tryPlayback = () => video.play().catch(() => {
-      video.controls = true;
-    });
+    const isHeroVideo = video.matches('.hero-video');
+    let heroVideoStartAllowed = !isHeroVideo;
+    const tryPlayback = () => {
+      if (!heroVideoStartAllowed) return;
+      video.play().catch(() => {
+        video.controls = true;
+      });
+    };
+    if (isHeroVideo) {
+      video.addEventListener('timeupdate', () => {
+        const loopPoint = video.duration - 8;
+        if (Number.isFinite(loopPoint) && loopPoint > 0 && video.currentTime >= loopPoint) {
+          video.currentTime = 0;
+        }
+      });
+    }
     video.addEventListener('loadeddata', tryPlayback, { once: true });
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlayback();
+    if (isHeroVideo) {
+      window.setTimeout(() => {
+        heroVideoStartAllowed = true;
+        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlayback();
+      }, 1000);
+    }
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible' && video.paused) tryPlayback();
     });
@@ -401,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (profilePage && profilePlaceholder) {
     const context = 'escadron';
     const personnelProfiles = [
-      ['Enseigne de vaisseau de 1re classe', 'Éric-Olivier Lévesque', 'Commandant de l’Escadron'],
+      ['Lieutenant de Vaisseau', 'Éric-Olivier Lévesque', 'Commandant de l’Escadron'],
       ['Adjudant de première classe', 'Jordan Bouchard', 'Cadet commandant'],
       ['Élève Officier', 'Mathias Pettigrew', 'Officier d’instruction<br>Responsable de l’instruction'],
       ['Capitaine', 'Yves Galbrand', 'Officier d’Administration<br>Instructeur d’aviation'],
@@ -417,15 +375,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
     const committeeMembers = [
       ['Marie-Desneiges Levesque', 'Présidente du comité répondant'],
-      ['Michel Boucher', 'N/A'],
-      ['Annie Lecavalier', 'N/A'],
-      ['Ted Savage', 'N/A'],
-      ['Olivier Ross', 'Bénévole'],
-      ['Mikaël Tremblay', 'Bénévole']
+      ['Annie Lecavalier', 'Trésorière'],
+      ['Michel Boucher', 'Secrétaire'],
+      ['Ted Savage', 'Administrateur'],
+      ['Olivier Ross', 'Administrateur'],
+      ['Mikaël Tremblay', 'Administrateur'],
+      ['Daniel Côté', 'Administrateur']
     ];
-    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg?v=20260927" alt="Photo de ${name}" loading="lazy" decoding="async" /></div><p class="staff-role">${role}</p><h3>${name}</h3><p class="staff-description">Une courte description du rôle et de la contribution de cette personne au sein du comité répondant.</p></article>`).join('');
+    const committeeProfiles = committeeMembers.map(([name, role], index) => `<article class="staff-card"><div class="staff-photo"><img src="Photos/Équipe/Répondant/${index + 1}.jpg?v=20260927" alt="Photo de ${name}" loading="lazy" decoding="async" /></div><p class="staff-role">${role}</p><h3>${name}</h3></article>`).join('');
     const commanderMessage = `<section class="commander-message commander-message-new"><div class="commander-section-heading"><span class="eyebrow">Mot du commandant</span><h2>Mot du commandant</h2><p>Une vision pour l’Escadron 736 Mont-Joli</p></div><div class="commander-message-layout"><div class="commander-profile"><div class="commander-portrait"><img src="Photos/commandant-eric-olivier.jpg" alt="Éric-Olivier Lévesque, officier commandant de l’Escadron 736 Mont-Joli" /></div><div class="commander-profile-details"><p class="commander-rank">Enseigne de vaisseau de 1re classe</p><h3>Éric-Olivier Lévesque</h3><p>Officier commandant</p><p>Escadron 736 Mont-Joli</p></div></div><div class="commander-letter"><h3>Mot du commandant</h3><p>C’est avec une grande fierté que je m’adresse aux cadets, à leurs familles, ainsi qu’à tous ceux et celles qui contribuent à la vie de l’Escadron 736 Mont-Joli.</p><p>Notre escadron offre aux jeunes un environnement structuré, stimulant et positif, où ils peuvent apprendre, relever des défis et développer de nouvelles compétences. À travers les différentes activités proposées, les cadets sont encouragés à développer leur leadership, leur esprit d’équipe, leur autonomie et leur sens des responsabilités.</p><p>La réussite de notre escadron repose sur l’engagement de nombreuses personnes. Je tiens à souligner le travail et la participation de nos cadets, de leurs parents et tuteurs, des membres du personnel, des bénévoles ainsi que de tous nos partenaires et collaborateurs.</p><p>Je suis fier de voir nos cadets progresser, s’impliquer et repousser leurs limites au fil de leur parcours. Chaque expérience vécue au sein de l’Escadron contribue à leur développement et leur permet de créer des souvenirs qui les accompagneront longtemps.</p><p>Je souhaite à chacun de nos cadets une excellente année remplie de découvertes, de défis et de réussites.</p><div class="commander-vision"><h3>Ma vision</h3><p>Ma vision pour l’Escadron 736 Mont-Joli est de continuer à bâtir un milieu où chaque cadet peut trouver sa place, développer son potentiel et être fier de son parcours. Je souhaite que l’Escadron demeure un lieu où l’engagement, l’entraide, le respect et le dépassement de soi occupent une place importante.</p><p>En travaillant ensemble, nous pouvons offrir à nos jeunes des expériences enrichissantes qui leur permettront de grandir, de prendre confiance en eux et de devenir des citoyens engagés dans leur communauté.</p></div><div class="commander-signature"><strong>Éric-Olivier Lévesque</strong><span>Enseigne de vaisseau de 1re classe</span><span>Officier commandant</span><span>Escadron 736 Mont-Joli</span></div></div></div></section>`;
     profilePlaceholder.outerHTML = `<div class="staff-grid">${profiles}</div><section class="committee-section"><h2>Comité Répondant</h2><div class="staff-grid committee-grid">${committeeProfiles}</div></section>${commanderMessage}`;
+    document.querySelectorAll('.commander-message-new .commander-rank').forEach((rank) => {
+      rank.textContent = 'Lieutenant de Vaisseau';
+    });
+    document.querySelectorAll('.commander-message-new .commander-signature span:first-of-type').forEach((rank) => {
+      rank.textContent = 'Lieutenant de Vaisseau';
+    });
     document.querySelectorAll('.commander-message-new img').forEach((image) => {
       image.loading = 'lazy';
       image.decoding = 'async';
@@ -527,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const regionCopy = historyPage.querySelector('.history-region .history-copy');
     if (regionCopy) {
-      regionCopy.innerHTML = '<span class="eyebrow">Un territoire aéronautique</span><h2>Une région profondément liée à l’aviation</h2><p>L’histoire de l’Escadron 736 s’inscrit dans une région possédant un riche patrimoine aéronautique.</p><p>De 1941 à 1945, Mont-Joli a accueilli la 9e École de bombardement et de tir de l’Aviation royale canadienne. Établie dans le cadre du Programme d’entraînement aérien du Commonwealth britannique, cette école a formé plus de 6 000 aviateurs durant la Seconde Guerre mondiale.</p><p>Cet héritage se poursuit aujourd’hui avec l’aéroport régional de Mont-Joli, qui demeure un acteur important du développement aéronautique de l’Est-du-Québec.</p><p>L’Escadron 736 s’inscrit dans cette tradition en permettant aux nouvelles générations de découvrir l’aviation et l’aérospatiale, tout en développant leur leadership et leur esprit d’équipe.</p>';
+      regionCopy.innerHTML = '<span class="eyebrow">Un territoire aéronautique</span><h2>Une région profondément liée à l’aviation</h2><p>L’histoire de l’Escadron 736 s’inscrit dans une région possédant un riche patrimoine aéronautique.</p><p>De 1941 à 1945, Mont-Joli a accueilli la 9e École de bombardier et de tir de l’Aviation royale canadienne. Établie dans le cadre du Programme d’entraînement aérien du Commonwealth britannique, cette école a formé plus de 6 000 aviateurs durant la Seconde Guerre mondiale.</p><p>Cet héritage se poursuit aujourd’hui avec l’aéroport régional de Mont-Joli, qui demeure un acteur important du développement aéronautique de l’Est-du-Québec.</p><p>L’Escadron 736 s’inscrit dans cette tradition en permettant aux nouvelles générations de découvrir l’aviation et l’aérospatiale, tout en développant leur leadership et leur esprit d’équipe.</p>';
     }
 
     const frameDialog = historyPage.querySelector('[data-cadet-frame-dialog]');
@@ -627,12 +592,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector(selector)?.setAttribute('id', id);
     });
     const commanders = [
-      ['Capitaine', 'Yves Galbrand', '2022 — 2024'],
-      ['Capitaine', 'Sébastien Brillant', '2020 — 2022'],
+      ['Capitaine', 'Yves Galbrand', '2021 — 2025'],
+      ['Capitaine', 'Sébastien Brillant', '2020 — 2021'],
       ['Sous-lieutenant', 'Marie-Ève Blais', '2018 — 2020'],
-      ['Capitaine de corvette', 'Gaétan Beaudin', '2016'],
-      ['Major', 'Chenard', ''],
-      ['À confirmer', 'Christine Bouchard', '2013'],
+      ['Lieutenant de vaisseau', 'Gaétan Beaudin', '2016 — 2018'],
+      ['Major', 'Jacques Chenard', '2015 — 2016'],
+      ['Capitaine', 'Christine Bouchard', '2013 — 2015'],
       ['Capitaine', 'Yves Galbrand', '2009 — 2013'],
       ['Lieutenant de vaisseau', 'Jean Côté', '2008 — 2009'],
       ['Capitaine', 'Sylvain Gagnon', '2005 — 2008'],
