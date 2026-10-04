@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css?v=content-protection-20261003" />
     <script defer src="assets/js/site-config.js"></script>
-    <script defer src="assets/js/app.js?v=logo-20260927"></script>
+    <script defer src="assets/js/app.js?v=content-protection-20261003"></script>
     <meta name="description" content="Consultez les versions Cadets, française et anglaise des paroles de l’hymne national Ô Canada." />
     <link rel="canonical" href="https://escadron736.ca/hymne-national.html" />
     <meta property="og:type" content="website" />
@@ -50,8 +50,14 @@
         </div>
       </section>
       <section class="section anthem-section">
-        <div class="container narrow anthem-list">
-          <article class="content-card anthem-card">
+        <div class="container anthem-layout">
+          <div class="anthem-selector" role="tablist" aria-label="Versions de l’hymne national" aria-orientation="vertical">
+            <button class="anthem-tab is-active" id="anthem-tab-cadets" type="button" role="tab" aria-selected="true" aria-controls="anthem-panel-cadets" tabindex="0" data-anthem-tab>Version Cadets</button>
+            <button class="anthem-tab" id="anthem-tab-francais" type="button" role="tab" aria-selected="false" aria-controls="anthem-panel-francais" tabindex="-1" data-anthem-tab>Version française</button>
+            <button class="anthem-tab" id="anthem-tab-anglais" type="button" role="tab" aria-selected="false" aria-controls="anthem-panel-anglais" tabindex="-1" data-anthem-tab>Version anglaise</button>
+          </div>
+          <div class="anthem-panels">
+          <article class="content-card anthem-card" id="anthem-panel-cadets" role="tabpanel" aria-labelledby="anthem-tab-cadets" tabindex="0">
             <span class="eyebrow">Version Cadets</span>
             <h2>Ô Canada</h2>
             <div class="anthem-lyrics">
@@ -62,7 +68,7 @@
               <p>O Canada, we stand on guard for thee.</p>
             </div>
           </article>
-          <article class="content-card anthem-card">
+          <article class="content-card anthem-card" id="anthem-panel-francais" role="tabpanel" aria-labelledby="anthem-tab-francais" tabindex="0" hidden>
             <span class="eyebrow">Version française</span>
             <h2>Ô Canada</h2>
             <div class="anthem-lyrics">
@@ -73,7 +79,7 @@
               <p>Protégera nos foyers et nos droits.</p>
             </div>
           </article>
-          <article class="content-card anthem-card">
+          <article class="content-card anthem-card" id="anthem-panel-anglais" role="tabpanel" aria-labelledby="anthem-tab-anglais" tabindex="0" hidden>
             <span class="eyebrow">Version anglaise</span>
             <h2>O Canada</h2>
             <div class="anthem-lyrics" lang="en">
@@ -84,6 +90,7 @@
               <p>O Canada, we stand on guard for thee.</p>
             </div>
           </article>
+          </div>
         </div>
       </section>
     </main>

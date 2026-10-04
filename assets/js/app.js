@@ -1,4 +1,69 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const editableSelector = 'input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"]';
+  const isEditableTarget = (target) => target instanceof Element && Boolean(target.closest(editableSelector));
+  const setImagesNonDraggable = (root) => {
+    if (root instanceof HTMLImageElement) root.draggable = false;
+    root.querySelectorAll?.('img').forEach((image) => {
+      image.draggable = false;
+    });
+  };
+
+  setImagesNonDraggable(document);
+  const imageDragObserver = new MutationObserver((records) => {
+    records.forEach((record) => record.addedNodes.forEach(setImagesNonDraggable));
+  });
+  imageDragObserver.observe(document.documentElement, { childList: true, subtree: true });
+
+  document.addEventListener('dragstart', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const media = target.closest('img, picture, video, canvas, svg');
+    const linkedImage = target.closest('a')?.querySelector('img');
+    if (media || linkedImage) event.preventDefault();
+  }, true);
+
+  document.addEventListener('contextmenu', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element) || isEditableTarget(target)) return;
+    if (target.closest('img, picture, video, canvas, svg')) {
+      event.preventDefault();
+      return;
+    }
+    if (target.closest('a, button, [role="button"], [role="link"]')) return;
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('copy', (event) => {
+    if (isEditableTarget(event.target)) return;
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed) return;
+    const anchor = selection.anchorNode instanceof Element ? selection.anchorNode : selection.anchorNode?.parentElement;
+    if (!isEditableTarget(anchor)) event.preventDefault();
+  }, true);
+
+  document.addEventListener('keydown', (event) => {
+    const key = event.key.toLowerCase();
+    const modifier = event.ctrlKey || event.metaKey;
+    const devtoolsShortcut = key === 'f12'
+      || ((event.ctrlKey || event.metaKey) && event.shiftKey && ['i', 'j', 'c', 'k', 'm'].includes(key))
+      || (event.metaKey && event.altKey && ['i', 'j', 'c', 'k', 'u'].includes(key));
+    if (devtoolsShortcut) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+    if (isEditableTarget(event.target) || !modifier) return;
+
+    const selection = window.getSelection();
+    const copySelection = key === 'c' && selection && !selection.isCollapsed;
+    const selectAll = key === 'a';
+    const resourceShortcut = ['o', 'p', 's', 'u'].includes(key) || (event.shiftKey && key === 's');
+    if (copySelection || selectAll || resourceShortcut) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
+
   const consentCookie = 'escadron736-analytics-consent-v2';
   const getCookie = (name) => document.cookie.split('; ').find((cookie) => cookie.startsWith(`${name}=`))?.split('=')[1];
   const getDeviceType = () => {
@@ -96,10 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
     video.muted = true;
     video.playsInline = true;
     const isHeroVideo = video.matches('.hero-video');
+    const heroStartCover = isHeroVideo ? document.querySelector('.hero-video-start-cover') : null;
     let heroVideoStartAllowed = !isHeroVideo;
     const tryPlayback = () => {
       if (!heroVideoStartAllowed) return;
-      video.play().catch(() => {
+      video.play().then(() => heroStartCover?.classList.add('is-hidden')).catch(() => {
         video.controls = true;
       });
     };
@@ -112,10 +178,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     video.addEventListener('loadeddata', tryPlayback, { once: true });
+    if (isHeroVideo) {
+      video.addEventListener('playing', () => {
+        if (heroVideoStartAllowed) heroStartCover?.classList.add('is-hidden');
+      });
+    }
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlayback();
     if (isHeroVideo) {
       window.setTimeout(() => {
         heroVideoStartAllowed = true;
+        heroStartCover?.classList.add('is-hidden');
         if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlayback();
       }, 1000);
     }
@@ -254,11 +326,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = Array.from(navList.children);
     const homeItem = items.find((item) => item.querySelector('a[href*="index.html"], a[href*="accueil.html"]'));
     const path = window.location.pathname;
+    const normalizeNavPath = (value) => value.replace(/\/+$/, '').toLocaleLowerCase('fr-CA') || '/';
+    const currentPath = normalizeNavPath(path);
+    const isCurrentPage = (link) => normalizeNavPath(new URL(link.href, window.location.href).pathname) === currentPath;
     const prefix = path.includes('/cadets/uniforme/') ? '../../' : path.includes('/cadets/') || path.includes('/accueil/') ? '../' : '';
     const portfolioItem = items.find((item) => item.querySelector('a[href*="portfolio.html"]'));
     const contactItem = items.find((item) => item.querySelector('a[href*="contact.html"]'));
     const cadetsItem = items.find((item) => item.classList.contains('dropdown'));
-    const registrationItem = items.find((item) => item.querySelector('[data-registration-link]'));
+    let registrationItem = items.find((item) => item.querySelector('[data-registration-link]'));
+    if (!registrationItem) {
+      registrationItem = document.createElement('li');
+      registrationItem.innerHTML = '<a href="#" class="btn btn-primary" data-registration-link>S\'inscrire</a>';
+    }
+    const registrationLink = registrationItem.querySelector('[data-registration-link]');
+    if (registrationLink) registrationLink.textContent = "S'inscrire";
 
     const cadetsMenu = cadetsItem?.querySelector('.dropdown-menu');
     if (cadetsMenu) {
@@ -271,11 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = document.createElement('a');
         link.href = `${prefix}${href}`;
         link.textContent = label;
-        if (path.endsWith(`/${href}`)) {
-          link.classList.add('active');
-          link.setAttribute('aria-current', 'page');
-          cadetsItem.querySelector('.dropdown-toggle')?.classList.add('active');
-        }
         item.appendChild(link);
         cadetsMenu.appendChild(item);
       });
@@ -288,6 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return leftIndex - rightIndex;
       });
       cadetsMenu.replaceChildren(...menuItems);
+      const currentCadetsLink = Array.from(cadetsMenu.querySelectorAll('a')).find(isCurrentPage);
+      if (currentCadetsLink) {
+        currentCadetsLink.classList.add('active');
+        currentCadetsLink.setAttribute('aria-current', 'page');
+      }
+      cadetsItem.querySelector('.dropdown-toggle')?.classList.toggle('active', currentPath.startsWith('/cadets/') || Boolean(currentCadetsLink));
     }
 
     if (homeItem && portfolioItem && contactItem && cadetsItem) {
@@ -311,22 +393,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = document.createElement('a');
         link.href = `${prefix}${href}`;
         link.textContent = label;
-        if (path.endsWith(href)) {
-          link.classList.add('active');
-          aboutToggle.classList.add('active');
-        }
         item.appendChild(link);
         aboutMenu.appendChild(item);
       });
 
+      const currentAboutLink = Array.from(aboutMenu.querySelectorAll('a')).find(isCurrentPage);
+      if (currentAboutLink) {
+        currentAboutLink.classList.add('active');
+        currentAboutLink.setAttribute('aria-current', 'page');
+      }
+      aboutToggle.classList.toggle('active', Boolean(currentAboutLink) || currentPath === '/comite-repondant.html' || currentPath === '/notre-equipe.html');
+
       aboutItem.append(aboutToggle, aboutMenu);
-      navList.replaceChildren(homeItem, portfolioItem, cadetsItem, aboutItem, contactItem);
+      navList.replaceChildren(homeItem, portfolioItem, cadetsItem, aboutItem, contactItem, registrationItem);
 
     }
 
-    if (registrationItem) {
-      registrationItem.remove();
-    }
+    if (!navList.contains(registrationItem)) navList.appendChild(registrationItem);
   }
 
   document.querySelectorAll('a[href]').forEach((link) => {
@@ -336,23 +419,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const currentPath = window.location.pathname;
-  const showRegistrationBubble = /\/(accueil|contact)\.html$/.test(currentPath);
-  const registrationBubble = showRegistrationBubble ? document.createElement('a') : null;
-  const registrationPage = '/accueil/devenir-cadet.html';
   document.querySelectorAll('[data-registration-link]').forEach((link) => {
-    link.href = registrationPage;
-    if (document.querySelector('.hero-video')) {
-      link.textContent = 'Devenir Cadet';
-    }
+    link.href = window.siteConfig?.registrationUrl || '/accueil/devenir-cadet.html';
   });
-  if (registrationBubble) {
-    registrationBubble.className = 'registration-bubble';
-    registrationBubble.href = registrationPage;
-    registrationBubble.textContent = 'Devenir Cadet';
-    registrationBubble.setAttribute('aria-label', "S'inscrire au Programme des cadets");
-    document.body.appendChild(registrationBubble);
-  }
 
   const profilePage = /membre-du-personnel\.html$/.test(window.location.pathname);
   const profilePlaceholder = document.querySelector('.content-card .placeholder-box');
@@ -397,15 +466,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  let lastScrollPosition = window.scrollY;
-  window.addEventListener('scroll', () => {
-    if (!registrationBubble) return;
-    const currentScrollPosition = window.scrollY;
-    const scrollingDown = currentScrollPosition > lastScrollPosition && currentScrollPosition > 80;
-    registrationBubble.classList.toggle('is-hidden', scrollingDown);
-    lastScrollPosition = currentScrollPosition;
-  }, { passive: true });
-
   if (navToggle && siteNav) {
     navToggle.addEventListener('click', () => {
       const isOpen = siteNav.classList.toggle('open');
@@ -420,35 +480,81 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const dropdowns = Array.from(document.querySelectorAll('.site-nav .dropdown'));
+  const canHoverDropdowns = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const setOpenDropdown = (activeDropdown) => {
+    dropdowns.forEach((item) => {
+      const isOpen = item === activeDropdown;
+      item.classList.toggle('open', isOpen);
+      item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', String(isOpen));
+    });
+  };
+
   dropdowns.forEach((dropdown) => {
     const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+    dropdown.addEventListener('pointerenter', (event) => {
+      if (!canHoverDropdowns || event.pointerType === 'touch') return;
+      setOpenDropdown(dropdown);
+    });
+    dropdown.addEventListener('pointerleave', (event) => {
+      if (!canHoverDropdowns || event.pointerType === 'touch' || dropdown.contains(document.activeElement)) return;
+      setOpenDropdown(null);
+    });
+    dropdown.addEventListener('focusin', () => {
+      if (canHoverDropdowns || dropdownToggle?.matches(':focus-visible')) setOpenDropdown(dropdown);
+    });
+    dropdown.addEventListener('focusout', (event) => {
+      if (dropdown.contains(event.relatedTarget) || (canHoverDropdowns && dropdown.matches(':hover'))) return;
+      setOpenDropdown(null);
+    });
     dropdownToggle?.addEventListener('click', () => {
-      const expanded = !dropdown.classList.contains('open');
-      dropdowns.forEach((item) => {
-        item.classList.toggle('open', item === dropdown && expanded);
-        item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', String(item === dropdown && expanded));
-      });
+      if (canHoverDropdowns) {
+        setOpenDropdown(dropdown);
+        return;
+      }
+      setOpenDropdown(dropdown.classList.contains('open') ? null : dropdown);
     });
   });
 
   document.addEventListener('click', (event) => {
     if (siteNav?.contains(event.target)) return;
-    dropdowns.forEach((item) => {
-      item.classList.remove('open');
-      item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
-    });
+    setOpenDropdown(null);
   });
 
   siteNav?.querySelectorAll('.dropdown-menu a').forEach((link) => {
     link.addEventListener('click', () => {
       siteNav.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
-      dropdowns.forEach((item) => {
-        item.classList.remove('open');
-        item.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
-      });
+      setOpenDropdown(null);
     });
   });
+
+  const anthemTabs = Array.from(document.querySelectorAll('[data-anthem-tab]'));
+  if (anthemTabs.length) {
+    const activateAnthemTab = (tab) => {
+      anthemTabs.forEach((item) => {
+        const isActive = item === tab;
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-selected', String(isActive));
+        item.tabIndex = isActive ? 0 : -1;
+        document.getElementById(item.getAttribute('aria-controls')).hidden = !isActive;
+      });
+    };
+
+    anthemTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateAnthemTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = index;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (index + 1) % anthemTabs.length;
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (index - 1 + anthemTabs.length) % anthemTabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = anthemTabs.length - 1;
+        if (nextIndex === index) return;
+        event.preventDefault();
+        anthemTabs[nextIndex].focus();
+        activateAnthemTab(anthemTabs[nextIndex]);
+      });
+    });
+  }
 
   const historyPage = document.querySelector('.history-page');
   if (historyPage) {

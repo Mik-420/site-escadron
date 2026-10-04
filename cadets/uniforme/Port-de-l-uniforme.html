@@ -21,8 +21,8 @@
     </script>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Port de l’uniforme | Escadron 736 Mont-Joli</title>
-    <link rel="icon" href="../../favicon.png" type="image/png" /><link rel="stylesheet" href="../../assets/css/style.css?v=uniform-reference-2" />
-    <script defer src="../../assets/js/site-config.js"></script><script defer src="../../assets/js/app.js?v=logo-20260927"></script>
+    <link rel="icon" href="../../favicon.png" type="image/png" /><link rel="stylesheet" href="../../assets/css/style.css?v=content-protection-20261003" />
+    <script defer src="../../assets/js/site-config.js"></script><script defer src="../../assets/js/app.js?v=content-protection-20261003"></script>
     <meta name="description" content="Consultez les consignes sur le port de l’uniforme des Cadets de l’Air à l’Escadron 736 Mont-Joli, avec des repères destinés aux cadets et familles." />
     <link rel="canonical" href="https://escadron736.ca/cadets/uniforme/Port-de-l-uniforme.html" />
     <meta property="og:type" content="website" />
@@ -71,19 +71,16 @@
         </article>
       </div></section>
     </main>
-    <div class="uniform-lightbox" id="uniform-lightbox" aria-hidden="true"><div class="uniform-lightbox-inner"><button class="uniform-lightbox-close" type="button" aria-label="Fermer la vue plein écran">×</button><img class="uniform-lightbox-image" id="uniform-lightbox-image" src="" alt="" /><div class="uniform-lightbox-actions"><a class="uniform-lightbox-download" id="uniform-lightbox-download" href="#" download>Télécharger</a></div></div></div>
+    <div class="uniform-lightbox" id="uniform-lightbox" aria-hidden="true"><div class="uniform-lightbox-inner"><button class="uniform-lightbox-close" type="button" aria-label="Fermer la vue plein écran">×</button><img class="uniform-lightbox-image" id="uniform-lightbox-image" src="" alt="" /></div></div>
     <footer class="site-footer"><div class="container footer-bottom"><p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p></div></footer>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const lightbox = document.getElementById('uniform-lightbox');
         const image = document.getElementById('uniform-lightbox-image');
-        const download = document.getElementById('uniform-lightbox-download');
         const close = () => { lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true'); };
         document.querySelectorAll('.uniform-reference-photo').forEach((card) => card.addEventListener('click', () => {
           image.src = card.dataset.image;
           image.alt = card.dataset.title || 'Image de référence';
-          download.href = card.dataset.image;
-          download.setAttribute('download', card.dataset.title || 'port-uniforme');
           lightbox.classList.add('open');
           lightbox.setAttribute('aria-hidden', 'false');
         }));

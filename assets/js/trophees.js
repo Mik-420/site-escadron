@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const dialog = document.querySelector('[data-trophy-dialog]');
   const dialogBody = dialog?.querySelector('[data-trophy-dialog-body]');
   const closeButton = dialog?.querySelector('[data-trophy-close]');
+  const imageDialog = document.querySelector('[data-trophy-image-dialog]');
+  const largeTrophyImage = imageDialog?.querySelector('[data-trophy-image-large]');
+  const imageCloseButton = imageDialog?.querySelector('[data-trophy-image-close]');
+  let lastImageTrigger = null;
   if (!grid || !dialog || !dialogBody) return;
 
   const trophyImageExtensions = {
@@ -13,11 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
     5: 'jpg',
     6: 'jpg',
     7: 'jpg',
-    8: 'png'
+    8: 'png',
+    9: 'png',
+    10: 'png',
+    11: 'png',
+    12: 'png',
+    13: 'png',
+    14: 'png',
+    15: 'png',
+    16: 'png',
+    17: 'png',
+    18: 'png',
+    19: 'png',
+    20: 'png'
   };
-  const trophyImage = (number) => trophyImageExtensions[number]
-    ? `../Photos/trophees/${number}.${trophyImageExtensions[number]}`
-    : '';
+  const trophyImage = (number) => {
+    const extension = trophyImageExtensions[number];
+    if (!extension) return '';
+    const directory = number >= 9 ? 'Trophées' : 'trophees';
+    return `../Photos/${directory}/${number}.${extension}`;
+  };
   const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[character]));
@@ -26,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const parseRecipients = (body, sectionNumber) => {
     const lines = body.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    const directRecipients = lines
+      .filter((line) => line.startsWith('Récipiendaire :'))
+      .map((line, index) => ({ period: '', rank: '', name: line.slice('Récipiendaire :'.length).trim(), sourceIndex: index }));
+    if (directRecipients.length) return directRecipients;
+
     const entries = [];
     let pending = [];
     lines.forEach((line) => {
@@ -56,8 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       sections.push({ number, title: heading[2].trim() || 'Nom à ajouter', body: text.slice(start, end) });
     });
     return sections
-      .filter((section) => section.number >= 1 && section.number <= 10)
-      .sort((left, right) => left.number - right.number)
+      .filter((section) => section.number >= 1 && section.number <= 20)
+      .sort((left, right) => {
+        const displayOrder = (number) => number === 20 ? 18 : number > 17 ? number + 1 : number;
+        return displayOrder(left.number) - displayOrder(right.number);
+      })
       .map((section) => {
         const number = section.number;
         return {
@@ -71,10 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderPhoto = (trophy, compact = false) => trophy.image ? `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><img src="${escapeHtml(trophy.image)}" alt="${escapeHtml(trophy.name)}" loading="lazy" decoding="async" /></div>` : `<div class="trophy-photo-placeholder${compact ? ' is-compact' : ''}"><span>Photo à ajouter</span><small>Photos/Trophées/${String(trophy.id.replace('trophy-', '')).padStart(2, '0')}.jpg</small></div>`;
-  const renderCard = (trophy) => `<article class="trophy-card"><button class="trophy-card-button" type="button" data-trophy-id="${escapeHtml(trophy.id)}" aria-label="Voir les récipiendaires de ${escapeHtml(trophy.name)}">${renderPhoto(trophy)}<span class="trophy-card-content"><span class="trophy-card-number">Trophée</span><h3>${escapeHtml(trophy.name)}</h3><span class="btn btn-secondary trophy-card-cta">Voir les récipiendaires</span></span></button></article>`;
-  const renderRecipients = (trophy) => trophy.recipients.length ? `<div class="trophy-recipient-list">${trophy.recipients.map((recipient) => `<div class="trophy-recipient"><strong>${escapeHtml(recipient.period)}</strong><small>${escapeHtml(recipient.rank || 'Grade non précisé')}</small><span>${escapeHtml(recipient.name)}</span></div>`).join('')}</div>` : '<div class="trophy-empty-state">Les récipiendaires seront ajoutés lorsque les informations seront disponibles.</div>';
+  const renderTrophyTitle = (name, element = 'h3', id = '') => {
+    const [title, subtitle] = name.split(/\s+-\s+/, 2);
+    return `<${element}${id ? ` id="${id}"` : ''} class="trophy-title"><span>${escapeHtml(title)}</span>${subtitle ? `<span class="trophy-title-subtitle">${escapeHtml(subtitle)}</span>` : ''}</${element}>`;
+  };
+  const renderCard = (trophy) => `<article class="trophy-card"><button class="trophy-photo-button" type="button" data-trophy-image-id="${escapeHtml(trophy.id)}" aria-label="Agrandir la photo de ${escapeHtml(trophy.name)}">${renderPhoto(trophy)}</button><span class="trophy-card-content"><span class="trophy-card-number">Trophée</span>${renderTrophyTitle(trophy.name)}<button class="btn btn-secondary trophy-card-cta" type="button" data-trophy-id="${escapeHtml(trophy.id)}">Voir les récipiendaires</button></span></article>`;
+  const renderRecipients = (trophy) => trophy.recipients.length ? `<div class="trophy-recipient-list">${trophy.recipients.map((recipient) => `<div class="trophy-recipient">${recipient.period ? `<strong>${escapeHtml(recipient.period)}</strong>` : ''}${recipient.rank || recipient.period ? `<small>${escapeHtml(recipient.rank || 'Grade non précisé')}</small>` : ''}<span>${escapeHtml(recipient.name)}</span></div>`).join('')}</div>` : '<div class="trophy-empty-state">Les récipiendaires seront ajoutés lorsque les informations seront disponibles.</div>';
 
-  fetch('../assets/data/trophees-archives.txt?v=20260927-8-trophies')
+  fetch('../assets/data/trophees-archives.txt?v=20261003-19-recipient')
     .then((response) => {
       if (!response.ok) throw new Error('Archive unavailable');
       return response.text();
@@ -83,11 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const trophies = parseArchive(archive);
       grid.innerHTML = trophies.map(renderCard).join('');
       grid.addEventListener('click', (event) => {
+        const imageButton = event.target.closest('[data-trophy-image-id]');
+        if (imageButton) {
+          const trophy = trophies.find((item) => item.id === imageButton.dataset.trophyImageId);
+          if (!trophy?.image || !imageDialog || !largeTrophyImage) return;
+          lastImageTrigger = imageButton;
+          largeTrophyImage.src = trophy.image;
+          largeTrophyImage.alt = trophy.name;
+          imageDialog.showModal();
+          imageCloseButton?.focus();
+          return;
+        }
         const button = event.target.closest('[data-trophy-id]');
         if (!button) return;
         const trophy = trophies.find((item) => item.id === button.dataset.trophyId);
         if (!trophy) return;
-        dialogBody.innerHTML = `<div class="trophy-dialog-heading"><div>${renderPhoto(trophy, true)}</div><div><span class="eyebrow">Archive historique</span><h2 id="trophy-dialog-title">${escapeHtml(trophy.name)}</h2>${trophy.description ? `<p>${escapeHtml(trophy.description)}</p>` : ''}</div></div><div class="trophy-dialog-history"><h3>Récipiendaires</h3>${renderRecipients(trophy)}</div>`;
+        dialogBody.innerHTML = `<div class="trophy-dialog-heading"><div>${renderPhoto(trophy, true)}</div><div><span class="eyebrow">Archive historique</span>${renderTrophyTitle(trophy.name, 'h2', 'trophy-dialog-title')}${trophy.description ? `<p>${escapeHtml(trophy.description)}</p>` : ''}</div></div><div class="trophy-dialog-history"><h3>Récipiendaires</h3>${renderRecipients(trophy)}</div>`;
         dialog.showModal();
         closeButton.focus();
       });
@@ -104,4 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
   dialog.addEventListener('close', () => {
     grid.querySelector('[data-trophy-id]')?.focus();
   });
+
+  imageCloseButton?.addEventListener('click', () => imageDialog.close());
+  imageDialog?.addEventListener('click', (event) => {
+    if (event.target === imageDialog) imageDialog.close();
+  });
+  imageDialog?.addEventListener('close', () => lastImageTrigger?.focus());
 });

@@ -2,9 +2,9 @@ let portfolioData = [];
 
 const groupRanges = [
   { value: 'archive', label: 'Archive' },
-  { value: '2025', label: '2025' },
-  { value: '2026', label: '2026' },
-  { value: '2027', label: '2027' }
+  { value: '2025', label: '2024-2025' },
+  { value: '2026', label: '2025-2026' },
+  { value: '2027', label: '2026-2027' }
 ];
 
 const filters = document.getElementById('portfolio-filters');
@@ -20,7 +20,6 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightbox-image');
 const lightboxTitle = document.getElementById('lightbox-title');
 const lightboxMeta = document.getElementById('lightbox-meta');
-const lightboxDownload = document.getElementById('lightbox-download');
 
 const itemsPerPage = 25;
 let currentFilter = 'archive';
@@ -165,7 +164,8 @@ function renderGallery() {
 
   if (!currentItems.length) {
     if (currentFilter === '2024' || currentFilter === '2027') {
-      grid.innerHTML = `<div class="portfolio-coming-soon"><span class="portfolio-coming-soon-icon" aria-hidden="true">✦</span><strong>Photos à venir</strong><p>Les photos de la période ${currentFilter} seront publiées prochainement.</p></div>`;
+      const periodLabel = groupRanges.find((group) => group.value === currentFilter)?.label || currentFilter;
+      grid.innerHTML = `<div class="portfolio-coming-soon"><span class="portfolio-coming-soon-icon" aria-hidden="true">✦</span><strong>Photos à venir</strong><p>Les photos de la période ${periodLabel} seront publiées prochainement.</p></div>`;
     } else {
       grid.innerHTML = '<div class="placeholder-box"><strong>[AUCUNE PHOTO]</strong><p>Ajoutez des images à la galerie pour cette période.</p></div>';
     }
@@ -204,8 +204,6 @@ function openLightbox() {
   const item = currentItems[currentIndex];
   lightboxImage.src = item.image;
   lightboxImage.alt = item.title;
-  lightboxDownload.href = item.image;
-  lightboxDownload.download = item.title || 'photo-portfolio';
   lightboxTitle.textContent = item.title;
   lightboxMeta.textContent = item.caption;
   lightbox.classList.add('open');

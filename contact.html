@@ -27,9 +27,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css?v=contact-refined" />
+    <link rel="stylesheet" href="assets/css/style.css?v=content-protection-20261003" />
     <script defer src="assets/js/site-config.js"></script>
-    <script defer src="assets/js/app.js?v=logo-20260927"></script>
+    <script defer src="assets/js/app.js?v=content-protection-20261003"></script>
     <meta name="description" content="Contactez l’Escadron 736 Mont-Joli pour en savoir plus sur l’inscription, les activités jeunesse et le Programme des Cadets de l’Air à Mont-Joli." />
     <link rel="canonical" href="https://escadron736.ca/contact.html" />
     <meta property="og:type" content="website" />
@@ -82,19 +82,37 @@
     </header>
 
     <main>
-      <section class="page-hero compact-hero">
+      <section class="page-hero compact-hero contact-hero">
         <div class="container">
-          <span class="eyebrow">Nous joindre</span>
+          <span class="eyebrow">Escadron 736 · Mont-Joli</span>
           <h1>Contact</h1>
+          <p>Une question sur les inscriptions, les activités ou le Programme des cadets? Notre équipe est là pour vous répondre.</p>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section contact-main-section">
         <div class="container contact-layout">
-          <div class="contact-card">
+          <aside class="contact-info" aria-labelledby="contact-details-title">
+            <div class="contact-info-heading">
+              <span class="contact-kicker">Coordonnées directes</span>
+              <h2 id="contact-details-title">Parlons-nous</h2>
+              <p class="contact-info-intro">Choisissez le moyen qui vous convient pour joindre l’équipe de l’Escadron 736.</p>
+            </div>
+            <ul class="contact-details">
+              <li><strong>Adresse</strong><span data-contact-address>[ADRESSE À FOURNIR]</span></li>
+              <li><strong>Téléphone</strong><a href="tel:+14187758794"><span data-contact-phone>[TÉLÉPHONE À FOURNIR]</span></a></li>
+              <li><strong>Courriel</strong><a href="mailto:" data-contact-email>[COURRIEL À FOURNIR]</a></li>
+            </ul>
+            <nav class="contact-socials" aria-label="Réseaux sociaux de l’Escadron 736">
+              <a href="#" data-facebook-link target="_blank" rel="noopener noreferrer"><span>Facebook</span><span aria-hidden="true">↗</span></a>
+              <a href="#" data-instagram-link target="_blank" rel="noopener noreferrer"><span>Instagram</span><span aria-hidden="true">↗</span></a>
+            </nav>
+          </aside>
+
+          <section class="contact-card" aria-labelledby="contact-form-title">
             <span class="contact-kicker">Message en ligne</span>
-            <h2>Écrivez-nous</h2>
-            <p class="contact-lead">Notre équipe vous répondra dès que possible.</p>
+            <h2 id="contact-form-title">Écrivez-nous</h2>
+            <p class="contact-lead">Laissez-nous un message; nous vous répondrons dès que possible.</p>
             <form id="contact-form" novalidate>
               <div class="field-group">
                 <label for="name">Nom</label>
@@ -128,19 +146,16 @@
               <p class="form-status" data-contact-status aria-live="polite"></p>
               <button type="submit" class="btn btn-primary">Envoyer</button>
             </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="section contact-map-section" aria-labelledby="contact-map-title">
+        <div class="container">
+          <div class="contact-map-heading">
+            <div><span class="contact-kicker">Nous trouver</span><h2 id="contact-map-title">À Mont-Joli</h2></div>
+            <p>254 AV ROSS, Mont-Joli, QC, Canada, G5H 3M4</p>
           </div>
-
-          <aside class="contact-info">
-            <span class="contact-kicker">Escadron 736</span>
-            <h2>Coordonnées</h2>
-            <p class="contact-info-intro">Pour une question, une inscription ou une demande d’information, communiquez avec nous.</p>
-            <ul>
-              <li><strong>Adresse :</strong> <span data-contact-address>[ADRESSE À FOURNIR]</span></li>
-              <li><strong>Téléphone :</strong> <span data-contact-phone>[TÉLÉPHONE À FOURNIR]</span></li>
-              <li><strong>Courriel :</strong> <a href="mailto:" data-contact-email>[COURRIEL À FOURNIR]</a></li>
-            </ul>
-          </aside>
-
           <div class="contact-map">
             <iframe
               src="https://www.google.com/maps?q=%C3%89cole+du+Mistral,+Mont-Joli,+QC&output=embed"

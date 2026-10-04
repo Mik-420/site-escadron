@@ -30,10 +30,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/style.css?v=4" />
+    <link rel="stylesheet" href="../assets/css/style.css?v=content-protection-20261003" />
     <script>window.location.replace('uniforme/Tenue.html');</script>
     <script defer src="../assets/js/site-config.js"></script>
-    <script defer src="../assets/js/app.js?v=logo-20260927"></script>
+    <script defer src="../assets/js/app.js?v=content-protection-20261003"></script>
   </head>
   <body>
     <header class="site-header">
@@ -207,9 +207,6 @@
       <div class="uniform-lightbox-inner">
         <button class="uniform-lightbox-close" type="button" aria-label="Fermer la vue plein écran">×</button>
         <img class="uniform-lightbox-image" id="uniform-lightbox-image" src="" alt="" />
-        <div class="uniform-lightbox-actions">
-          <a class="uniform-lightbox-download" id="uniform-lightbox-download" href="#" download>Télécharger</a>
-        </div>
       </div>
     </div>
 
@@ -250,7 +247,6 @@
       document.addEventListener('DOMContentLoaded', () => {
         const lightbox = document.getElementById('uniform-lightbox');
         const lightboxImage = document.getElementById('uniform-lightbox-image');
-        const lightboxDownload = document.getElementById('uniform-lightbox-download');
         const closeButton = document.querySelector('.uniform-lightbox-close');
 
         document.querySelectorAll('.uniform-photo-card').forEach((card) => {
@@ -260,8 +256,6 @@
 
             lightboxImage.src = imageSrc;
             lightboxImage.alt = card.dataset.title || 'Image de tenue';
-            lightboxDownload.href = imageSrc;
-            lightboxDownload.setAttribute('download', card.dataset.title || 'uniforme');
             lightbox.classList.add('open');
             lightbox.setAttribute('aria-hidden', 'false');
           });

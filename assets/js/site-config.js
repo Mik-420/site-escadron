@@ -240,22 +240,12 @@ const legalLinkPrefix = (() => {
 
 const footerPageGroups = [
   {
-    title: 'Navigation',
-    pages: [
-      ['accueil.html', 'Accueil'],
-      ['portfolio.html', 'Portfolio'],
-      ['contact.html', 'Contact'],
-      ['accueil/devenir-cadet.html', 'Devenir cadet']
-    ]
-  },
-  {
-    title: 'À propos',
+    title: 'Découvrir',
     pages: [
       ['histoire.html', 'Notre histoire'],
       ['membre-du-personnel.html', 'Notre équipe'],
-      ['comite-repondant.html', 'Comité répondant'],
       ['nos-commanditaires.html', 'Commanditaires'],
-      ['faire-un-don.html', 'Faire un don']
+      ['portfolio.html', 'Portfolio'],
     ]
   },
   {
@@ -264,18 +254,15 @@ const footerPageGroups = [
       ['cadets/index.html', 'Espace cadets'],
       ['cadets/grades.html', 'Grades'],
       ['cadets/trophees.html', 'Trophées'],
-      ['instruction.html', 'Instruction'],
-      ['hymne-national.html', 'Hymne National']
+      ['cadets/uniforme/Tenue.html', 'Uniforme']
     ]
   },
   {
-    title: 'Uniforme',
+    title: 'Participer',
     pages: [
-      ['cadets/uniforme/Tenue.html', 'Tenues'],
-      ['cadets/uniforme/Port-de-l-uniforme.html', 'Port de l’uniforme'],
-      ['cadets/uniforme/Cheveux-Bijoux.html', 'Cheveux et bijoux'],
-      ['cadets/uniforme/Entretien-de-l-uniforme.html', 'Entretien de l’uniforme'],
-      ['cadets/uniforme/Les-insignes.html', 'Les insignes']
+      ['contact.html', 'Nous joindre'],
+      ['faire-un-don.html', 'Faire un don'],
+      ['accueil/devenir-cadet.html', 'Devenir cadet']
     ]
   }
 ];
@@ -288,9 +275,63 @@ document.querySelectorAll('.site-footer').forEach((footer) => {
     footer.insertBefore(footerGrid, footer.querySelector('.footer-bottom'));
   }
 
-  const brandColumn = footerGrid.querySelector('.footer-brand')?.parentElement;
+  let brandLink = footerGrid.querySelector('.footer-brand');
+  const brandColumn = brandLink?.parentElement || document.createElement('div');
+  brandColumn.className = 'footer-brand-column';
   footerGrid.replaceChildren();
-  if (brandColumn) footerGrid.appendChild(brandColumn);
+  if (!brandLink) {
+    brandLink = document.createElement('a');
+    brandLink.className = 'brand footer-brand';
+    brandLink.setAttribute('aria-label', 'Accueil - Escadron 736 Mont-Joli');
+  }
+  brandLink.href = `${legalLinkPrefix}accueil.html`;
+  brandLink.innerHTML = `<img src="${legalLinkPrefix}assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong>${window.siteConfig?.siteName || 'Escadron 736'}</strong><small>Mont-Joli</small></span>`;
+
+  const brandDescription = document.createElement('p');
+  brandDescription.className = 'footer-description';
+  brandDescription.textContent = 'Depuis 1963, l’Escadron 736 fait découvrir l’aviation et le leadership aux jeunes de la région.';
+
+  const brandAddress = document.createElement('p');
+  brandAddress.className = 'footer-location';
+  brandAddress.textContent = window.siteConfig?.address || 'Mont-Joli, Québec';
+
+  const contactLinks = document.createElement('div');
+  contactLinks.className = 'footer-contact-links';
+  const footerEmail = window.siteConfig?.contactEmail || window.siteConfig?.email;
+  if (footerEmail) {
+    const emailLink = document.createElement('a');
+    emailLink.href = `mailto:${footerEmail}`;
+    emailLink.textContent = footerEmail;
+    contactLinks.appendChild(emailLink);
+  }
+  if (window.siteConfig?.phone) {
+    const phoneLink = document.createElement('a');
+    phoneLink.href = `tel:${window.siteConfig.phone.replace(/[^\d+]/g, '')}`;
+    phoneLink.textContent = window.siteConfig.phone;
+    contactLinks.appendChild(phoneLink);
+  }
+
+  const socials = [
+    ['facebookUrl', 'Facebook'],
+    ['instagramUrl', 'Instagram']
+  ].filter(([key]) => window.siteConfig?.[key]);
+  if (socials.length) {
+    const socialNav = document.createElement('nav');
+    socialNav.className = 'footer-socials';
+    socialNav.setAttribute('aria-label', 'Réseaux sociaux');
+    socials.forEach(([key, label]) => {
+      const socialLink = document.createElement('a');
+      socialLink.href = window.siteConfig[key];
+      socialLink.target = '_blank';
+      socialLink.rel = 'noopener noreferrer';
+      socialLink.textContent = label;
+      socialNav.appendChild(socialLink);
+    });
+    brandColumn.append(brandLink, brandDescription, brandAddress, contactLinks, socialNav);
+  } else {
+    brandColumn.append(brandLink, brandDescription, brandAddress, contactLinks);
+  }
+  footerGrid.appendChild(brandColumn);
 
   footerPageGroups.forEach(({ title, pages }) => {
     const group = document.createElement('div');
