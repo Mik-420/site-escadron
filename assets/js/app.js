@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
       beginningsImage.classList.add('has-photo', 'history-logo-photo');
       beginningsImage.removeAttribute('role');
       beginningsImage.removeAttribute('aria-label');
-      beginningsImage.innerHTML = '<img src="assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" loading="lazy" decoding="async" />';
+      beginningsImage.innerHTML = '<img src="/Logo.png" alt="Logo de l’Escadron 736 Mont-Joli" loading="lazy" decoding="async" />';
     }
 
     const founderImage = historyPage.querySelector('.history-founder .founder-photo');

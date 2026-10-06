@@ -285,7 +285,8 @@ document.querySelectorAll('.site-footer').forEach((footer) => {
     brandLink.setAttribute('aria-label', 'Accueil - Escadron 736 Mont-Joli');
   }
   brandLink.href = `${legalLinkPrefix}accueil.html`;
-  brandLink.innerHTML = `<img src="${legalLinkPrefix}assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong>${window.siteConfig?.siteName || 'Escadron 736'}</strong><small>Mont-Joli</small></span>`;
+  const logoSrc = brandLink.dataset.logoSrc || `${legalLinkPrefix}assets/images/logo-escadron.webp`;
+  brandLink.innerHTML = `<img src="${logoSrc}" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong>${window.siteConfig?.siteName || 'Escadron 736'}</strong><small>Mont-Joli</small></span>`;
 
   const brandDescription = document.createElement('p');
   brandDescription.className = 'footer-description';
