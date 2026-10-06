@@ -20,6 +20,7 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightbox-image');
 const lightboxTitle = document.getElementById('lightbox-title');
 const lightboxMeta = document.getElementById('lightbox-meta');
+const lightboxCounter = document.getElementById('lightbox-counter');
 
 const itemsPerPage = 25;
 let currentFilter = 'archive';
@@ -177,8 +178,8 @@ function renderGallery() {
   currentPage = Math.min(currentPage, Math.max(1, Math.ceil(currentItems.length / itemsPerPage)));
 
   grid.innerHTML = visibleItems.map((item, index) => `
-    <article class="gallery-item">
-      <button type="button" data-index="${(currentPage - 1) * itemsPerPage + index}" aria-label="Ouvrir la photo ${item.title}">
+    <article class="gallery-item" style="--i:${index}">
+      <button type="button" data-index="${(currentPage - 1) * itemsPerPage + index}" aria-label="Ouvrir la photo ${item.title}" data-testid="gallery-item-${index}">
         <img src="${item.thumbnail || item.image}" alt="${item.title}" loading="lazy" decoding="async" />
         <div class="gallery-caption">
           <h3>${item.title}</h3>
@@ -206,7 +207,13 @@ function openLightbox() {
   lightboxImage.alt = item.title;
   lightboxTitle.textContent = item.title;
   lightboxMeta.textContent = item.caption;
+  if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${currentItems.length}`;
+  [currentIndex + 1, currentIndex - 1].forEach((i) => {
+    const neighbour = currentItems[(i + currentItems.length) % currentItems.length];
+    if (neighbour) { const img = new Image(); img.src = neighbour.image; }
+  });
   lightbox.classList.add('open');
+  document.body.classList.add('lightbox-open');
   lightbox.setAttribute('aria-hidden', 'false');
 }
 
@@ -214,6 +221,7 @@ function closeLightbox() {
   if (!lightbox) return;
   lightbox.classList.remove('open');
   lightbox.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lightbox-open');
 }
 
 function showNext() {
@@ -240,6 +248,19 @@ if (lightbox) {
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox) closeLightbox();
   });
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  lightbox.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', (event) => {
+    const dx = event.changedTouches[0].clientX - touchStartX;
+    const dy = event.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) showNext(); else showPrev();
+  }, { passive: true });
 
   document.addEventListener('keydown', (event) => {
     if (!lightbox.classList.contains('open')) return;

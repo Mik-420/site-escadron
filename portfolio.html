@@ -27,10 +27,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css?v=content-protection-20261003" />
+    <link rel="stylesheet" href="assets/css/style.css?v=redesign-20260604" />
     <script defer src="assets/js/site-config.js"></script>
     <script defer src="assets/js/app.js?v=content-protection-20261003"></script>
-    <script defer src="assets/js/portfolio.js?v=school-year-periods-20261003"></script>
+    <script defer src="assets/js/enhance.js?v=redesign-20260604"></script>
+    <script defer src="assets/js/portfolio.js?v=redesign-20260603"></script>
     <meta name="description" content="Parcourez les photos des activités, cérémonies, sorties et expériences des cadets de l’Escadron 736 Mont-Joli dans la région du Bas-Saint-Laurent." />
     <link rel="canonical" href="https://escadron736.ca/portfolio.html" />
     <meta property="og:type" content="website" />
@@ -90,12 +91,13 @@
         </div>
       </section>
 
-      <section class="section">
-        <div class="container portfolio-layout portfolio-period-layout">
-          <aside class="portfolio-period-nav">
+      <section class="section portfolio-section">
+        <div class="container portfolio-toolbar-modern" data-testid="portfolio-toolbar">
+          <div class="portfolio-filterbar">
             <span class="portfolio-label">Périodes</span>
-            <div class="filter-list" id="portfolio-filters" aria-label="Filtrer les photos par période"></div>
-            <div class="portfolio-activity-filters">
+            <div class="filter-list" id="portfolio-filters" aria-label="Filtrer les photos par période" data-testid="portfolio-filters"></div>
+          </div>
+          <div class="portfolio-activity-filters">
             <nav class="portfolio-2026-nav" id="portfolio-2025-nav" aria-label="Activités 2025" hidden>
               <a href="#">Parade Promesse</a>
               <a href="#">Activité</a>
@@ -116,27 +118,28 @@
               <a href="#">Survie</a>
             </nav>
             </div>
-          </aside>
-
+        </div>
+        <div class="container portfolio-gallery-container">
           <div class="gallery-wrap">
-            <div class="gallery-grid" id="portfolio-grid" aria-live="polite"></div>
-            <div class="pagination" id="portfolio-pagination" aria-label="Pagination de la galerie"></div>
+            <div class="gallery-grid gallery-masonry" id="portfolio-grid" aria-live="polite" data-testid="portfolio-grid"></div>
+            <div class="pagination" id="portfolio-pagination" aria-label="Pagination de la galerie" data-testid="portfolio-pagination"></div>
           </div>
         </div>
       </section>
     </main>
 
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="lightbox-close" type="button" aria-label="Fermer la galerie">×</button>
-      <button class="lightbox-nav prev" type="button" aria-label="Image précédente">‹</button>
+    <div class="lightbox" id="lightbox" aria-hidden="true" data-testid="lightbox">
+      <button class="lightbox-close" type="button" aria-label="Fermer la galerie" data-testid="lightbox-close"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <button class="lightbox-nav prev" type="button" aria-label="Image précédente" data-testid="lightbox-prev"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
       <div class="lightbox-content">
-        <img id="lightbox-image" src="" alt="" />
+        <img id="lightbox-image" src="" alt="" data-testid="lightbox-image" />
         <div class="lightbox-caption">
           <h3 id="lightbox-title"></h3>
           <p id="lightbox-meta"></p>
+          <span class="lightbox-counter" id="lightbox-counter" data-testid="lightbox-counter"></span>
         </div>
       </div>
-      <button class="lightbox-nav next" type="button" aria-label="Image suivante">›</button>
+      <button class="lightbox-nav next" type="button" aria-label="Image suivante" data-testid="lightbox-next"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
 
     <footer class="site-footer">
