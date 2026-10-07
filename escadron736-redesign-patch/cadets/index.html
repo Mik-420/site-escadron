@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ressources pour les cadets | Escadron 736 Mont-Joli</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" /><link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css?v=redesign-20260604" />
+    <script defer src="../assets/js/site-config.js"></script>
+    <script defer src="../assets/js/app.js?v=content-protection-20261003"></script>
+    <script defer src="../assets/js/enhance.js?v=redesign-20260604"></script>
+    <meta name="description" content="Retrouvez les ressources des cadets de l’Escadron 736 Mont-Joli : grades, trophées, uniforme et renseignements utiles aux jeunes et aux familles." />
+    <link rel="canonical" href="https://escadron736.ca/cadets/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Ressources pour les cadets | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Retrouvez les ressources des cadets de l’Escadron 736 Mont-Joli : grades, trophées, uniforme et renseignements utiles aux jeunes et aux familles." />
+    <meta property="og:url" content="https://escadron736.ca/cadets/index.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ressources pour les cadets | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Retrouvez les ressources des cadets de l’Escadron 736 Mont-Joli : grades, trophées, uniforme et renseignements utiles aux jeunes et aux familles." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="../index.html" class="brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+          <img src="../assets/images/logo-escadron.webp" alt="Logo de l'Escadron 736 Mont-Joli" />
+          <span>
+            <strong data-site-name>Escadron 736</strong>
+            <small>Mont-Joli</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-navigation" aria-label="Navigation principale">
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../histoire.html">Notre histoire</a></li>
+            <li><a href="../portfolio.html">Portfolio</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li class="dropdown">
+              <button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button>
+              <ul class="dropdown-menu">
+                <li><a href="trophees.html">Trophées</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="uniforme/Tenue.html">Uniforme</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="btn btn-primary" data-registration-link>S'inscrire</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero compact-hero">
+        <div class="container">
+          <span class="eyebrow">Cadets</span>
+          <h1>Pages de référence</h1>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container narrow">
+          <div class="content-card">
+            <p class="lead">
+              Cette section sert de page centrale des ressources destinées aux cadets. Les informations
+              officielles seront ajoutées dans les pages de référence ci-dessous.
+            </p>
+            <ul>
+              <li><a href="trophees.html">Trophées</a></li>
+              <li><a href="grades.html">Grades</a></li>
+              <li><a href="uniforme/Tenue.html">Uniforme</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="../index.html" class="brand footer-brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+            <img src="../assets/images/logo-escadron.webp" alt="Logo du site de l'Escadron 736 Mont-Joli" />
+            <span>
+              <strong data-site-name>Escadron 736</strong>
+              <small>Mont-Joli</small>
+            </span>
+          </a>
+        </div>
+        <div>
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../histoire.html">Notre histoire</a></li>
+            <li><a href="../portfolio.html">Portfolio</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cadets</h3>
+          <ul>
+            <li><a href="trophees.html">Trophées</a></li>
+            <li><a href="grades.html">Grades</a></li>
+            <li><a href="uniforme/Tenue.html">Uniforme</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p>
+      </div>
+    </footer>
+  </body>
+</html>

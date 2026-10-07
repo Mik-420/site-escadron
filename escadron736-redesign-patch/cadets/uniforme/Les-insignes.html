@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=Port-de-l-uniforme.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Port de l’uniforme | Escadron 736 Mont-Joli</title>
+    <meta name="description" content="Consultez les consignes sur le port de l’uniforme des Cadets de l’Air à l’Escadron 736 Mont-Joli, avec des repères destinés aux cadets et familles." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://escadron736.ca/cadets/uniforme/Port-de-l-uniforme.html" />
+    <link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" /><link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>window.location.replace('Port-de-l-uniforme.html');</script>
+  </head>
+  <body><p>Cette page a été remplacée par <a href="Port-de-l-uniforme.html">Le port de l’uniforme</a>.</p></body>
+</html>

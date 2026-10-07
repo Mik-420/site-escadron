@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photos des activités | Escadron 736 Mont-Joli</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" /><link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=redesign-20260604" />
+    <script defer src="assets/js/site-config.js"></script>
+    <script defer src="assets/js/app.js?v=content-protection-20261003"></script>
+    <script defer src="assets/js/enhance.js?v=redesign-20260604"></script>
+    <script defer src="assets/js/portfolio.js?v=redesign-20260603"></script>
+    <meta name="description" content="Parcourez les photos des activités, cérémonies, sorties et expériences des cadets de l’Escadron 736 Mont-Joli dans la région du Bas-Saint-Laurent." />
+    <link rel="canonical" href="https://escadron736.ca/portfolio.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Photos des activités | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Parcourez les photos des activités, cérémonies, sorties et expériences des cadets de l’Escadron 736 Mont-Joli dans la région du Bas-Saint-Laurent." />
+    <meta property="og:url" content="https://escadron736.ca/portfolio.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Photos des activités | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Parcourez les photos des activités, cérémonies, sorties et expériences des cadets de l’Escadron 736 Mont-Joli dans la région du Bas-Saint-Laurent." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+          <img src="assets/images/logo-escadron.webp" alt="Logo de l'Escadron 736 Mont-Joli" />
+          <span>
+            <strong data-site-name>Escadron 736</strong>
+            <small>Mont-Joli</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-navigation" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="dropdown">
+              <button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button>
+              <ul class="dropdown-menu">
+                <li><a href="cadets/trophees.html">Trophées</a></li>
+                <li><a href="cadets/grades.html">Grades</a></li>
+                <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="btn btn-primary" data-registration-link>S'inscrire</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero compact-hero">
+        <div class="container">
+          <span class="eyebrow">Galerie</span>
+          <h1>Portfolio</h1>
+        </div>
+      </section>
+
+      <section class="section portfolio-section">
+        <div class="container portfolio-toolbar-modern" data-testid="portfolio-toolbar">
+          <div class="portfolio-filterbar">
+            <span class="portfolio-label">Périodes</span>
+            <div class="filter-list" id="portfolio-filters" aria-label="Filtrer les photos par période" data-testid="portfolio-filters"></div>
+          </div>
+          <div class="portfolio-activity-filters">
+            <nav class="portfolio-2026-nav" id="portfolio-2025-nav" aria-label="Activités 2025" hidden>
+              <a href="#">Parade Promesse</a>
+              <a href="#">Activité</a>
+              <a href="#">Halloween</a>
+            </nav>
+            <nav class="portfolio-2026-nav" id="portfolio-2026-nav" aria-label="Activités 2026" hidden>
+              <a href="#" id="portfolio-review-toggle" aria-expanded="false">Revue Annuelle</a>
+              <div class="portfolio-review-nav" id="portfolio-review-nav" hidden>
+                <a href="#">Kiosque</a>
+                <a href="#" data-activity="Photo Individuel - Revue Annuelle">Photo Individuel</a>
+              </div>
+              <a href="#" id="portfolio-souper-toggle" aria-expanded="false">Souper de Trouple</a>
+              <div class="portfolio-souper-nav" id="portfolio-souper-nav" hidden>
+                <a href="#" data-activity="Photo Individuel - Souper de Trouple">Photo Individuel</a>
+              </div>
+              <a href="#">Activité Québec</a>
+              <a href="#">Camping St-Fabien</a>
+              <a href="#">Survie</a>
+            </nav>
+            </div>
+        </div>
+        <div class="container portfolio-gallery-container">
+          <div class="gallery-wrap">
+            <div class="gallery-grid gallery-masonry" id="portfolio-grid" aria-live="polite" data-testid="portfolio-grid"></div>
+            <div class="pagination" id="portfolio-pagination" aria-label="Pagination de la galerie" data-testid="portfolio-pagination"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true" data-testid="lightbox">
+      <button class="lightbox-close" type="button" aria-label="Fermer la galerie" data-testid="lightbox-close"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <button class="lightbox-nav prev" type="button" aria-label="Image précédente" data-testid="lightbox-prev"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="" data-testid="lightbox-image" />
+        <div class="lightbox-caption">
+          <h3 id="lightbox-title"></h3>
+          <p id="lightbox-meta"></p>
+          <span class="lightbox-counter" id="lightbox-counter" data-testid="lightbox-counter"></span>
+        </div>
+      </div>
+      <button class="lightbox-nav next" type="button" aria-label="Image suivante" data-testid="lightbox-next"><svg class="lightbox-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="index.html" class="brand footer-brand" aria-label="Accueil - Escadron 736 Mont-Joli">
+            <img src="assets/images/logo-escadron.webp" alt="Logo du site de l'Escadron 736 Mont-Joli" />
+            <span>
+              <strong data-site-name>Escadron 736</strong>
+              <small>Mont-Joli</small>
+            </span>
+          </a>
+        </div>
+        <div>
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="histoire.html">Notre histoire</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cadets</h3>
+          <ul>
+            <li><a href="cadets/trophees.html">Trophées</a></li>
+            <li><a href="cadets/grades.html">Grades</a></li>
+            <li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+let portfolioData = [];
+
+const groupRanges = [
+  { value: 'archive', label: 'Archive' },
+  { value: '2025', label: '2024-2025' },
+  { value: '2026', label: '2025-2026' },
+  { value: '2027', label: '2026-2027' }
+];
+
+const filters = document.getElementById('portfolio-filters');
+const grid = document.getElementById('portfolio-grid');
+const pagination = document.getElementById('portfolio-pagination');
+const year2026Nav = document.getElementById('portfolio-2026-nav');
+const year2025Nav = document.getElementById('portfolio-2025-nav');
+const reviewToggle = document.getElementById('portfolio-review-toggle');
+const reviewNav = document.getElementById('portfolio-review-nav');
+const souperToggle = document.getElementById('portfolio-souper-toggle');
+const souperNav = document.getElementById('portfolio-souper-nav');
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightbox-image');
+const lightboxTitle = document.getElementById('lightbox-title');
+const lightboxMeta = document.getElementById('lightbox-meta');
+const lightboxCounter = document.getElementById('lightbox-counter');
+
+const itemsPerPage = 25;
+let currentFilter = 'archive';
+let currentActivity = 'all';
+let currentItems = [];
+let currentPage = 1;
+let currentIndex = 0;
+
+reviewToggle?.addEventListener('click', (event) => {
+  event.preventDefault();
+  currentFilter = '2026';
+  currentActivity = 'Revue Annuelle';
+  currentPage = 1;
+  if (reviewNav) reviewNav.hidden = !reviewNav.hidden;
+  renderGallery();
+  buildFilters();
+});
+
+reviewNav?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    currentFilter = '2026';
+    currentActivity = link.dataset.activity || link.textContent.trim();
+    currentPage = 1;
+    renderGallery();
+  });
+});
+
+souperToggle?.addEventListener('click', (event) => {
+  event.preventDefault();
+  const expanded = souperNav ? souperNav.hidden : false;
+  if (souperNav) souperNav.hidden = !expanded;
+  souperToggle.setAttribute('aria-expanded', String(expanded));
+  currentFilter = '2026';
+  currentActivity = 'Souper de Trouple';
+  currentPage = 1;
+  renderGallery();
+});
+
+souperNav?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    currentFilter = '2026';
+    currentActivity = link.dataset.activity || link.textContent.trim();
+    currentPage = 1;
+    renderGallery();
+  });
+});
+
+
+year2026Nav?.querySelectorAll(':scope > a:not(#portfolio-review-toggle):not(#portfolio-souper-toggle)').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    currentFilter = '2026';
+    currentActivity = link.textContent.trim();
+    currentPage = 1;
+    renderGallery();
+  });
+});
+
+function buildFilters() {
+  if (!filters) return;
+
+  filters.innerHTML = groupRanges.map((group) => `
+    <button class="filter-btn ${group.value === currentFilter ? 'active' : ''}" data-group="${group.value}" type="button">
+      ${group.label}
+    </button>
+  `).join('');
+
+  filters.querySelectorAll('.filter-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentFilter = button.dataset.group;
+      currentActivity = 'all';
+      currentPage = 1;
+      if (year2026Nav) year2026Nav.hidden = currentFilter !== '2026';
+      if (year2025Nav) year2025Nav.hidden = currentFilter !== '2025';
+      renderGallery();
+      buildFilters();
+    });
+  });
+}
+
+if (year2026Nav) year2026Nav.hidden = currentFilter !== '2026';
+if (year2025Nav) year2025Nav.hidden = currentFilter !== '2025';
+
+year2025Nav?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    currentFilter = '2025';
+    currentActivity = link.textContent.trim();
+    currentPage = 1;
+    renderGallery();
+  });
+});
+
+function getFilteredItems() {
+  return portfolioData.filter((item) => (currentFilter === 'archive' ? item.group === 'Archive' : item.year === Number(currentFilter)) && (currentActivity === 'all' || item.activity === currentActivity));
+}
+
+function getVisibleItems() {
+  const start = (currentPage - 1) * itemsPerPage;
+  return currentItems.slice(start, start + itemsPerPage);
+}
+
+function renderPagination() {
+  if (!pagination) return;
+
+  const pageCount = Math.max(1, Math.ceil(currentItems.length / itemsPerPage));
+  const pages = Array.from({ length: pageCount }, (_, index) => index + 1);
+
+  pagination.innerHTML = `
+    <button class="page-btn" data-page="prev" type="button" aria-label="Page précédente">‹</button>
+    ${pages.map((page) => `
+      <button class="page-btn ${page === currentPage ? 'active' : ''}" data-page="${page}" type="button" aria-label="Page ${page}">
+        ${page}
+      </button>
+    `).join('')}
+    <button class="page-btn" data-page="next" type="button" aria-label="Page suivante">›</button>
+  `;
+
+  pagination.querySelectorAll('.page-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.page;
+
+      if (target === 'prev') {
+        currentPage = Math.max(1, currentPage - 1);
+      } else if (target === 'next') {
+        currentPage = Math.min(pageCount, currentPage + 1);
+      } else {
+        currentPage = Number(target);
+      }
+
+      renderGallery();
+    });
+  });
+}
+
+function renderGallery() {
+  currentItems = getFilteredItems();
+
+  if (!grid) return;
+
+  if (!currentItems.length) {
+    if (currentFilter === '2024' || currentFilter === '2027') {
+      const periodLabel = groupRanges.find((group) => group.value === currentFilter)?.label || currentFilter;
+      grid.innerHTML = `<div class="portfolio-coming-soon"><span class="portfolio-coming-soon-icon" aria-hidden="true">✦</span><strong>Photos à venir</strong><p>Les photos de la période ${periodLabel} seront publiées prochainement.</p></div>`;
+    } else {
+      grid.innerHTML = '<div class="placeholder-box"><strong>[AUCUNE PHOTO]</strong><p>Ajoutez des images à la galerie pour cette période.</p></div>';
+    }
+    if (pagination) pagination.innerHTML = '';
+    return;
+  }
+
+  const visibleItems = getVisibleItems();
+  currentPage = Math.min(currentPage, Math.max(1, Math.ceil(currentItems.length / itemsPerPage)));
+
+  grid.innerHTML = visibleItems.map((item, index) => `
+    <article class="gallery-item" style="--i:${index}">
+      <button type="button" data-index="${(currentPage - 1) * itemsPerPage + index}" aria-label="Ouvrir la photo ${item.title}" data-testid="gallery-item-${index}">
+        <img src="${item.thumbnail || item.image}" alt="${item.title}" loading="lazy" decoding="async" />
+        <div class="gallery-caption">
+          <h3>${item.title}</h3>
+          <p>${item.caption}</p>
+        </div>
+      </button>
+    </article>
+  `).join('');
+
+  grid.querySelectorAll('button[data-index]').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentIndex = Number(button.dataset.index);
+      openLightbox();
+    });
+  });
+
+  renderPagination();
+}
+
+function openLightbox() {
+  if (!lightbox || !currentItems[currentIndex]) return;
+
+  const item = currentItems[currentIndex];
+  lightboxImage.src = item.image;
+  lightboxImage.alt = item.title;
+  lightboxTitle.textContent = item.title;
+  lightboxMeta.textContent = item.caption;
+  if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${currentItems.length}`;
+  [currentIndex + 1, currentIndex - 1].forEach((i) => {
+    const neighbour = currentItems[(i + currentItems.length) % currentItems.length];
+    if (neighbour) { const img = new Image(); img.src = neighbour.image; }
+  });
+  lightbox.classList.add('open');
+  document.body.classList.add('lightbox-open');
+  lightbox.setAttribute('aria-hidden', 'false');
+}
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lightbox-open');
+}
+
+function showNext() {
+  if (!currentItems.length) return;
+  currentIndex = (currentIndex + 1) % currentItems.length;
+  openLightbox();
+}
+
+function showPrev() {
+  if (!currentItems.length) return;
+  currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+  openLightbox();
+}
+
+if (lightbox) {
+  const closeButton = lightbox.querySelector('.lightbox-close');
+  const prevButton = lightbox.querySelector('.lightbox-nav.prev');
+  const nextButton = lightbox.querySelector('.lightbox-nav.next');
+
+  closeButton?.addEventListener('click', closeLightbox);
+  prevButton?.addEventListener('click', showPrev);
+  nextButton?.addEventListener('click', showNext);
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  lightbox.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', (event) => {
+    const dx = event.changedTouches[0].clientX - touchStartX;
+    const dy = event.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) showNext(); else showPrev();
+  }, { passive: true });
+
+  document.addEventListener('keydown', (event) => {
+    if (!lightbox.classList.contains('open')) return;
+
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowRight') showNext();
+    if (event.key === 'ArrowLeft') showPrev();
+  });
+}
+
+async function loadPortfolioData() {
+  try {
+    const response = await fetch('assets/data/portfolio.json');
+    if (!response.ok) throw new Error('Portfolio data unavailable');
+    portfolioData = await response.json();
+  } catch (error) {
+    portfolioData = [];
+  }
+
+  buildFilters();
+  renderGallery();
+}
+
+loadPortfolioData();

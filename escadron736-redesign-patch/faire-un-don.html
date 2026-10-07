@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!-- Google tag (gtag.js) - chargé après le consentement analytique -->
+    <script>
+      const googleTagId = 'G-G99FB1T6CD';
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+      window.loadEscadronGoogleAnalytics = function() {
+        if (window.escadronGoogleAnalyticsLoaded) return;
+        window.escadronGoogleAnalyticsLoaded = true;
+        window.gtag('js', new Date());
+        window.gtag('config', googleTagId);
+        const googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+        document.head.appendChild(googleScript);
+      };
+      const analyticsConsentCookie = document.cookie.split('; ').find((item) => item.startsWith('escadron736-analytics-consent-v2='));
+      if (analyticsConsentCookie?.split('=')[1] === 'accepted') window.loadEscadronGoogleAnalytics();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faire un don | Escadron 736 Mont-Joli</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" /><link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="assets/css/style.css?v=redesign-20260604" />
+    <script defer src="assets/js/site-config.js"></script>
+    <script defer src="assets/js/app.js?v=content-protection-20261003"></script>
+    <script defer src="assets/js/enhance.js?v=redesign-20260604"></script>
+    <meta name="description" content="Soutenez l’Escadron 736 Mont-Joli et contribuez aux activités et aux expériences proposées aux jeunes de Mont-Joli, de La Mitis et du Bas-Saint-Laurent." />
+    <link rel="canonical" href="https://escadron736.ca/faire-un-don.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Escadron 736 Mont-Joli" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:title" content="Faire un don | Escadron 736 Mont-Joli" />
+    <meta property="og:description" content="Soutenez l’Escadron 736 Mont-Joli et contribuez aux activités et aux expériences proposées aux jeunes de Mont-Joli, de La Mitis et du Bas-Saint-Laurent." />
+    <meta property="og:url" content="https://escadron736.ca/faire-un-don.html" />
+    <meta property="og:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta property="og:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Faire un don | Escadron 736 Mont-Joli" />
+    <meta name="twitter:description" content="Soutenez l’Escadron 736 Mont-Joli et contribuez aux activités et aux expériences proposées aux jeunes de Mont-Joli, de La Mitis et du Bas-Saint-Laurent." />
+    <meta name="twitter:image" content="https://escadron736.ca/Photos/Banniere.jpg" />
+    <meta name="twitter:image:alt" content="Cadets de l’Escadron 736 Mont-Joli devant un hélicoptère" />
+</head>
+  <body>
+    <header class="site-header"><div class="container nav-wrap"><a href="accueil.html" class="brand"><img src="assets/images/logo-escadron.webp" alt="Logo de l’Escadron 736 Mont-Joli" /><span><strong data-site-name>Escadron 736</strong><small>Mont-Joli</small></span></a><button class="nav-toggle" aria-expanded="false" aria-controls="site-navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="Navigation principale"><ul><li><a href="accueil.html">Accueil</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li class="dropdown"><button type="button" class="dropdown-toggle" aria-expanded="false">Cadets</button><ul class="dropdown-menu"><li><a href="cadets/trophees.html">Trophées</a></li><li><a href="cadets/grades.html">Grades</a></li><li><a href="cadets/uniforme/Tenue.html">Uniforme</a></li></ul></li><li><a href="histoire.html">À propos</a></li></ul></nav></div></header>
+
+    <main id="main-content" class="donation-page">
+      <section class="donation-hero">
+        <div class="donation-hero-pattern" aria-hidden="true"></div>
+        <div class="container donation-hero-content">
+          <span class="eyebrow">Soutien communautaire</span>
+          <h1>Faire un don</h1>
+          <p class="donation-hero-subtitle">Soutenez l’Escadron 736 Mont-Joli</p>
+          <p>Votre soutien contribue à offrir aux jeunes de l’Escadron 736 Mont-Joli des occasions d’apprendre, de se dépasser, de développer leur leadership et de participer à une variété d’activités enrichissantes.</p>
+          <a class="btn btn-primary" href="#donation-form">Faire un don</a>
+        </div>
+      </section>
+
+      <section class="section donation-why">
+        <div class="container donation-narrow">
+          <div class="section-heading"><span class="eyebrow">Un geste pour la jeunesse</span><h2>Pourquoi faire un don?</h2></div>
+          <div class="donation-intro-card"><p>Le soutien de la communauté permet de contribuer au développement des activités et des expériences proposées aux cadets de l’Escadron 736 Mont-Joli.</p><p>Chaque contribution peut aider à soutenir les activités, le matériel, les projets et les différentes expériences offertes aux jeunes tout au long de leur parcours au sein de l’Escadron.</p></div>
+        </div>
+      </section>
+
+      <section class="section donation-contribution alt-bg">
+        <div class="container">
+          <div class="section-heading"><h2>Comment votre soutien fait la différence ?</h2><p class="donation-note"><em>Ces exemples illustrent la variété des activités soutenues. Les dons sont répartis en fonction des priorités de l’Escadron.</em></p></div>
+          <div class="donation-support-grid">
+            <article class="donation-support-card"><span class="donation-support-icon" aria-hidden="true"><img src="assets/images/activities/aviation.svg" alt="" /></span><div><h3>Aviation et simulation de vol</h3><p>Soutenir la découverte de l’aéronautique et permettre aux cadets de développer leurs compétences de pilotage grâce à l’accès à un simulateur de vol.</p></div></article>
+            <article class="donation-support-card"><span class="donation-support-icon" aria-hidden="true"><img src="assets/images/activities/survie-foret.svg" alt="" /></span><div><h3>Activités, sorties et aventures</h3><p>Financer des sorties et des activités extérieures, y compris hors de la région, pour développer l’autonomie, la résilience et l’esprit d’équipe.</p></div></article>
+            <article class="donation-support-card"><span class="donation-support-icon" aria-hidden="true"><img src="assets/images/activities/tir-precision.svg" alt="" /></span><div><h3>Équipement de sport, de survie et matériel</h3><p>Contribuer à l’achat et à l’entretien du matériel essentiel aux activités de plein air, de survie en forêt et de conditionnement physique.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section donation-form-section" id="donation-form">
+        <div class="container donation-form-wrap">
+          <div class="section-heading"><span class="eyebrow">Soutenir l’Escadron</span><h2>Faire un don</h2><p>Vous souhaitez soutenir l’Escadron 736 Mont-Joli?</p><p>Vous pouvez effectuer votre contribution en ligne à l’aide de notre formulaire sécurisé.</p></div>
+          <div class="zeffy-container" aria-label="Formulaire de don Zeffy">
+            <div data-zeffy-embed data-form-url="/embed/donation-form/cadet-de-lair-escadron-736-mont-joli"></div>
+            <div data-zeffy-embed-fallback style="display:none;">
+              <div style="position:relative;overflow:hidden;height:450px;width:100%;">
+                <iframe title="Donation form powered by Zeffy" style="position:absolute;border:0;top:0;left:0;bottom:0;right:0;width:100%;height:100%" data-zeffy-embed-src="https://www.zeffy.com/embed/donation-form/cadet-de-lair-escadron-736-mont-joli" allowpaymentrequest allowTransparency="true"></iframe>
+              </div>
+            </div>
+            <script src="https://www.zeffy.com/embed/v2/zeffy-embed.js" onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});"></script>
+          </div>
+        </div>
+      </section>
+
+      <section class="donation-thanks"><div class="container donation-thanks-content"><span class="donation-thanks-icon" aria-hidden="true"><svg class="donation-thanks-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" key="c3ymky"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" key="4oyue0"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/></svg></span><div><h2>Merci pour votre soutien</h2><p>Votre générosité contribue à soutenir la mission de l’Escadron 736 Mont-Joli et les expériences offertes aux jeunes qui en font partie.</p></div></div></section>
+
+      <section class="section donation-final-cta"><div class="container donation-final-cta-content"><span class="eyebrow">Pour aller plus loin</span><h2>Vous souhaitez aller plus loin?</h2><p>Découvrez les activités et les possibilités offertes aux cadets de l’Escadron 736 Mont-Joli.</p><div class="donation-cta-actions"><a class="btn btn-primary" href="accueil.html">Découvrir nos activités</a><a class="btn btn-secondary" href="histoire.html">En savoir plus sur l’Escadron</a></div></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-bottom"><p>© <span data-current-year></span> <span data-site-name>Escadron 736 Mont-Joli</span></p></div></footer>
+  </body>
+</html>
