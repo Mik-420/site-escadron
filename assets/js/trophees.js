@@ -34,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const trophyImage = (number) => {
     const extension = trophyImageExtensions[number];
     if (!extension) return '';
-    const directory = number >= 9 ? 'Trophées' : 'trophees';
-    return `../Photos/${directory}/${number}.${extension}`;
+    return `../Photos/Troph%C3%A9es/${number}.${extension}`;
   };
   const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
